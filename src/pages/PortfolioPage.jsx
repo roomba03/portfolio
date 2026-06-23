@@ -28,6 +28,7 @@ function SkillTag({ children }) {
 
 export default function PortfolioPage() {
   const [bunnyHover, setBunnyHover] = useState(false);
+  const [nameHover, setNameHover] = useState(false);
 
   return (
     <div
@@ -39,8 +40,50 @@ export default function PortfolioPage() {
         <span
           className="text-[15px]"
           style={{ position: "absolute", top: "2rem", left: "2rem", fontFamily: "'Lao MN', sans-serif", fontWeight: 700, color: "#000000" }}
+          onMouseEnter={() => setNameHover(true)}
+          onMouseLeave={() => setNameHover(false)}
         >
           Reem Fatima
+          <div
+            className="transition-opacity duration-200"
+            style={{
+              position: "absolute", left: "50%", top: "100%",
+              transform: "translate(-50%, 8px)",
+              opacity: nameHover ? 1 : 0,
+              pointerEvents: "none",
+            }}
+          >
+            <div
+              style={{
+                position: "relative",
+                backgroundColor: "#F4EBBE",
+                border: "1.5px solid #332F1C",
+                borderRadius: "10px",
+                padding: "3px 10px",
+                fontSize: "11px",
+                fontWeight: 700,
+                fontFamily: MONO_FONT,
+                color: "#000000",
+                whiteSpace: "nowrap",
+                boxShadow: "2px 2px 0 #8BA6A9",
+              }}
+            >
+              hi :)
+              <span
+                style={{
+                  position: "absolute",
+                  top: "-6px",
+                  left: "50%",
+                  width: "10px",
+                  height: "10px",
+                  backgroundColor: "#F4EBBE",
+                  borderLeft: "1.5px solid #332F1C",
+                  borderTop: "1.5px solid #332F1C",
+                  transform: "translateX(-50%) rotate(45deg)",
+                }}
+              />
+            </div>
+          </div>
         </span>
 
         <div
