@@ -1,6 +1,6 @@
 # React + Vite
 
-**Live demo:** [reemfatimaportfolio-addbyzuwi-roomba03s-projects.vercel.app/portfolio](https://reemfatimaportfolio-addbyzuwi-roomba03s-projects.vercel.app/portfolio)
+**Live demo:** [reemfatimaportfolio.vercel.app](https://reemfatimaportfolio.vercel.app/)
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
