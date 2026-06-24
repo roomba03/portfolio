@@ -7,6 +7,24 @@ const ACCENT = "#75979A";
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
 
+const FIREWORK_SPARKS_TR = [
+  { dx: "34px", dy: "-30px", color: "#FFD24A", delay: "0s" },
+  { dx: "10px", dy: "-46px", color: "#FFEFC2", delay: "0.04s" },
+  { dx: "46px", dy: "-4px", color: "#FF6FA5", delay: "0.02s" },
+  { dx: "26px", dy: "-4px", color: "#FFD24A", delay: "0.06s" },
+  { dx: "20px", dy: "-40px", color: "#FFA73C", delay: "0.01s" },
+  { dx: "40px", dy: "-18px", color: "#FF9FC2", delay: "0.08s" },
+];
+
+const FIREWORK_SPARKS_BL = [
+  { dx: "-34px", dy: "-30px", color: "#FFA73C", delay: "0.01s" },
+  { dx: "-10px", dy: "-46px", color: "#FF6FA5", delay: "0.05s" },
+  { dx: "-46px", dy: "-4px", color: "#FFEFC2", delay: "0.03s" },
+  { dx: "-26px", dy: "-4px", color: "#FF9FC2", delay: "0.07s" },
+  { dx: "-20px", dy: "-40px", color: "#FFD24A", delay: "0.02s" },
+  { dx: "-40px", dy: "-18px", color: "#FFEFC2", delay: "0.09s" },
+];
+
 function SectionHeading({ children }) {
   return (
     <h2
@@ -76,8 +94,8 @@ export default function BusyBunnyPage() {
           to="/portfolio"
           className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.06em] transition-colors"
           style={{ color: "#000000", fontFamily: MONO_FONT }}
-          onMouseEnter={e => (e.currentTarget.style.color = "#D2DAC5")}
-          onMouseLeave={e => (e.currentTarget.style.color = "#958F6A")}
+          onMouseEnter={e => (e.currentTarget.style.color = ACCENT)}
+          onMouseLeave={e => (e.currentTarget.style.color = "#000000")}
         >
           <span aria-hidden="true">←</span> All work
         </Link>
@@ -97,24 +115,38 @@ export default function BusyBunnyPage() {
           >
             Busy Bunny — Gamified Productivity System
           </h1>
+          <span
+            className="firework-trigger text-[18px] font-bold uppercase tracking-[0.1em] inline-block mb-3"
+            style={{ color: ACCENT, fontFamily: MONO_FONT }}
+          >
+            ★ Most Creative UI/UX — HackKU26
+            {FIREWORK_SPARKS_TR.map((spark, i) => (
+              <span
+                key={`tr-${i}`}
+                className="firework-spark firework-spark--tr"
+                style={{ "--dx": spark.dx, "--dy": spark.dy, color: spark.color, animationDelay: spark.delay }}
+              />
+            ))}
+            {FIREWORK_SPARKS_BL.map((spark, i) => (
+              <span
+                key={`bl-${i}`}
+                className="firework-spark firework-spark--bl"
+                style={{ "--dx": spark.dx, "--dy": spark.dy, color: spark.color, animationDelay: spark.delay }}
+              />
+            ))}
+          </span>
           <p className="text-[14px] leading-[1.8] mb-6 max-w-2xl" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             A UX exploration of motivation, emotional feedback loops, and behavioral design.
           </p>
-          <span
-            className="text-[11px] font-bold uppercase tracking-[0.05em] px-2.5 py-1 border inline-block mb-7"
-            style={{ borderColor: "#332F1C", color: "#000000", fontFamily: MONO_FONT }}
-          >
-            Most Creative UI/UX — HackKU26
-          </span>
           <div className="flex flex-wrap gap-3">
             <a
               href="https://buns-green.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border text-[12px] font-bold uppercase tracking-[0.08em] transition-colors"
-              style={{ borderColor: "#000000", color: "#000000", backgroundColor: "transparent", fontFamily: MONO_FONT }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.borderColor = ACCENT; e.currentTarget.style.color = "#F4EBBE"; }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#000000"; }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-[12px] font-bold uppercase tracking-[0.08em]"
+              style={{ borderColor: "#000000", color: "#000000", backgroundColor: "transparent", fontFamily: MONO_FONT, boxShadow: "4px 4px 0 0 #000000", transform: "translate(0, 0)", transition: "transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease" }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.borderColor = ACCENT; e.currentTarget.style.color = "#F4EBBE"; e.currentTarget.style.transform = "translate(2px, 2px)"; e.currentTarget.style.boxShadow = "2px 2px 0 0 #000000"; }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#000000"; e.currentTarget.style.transform = "translate(0, 0)"; e.currentTarget.style.boxShadow = "4px 4px 0 0 #000000"; }}
             >
               Live Demo
             </a>
@@ -122,10 +154,10 @@ export default function BusyBunnyPage() {
               href="https://github.com/alesan99/buns"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border text-[12px] font-bold uppercase tracking-[0.08em] transition-colors"
-              style={{ borderColor: "#000000", color: "#000000", backgroundColor: "transparent", fontFamily: MONO_FONT }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.borderColor = ACCENT; e.currentTarget.style.color = "#F4EBBE"; }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#000000"; }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-[12px] font-bold uppercase tracking-[0.08em]"
+              style={{ borderColor: "#000000", color: "#000000", backgroundColor: "transparent", fontFamily: MONO_FONT, boxShadow: "4px 4px 0 0 #000000", transform: "translate(0, 0)", transition: "transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease" }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.borderColor = ACCENT; e.currentTarget.style.color = "#F4EBBE"; e.currentTarget.style.transform = "translate(2px, 2px)"; e.currentTarget.style.boxShadow = "2px 2px 0 0 #000000"; }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#000000"; e.currentTarget.style.transform = "translate(0, 0)"; e.currentTarget.style.boxShadow = "4px 4px 0 0 #000000"; }}
             >
               GitHub
             </a>
@@ -133,10 +165,10 @@ export default function BusyBunnyPage() {
               href="https://devpost.com/software/bunny-bulletin"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 border text-[12px] font-bold uppercase tracking-[0.08em] transition-colors"
-              style={{ borderColor: "#000000", color: "#000000", backgroundColor: "transparent", fontFamily: MONO_FONT }}
-              onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.borderColor = ACCENT; e.currentTarget.style.color = "#F4EBBE"; }}
-              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#000000"; }}
+              className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-[12px] font-bold uppercase tracking-[0.08em]"
+              style={{ borderColor: "#000000", color: "#000000", backgroundColor: "transparent", fontFamily: MONO_FONT, boxShadow: "4px 4px 0 0 #000000", transform: "translate(0, 0)", transition: "transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease" }}
+              onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.borderColor = ACCENT; e.currentTarget.style.color = "#F4EBBE"; e.currentTarget.style.transform = "translate(2px, 2px)"; e.currentTarget.style.boxShadow = "2px 2px 0 0 #000000"; }}
+              onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#000000"; e.currentTarget.style.transform = "translate(0, 0)"; e.currentTarget.style.boxShadow = "4px 4px 0 0 #000000"; }}
             >
               Devpost
             </a>
@@ -400,8 +432,8 @@ export default function BusyBunnyPage() {
             to="/portfolio"
             className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.06em] transition-colors"
             style={{ color: "#000000", fontFamily: MONO_FONT }}
-            onMouseEnter={e => (e.currentTarget.style.color = "#D2DAC5")}
-            onMouseLeave={e => (e.currentTarget.style.color = "#958F6A")}
+            onMouseEnter={e => (e.currentTarget.style.color = ACCENT)}
+            onMouseLeave={e => (e.currentTarget.style.color = "#000000")}
           >
             <span aria-hidden="true">←</span> Back to all work
           </Link>

@@ -8,7 +8,7 @@ export default function ImagePlaceholder({ label, aspect = "aspect-video" }) {
     >
       <span
         className="text-[11px] font-bold uppercase tracking-[0.08em]"
-        style={{ color: "#8BA6A9", fontFamily: "'Courier Prime', 'Courier New', monospace", position: "relative" }}
+        style={{ color: "#000000", fontFamily: "'Courier Prime', 'Courier New', monospace", position: "relative" }}
       >
         {label}
       </span>

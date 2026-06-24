@@ -109,6 +109,46 @@
   100% { opacity: 1; transform: translateY(0) rotate(0deg); }
 }
 
+@keyframes firework-pop {
+  0%   { opacity: 1; transform: scale(0.9) translate(0, 0); }
+  8%   { opacity: 1; transform: scale(1) translate(calc(var(--dx) * 0.1), calc(var(--dy) * 0.1)); }
+  55%  { opacity: 0.9; transform: scale(0.7) translate(calc(var(--dx) * 0.6), calc(var(--dy) * 0.6)); }
+  100% { opacity: 0; transform: scale(0.1) translate(var(--dx), var(--dy)); }
+}
+
+.firework-trigger {
+  position: relative;
+  display: inline-block;
+}
+
+.firework-spark {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: #fff;
+  opacity: 0;
+  transform: scale(0);
+  pointer-events: none;
+  box-shadow:
+    0 0 2px 0.5px #fff,
+    0 0 5px 1px currentColor;
+}
+
+.firework-spark--tr {
+  top: -2px;
+  right: -2px;
+}
+
+.firework-spark--bl {
+  top: -2px;
+  left: -2px;
+}
+
+.firework-trigger:hover .firework-spark {
+  animation: firework-pop 1.05s cubic-bezier(0.2, 0.8, 0.3, 1) forwards;
+}
+
 @layer components {
   /* Solid filled rectangle, uppercase mono text, tight padding —
      section labels, pull quotes, and ink-stamp callouts all use this. */
@@ -165,9 +205,6 @@
     mix-blend-mode: multiply;
     pointer-events: none;
     transition: opacity 0.4s ease;
-  }
-  .halftone:hover::after {
-    opacity: 0.22;
   }
 }
 
