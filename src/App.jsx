@@ -7,6 +7,8 @@ import LoadingScreen from "./components/LoadingScreen";
 import BackgroundGlow from "./components/BackgroundGlow";
 import CursorSparkle from "./components/CursorSparkle";
 
+const DEFAULT_ROUTE = import.meta.env.VITE_DEFAULT_ROUTE === "web-dev" ? "/web-dev" : "/portfolio";
+
 function ScrollToTop() {
   const location = useLocation();
 
@@ -68,11 +70,11 @@ export default function App() {
       <BackgroundGlow />
       <CursorSparkle />
       <Routes>
-        <Route path="/" element={<Navigate to="/portfolio" replace />} />
+        <Route path="/" element={<Navigate to={DEFAULT_ROUTE} replace />} />
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/web-dev" element={<WebDevPage />} />
         <Route path="/work/busy-bunny" element={<BusyBunnyPage />} />
-        <Route path="*" element={<Navigate to="/portfolio" replace />} />
+        <Route path="*" element={<Navigate to={DEFAULT_ROUTE} replace />} />
       </Routes>
     </BrowserRouter>
   );
