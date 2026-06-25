@@ -303,6 +303,16 @@ export default function PortfolioPage() {
                 position: "relative",
                 backgroundColor: "#D2DAC5",
                 border: "1px dashed rgba(51,47,28,0.25)",
+                boxShadow: "6px 7px 0 rgba(51,47,28,0.4)",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = "translateY(-4px) rotate(-0.6deg)";
+                e.currentTarget.style.boxShadow = "8px 9px 0 rgba(51,47,28,0.4)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = "translateY(0) rotate(0deg)";
+                e.currentTarget.style.boxShadow = "6px 7px 0 rgba(51,47,28,0.4)";
               }}
             >
               <span
@@ -322,6 +332,16 @@ export default function PortfolioPage() {
                 position: "relative",
                 backgroundColor: "#D2DAC5",
                 border: "1px dashed rgba(51,47,28,0.25)",
+                boxShadow: "6px 7px 0 rgba(51,47,28,0.4)",
+                transition: "transform 0.2s ease, box-shadow 0.2s ease",
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.transform = "translateY(-4px) rotate(-0.6deg)";
+                e.currentTarget.style.boxShadow = "8px 9px 0 rgba(51,47,28,0.4)";
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.transform = "translateY(0) rotate(0deg)";
+                e.currentTarget.style.boxShadow = "6px 7px 0 rgba(51,47,28,0.4)";
               }}
             >
               <span

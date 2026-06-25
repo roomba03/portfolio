@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import FogWindow from "../components/FogWindow";
 import StarRevealWindow from "../components/StarRevealWindow";
 import Footer from "../components/Footer";
@@ -8,15 +7,36 @@ import InkBleedWord from "../components/InkBleedWord";
 
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
+const SANS_FONT = "'Fredoka', sans-serif";
 const MUTED = "rgba(51,47,28,0.55)";
+
+function RoleTag({ children }) {
+  return (
+    <span
+      className="text-[11px] font-bold uppercase tracking-[0.08em]"
+      style={{
+        display: "inline-block",
+        border: "1.5px solid #000000",
+        color: "#000000",
+        backgroundColor: "transparent",
+        padding: "4px 10px",
+        fontFamily: MONO_FONT,
+        boxShadow: "2px 2px 0 #8BA6A9",
+      }}
+    >
+      {children}
+    </span>
+  );
+}
 
 const SELECTED_WORK = [
   {
     number: "01",
     title: "Busy Bunny",
-    to: "/work/busy-bunny",
-    internal: true,
+    href: "https://buns-green.vercel.app/",
+    github: "https://github.com/roomba03/busy_bunny",
     image: "/busy-bunny-main.png",
+    hireMe: true,
     color: "#D2DAC5",
     badge: "Winner of Most Creative UI/UX",
     description: "A gamified productivity app that pairs task management with platformer gameplay. Built at HackKU26.",
@@ -26,6 +46,7 @@ const SELECTED_WORK = [
     number: "02",
     title: "Side Quest",
     href: "https://eecs582-sidequest.vercel.app",
+    github: "https://github.com/roomba03/SideQuest",
     image: "/sidequest.png",
     color: "#A7CECB",
     description: "A campus exploration game with quests, achievements, and a live leaderboard.",
@@ -35,8 +56,13 @@ const SELECTED_WORK = [
     number: "03",
     title: "Gnometastic Gnomular Quest",
     href: "https://thegnomefour.vercel.app",
+    github: "https://github.com/roomba03/thegnomefour",
     image: "/gnomular_quest.png",
     color: "#CACC90",
+    quip: {
+      text: "Are you a slave to capitalism?",
+      hotspot: { left: "58%", top: "0%", width: "42%", height: "100%" },
+    },
     description: "A pixel-art arcade game starring a gnome on a quest of his own. Built at HackKU25.",
     tags: ["Vanilla JS", "Phaser", "Canvas API"],
   },
@@ -47,6 +73,7 @@ const MINI_PROJECTS = [
     title: "Design Sandbox",
     subtitle: "Animation playground · Three.js + GSAP",
     href: "https://design-sandbox-chi.vercel.app/",
+    github: "https://github.com/roomba03/design_sandbox",
     image: "/design_sandbox.png",
     color: "#D2DAC5",
   },
@@ -54,19 +81,19 @@ const MINI_PROJECTS = [
     title: "Shahi Chai Cart",
     subtitle: "Client site · React + Framer Motion",
     href: "https://shahi-chai-cart.vercel.app/",
+    github: "https://github.com/roomba03/shahi_chai_cart",
     image: "/shahi.png",
     color: "#F4EBBE",
   },
 ];
 
-function CardLink({ project, children, style, ...rest }) {
+function HoverCard({ children, style, ...rest }) {
   const sharedProps = {
     style: {
       position: "relative",
       backgroundColor: "#F2EEE1",
       border: "1px solid rgba(51,47,28,0.18)",
       boxShadow: "6px 7px 0 rgba(51,47,28,0.4)",
-      textDecoration: "none",
       display: "block",
       transition: "transform 0.2s ease, box-shadow 0.2s ease",
       ...style,
@@ -82,19 +109,86 @@ function CardLink({ project, children, style, ...rest }) {
     ...rest,
   };
 
-  return project.internal ? (
-    <Link to={project.to} {...sharedProps}>{children}</Link>
-  ) : (
-    <a href={project.href} target="_blank" rel="noopener noreferrer" {...sharedProps}>{children}</a>
+  return <div {...sharedProps}>{children}</div>;
+}
+
+function ActionLink({ href, children }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors"
+      style={{ color: "#000000", fontFamily: MONO_FONT, textDecoration: "none" }}
+      onMouseEnter={e => (e.currentTarget.style.color = "#048BA8")}
+      onMouseLeave={e => (e.currentTarget.style.color = "#000000")}
+    >
+      {children}
+    </a>
+  );
+}
+
+function SpeechHotspot({ text, hotspot, wrap = false }) {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{ position: "absolute", ...hotspot }}
+    >
+      <div
+        className="transition-opacity duration-200"
+        style={{
+          position: "absolute", left: "50%", top: "0%",
+          transform: "translate(-50%, calc(-100% - 8px))",
+          opacity: hover ? 1 : 0,
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            backgroundColor: "#F4EBBE",
+            border: "1.5px solid #332F1C",
+            borderRadius: "10px",
+            padding: "3px 10px",
+            fontSize: "11px",
+            fontWeight: 700,
+            fontFamily: MONO_FONT,
+            color: "#000000",
+            whiteSpace: wrap ? "normal" : "nowrap",
+            width: wrap ? "150px" : "auto",
+            textAlign: wrap ? "center" : "left",
+            boxShadow: "2px 2px 0 #8BA6A9",
+          }}
+        >
+          {text}
+          <span
+            style={{
+              position: "absolute",
+              bottom: "-6px",
+              left: "50%",
+              width: "10px",
+              height: "10px",
+              backgroundColor: "#F4EBBE",
+              borderRight: "1.5px solid #332F1C",
+              borderBottom: "1.5px solid #332F1C",
+              transform: "translateX(-50%) rotate(45deg)",
+            }}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
 
 function WorkCard({ project }) {
   return (
-    <CardLink project={project}>
+    <HoverCard>
       <div
         className={project.image ? "halftone" : "flex items-center justify-center"}
-        style={{ height: "140px", backgroundColor: project.color, position: "relative", overflow: "hidden" }}
+        style={{ height: "140px", backgroundColor: project.color, position: "relative", overflow: project.quip ? "visible" : "hidden" }}
       >
         {project.image ? (
           <img
@@ -112,25 +206,36 @@ function WorkCard({ project }) {
         ) : (
           <span style={{ fontSize: "2.75rem" }}>{project.emoji}</span>
         )}
+        {project.badge && (
+          <span
+            className="text-[9px] font-bold uppercase tracking-[0.04em]"
+            style={{
+              position: "absolute",
+              bottom: "0",
+              right: "8px",
+              whiteSpace: "nowrap",
+              backgroundColor: "#000000",
+              color: "#F4EBBE",
+              padding: "5px 8px",
+              fontFamily: MONO_FONT,
+              boxShadow: "2px 2px 0 #8BA6A9",
+            }}
+          >
+            {project.badge}
+          </span>
+        )}
+        {project.hireMe && (
+          <SpeechHotspot
+            text="Hire me!"
+            hotspot={{ left: "61%", top: "39%", width: "24%", height: "61%" }}
+          />
+        )}
+        {project.quip && (
+          <SpeechHotspot text={project.quip.text} hotspot={project.quip.hotspot} wrap />
+        )}
       </div>
 
       <div className="px-5 pt-4 pb-5">
-        {project.badge && (
-          <div className="flex flex-wrap gap-x-3 gap-y-1 mb-3">
-            <span
-              className="text-[10px] font-bold uppercase tracking-[0.05em]"
-              style={{
-                backgroundColor: "#000000",
-                color: "#F4EBBE",
-                padding: "4px 8px",
-                fontFamily: MONO_FONT,
-                boxShadow: "2px 2px 0 #8BA6A9",
-              }}
-            >
-              {project.badge}
-            </span>
-          </div>
-        )}
         <span className="text-[11px]" style={{ fontFamily: MONO_FONT, color: MUTED }}>{project.number}</span>
         <h3
           className="mt-1 mb-3"
@@ -139,7 +244,7 @@ function WorkCard({ project }) {
           {project.title}
         </h3>
         {project.description && (
-          <p className="text-[12px] leading-[1.5] mb-3" style={{ fontFamily: MONO_FONT, color: MUTED }}>
+          <p className="text-[13px] leading-[1.5] mb-3" style={{ fontFamily: SANS_FONT, fontWeight: 400, color: MUTED }}>
             {project.description}
           </p>
         )}
@@ -152,7 +257,6 @@ function WorkCard({ project }) {
                 fontFamily: MONO_FONT,
                 color: "#000000",
                 border: "1px solid rgba(51,47,28,0.3)",
-                borderRadius: "999px",
                 padding: "3px 11px",
               }}
             >
@@ -160,55 +264,57 @@ function WorkCard({ project }) {
             </span>
           ))}
         </div>
-        <span
-          className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors"
-          style={{ color: "#000000", fontFamily: MONO_FONT }}
-        >
-          Visit site ↗
-        </span>
+        <div className="flex flex-wrap gap-4">
+          <ActionLink href={project.href}>Visit site ↗</ActionLink>
+          {project.github && <ActionLink href={project.github}>GitHub ↗</ActionLink>}
+        </div>
       </div>
-    </CardLink>
+    </HoverCard>
   );
 }
 
 function MiniProjectCard({ project }) {
   return (
-    <CardLink
-      project={project}
+    <HoverCard
       style={{ boxShadow: "4px 5px 0 rgba(51,47,28,0.4)", display: "flex" }}
-      className="items-center gap-4 px-4 py-4"
+      className="flex-col px-4 py-4"
     >
-      <span
-        className="flex items-center justify-center flex-shrink-0"
-        style={{
-          width: "44px",
-          height: "44px",
-          backgroundColor: project.color,
-          border: "1px solid rgba(51,47,28,0.18)",
-          fontSize: "1.2rem",
-          overflow: "hidden",
-        }}
-      >
-        {project.image ? (
-          <img
-            src={project.image}
-            alt=""
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        ) : (
-          project.emoji
-        )}
-      </span>
-      <div className="flex-1">
-        <h3 style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1rem", lineHeight: 1, color: "#000000" }}>
-          {project.title}
-        </h3>
-        <p className="text-[11px] mt-1" style={{ fontFamily: MONO_FONT, color: MUTED }}>
-          {project.subtitle}
-        </p>
+      <div className="flex items-center gap-4">
+        <span
+          className="flex items-center justify-center flex-shrink-0"
+          style={{
+            width: "44px",
+            height: "44px",
+            backgroundColor: project.color,
+            border: "1px solid rgba(51,47,28,0.18)",
+            fontSize: "1.2rem",
+            overflow: "hidden",
+          }}
+        >
+          {project.image ? (
+            <img
+              src={project.image}
+              alt=""
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
+          ) : (
+            project.emoji
+          )}
+        </span>
+        <div className="flex-1">
+          <h3 style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1rem", lineHeight: 1, color: "#000000" }}>
+            {project.title}
+          </h3>
+          <p className="text-[11px] mt-1" style={{ fontFamily: MONO_FONT, color: MUTED }}>
+            {project.subtitle}
+          </p>
+        </div>
       </div>
-      <span className="text-[14px]" style={{ fontFamily: MONO_FONT, color: MUTED }}>↗</span>
-    </CardLink>
+      <div className="flex flex-wrap gap-4 mt-3">
+        <ActionLink href={project.href}>Visit site ↗</ActionLink>
+        {project.github && <ActionLink href={project.github}>GitHub ↗</ActionLink>}
+      </div>
+    </HoverCard>
   );
 }
 
@@ -335,6 +441,11 @@ export default function WebDevPage() {
           Built with <InkBleedWord text="understanding" />.
         </h1>
 
+        <div className="flex flex-wrap items-center gap-2" style={{ marginTop: "10px", marginLeft: "-6px" }}>
+          <RoleTag>Web Developer</RoleTag>
+          <RoleTag>UX Engineer</RoleTag>
+        </div>
+
         <div
           className="hidden md:block w-[clamp(70px,11vw,140px)] h-[clamp(70px,11vw,140px)]"
           style={{ position: "absolute", right: "20%", top: "50%", transform: "translateY(-50%)" }}
@@ -360,7 +471,7 @@ export default function WebDevPage() {
 
         {/* ── Selected Work ────────────────────────────────── */}
         <section>
-          <span className="caption-box mb-4" style={{ display: "inline-block" }}>
+          <span className="caption-box caption-box--cyan mb-4" style={{ display: "inline-block" }}>
             Selected Work
           </span>
 
@@ -379,7 +490,7 @@ export default function WebDevPage() {
 
         {/* ── Mini Projects ────────────────────────────────── */}
         <section className="mt-12">
-          <span className="caption-box mb-4" style={{ display: "inline-block" }}>
+          <span className="caption-box caption-box--cyan mb-4" style={{ display: "inline-block" }}>
             Mini Projects
           </span>
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import BusyBunnyPage from "./pages/BusyBunnyPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import WebDevPage from "./pages/WebDevPage";
@@ -13,6 +13,30 @@ function ScrollToTop() {
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
   }, [location.pathname]);
+
+  return null;
+}
+
+function PageSwitchShortcut() {
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key !== "9") return;
+      const target = e.target;
+      const isTyping =
+        target.tagName === "INPUT" ||
+        target.tagName === "TEXTAREA" ||
+        target.isContentEditable;
+      if (isTyping) return;
+
+      navigate(location.pathname.startsWith("/web-dev") ? "/portfolio" : "/web-dev");
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [location.pathname, navigate]);
 
   return null;
 }
@@ -40,6 +64,7 @@ export default function App() {
     <BrowserRouter>
       <ScrollToTop />
       <RouteWatcher />
+      <PageSwitchShortcut />
       <BackgroundGlow />
       <CursorSparkle />
       <Routes>

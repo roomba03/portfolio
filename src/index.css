@@ -173,6 +173,14 @@
     filter: url(#rough-edge);
   }
 
+  .caption-box--cyan {
+    box-shadow:
+      4px 4px 0 0 #8BA6A9,
+      3px 5px 0 0 #8BA6A9,
+      5px 3px 0 0 #8BA6A9,
+      4px 5px 0 0 #8BA6A9;
+  }
+
   .rough-edge {
     filter: url(#rough-edge);
   }
