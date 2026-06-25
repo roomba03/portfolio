@@ -297,6 +297,7 @@ export default function PortfolioPage() {
               </div>
             </Link>
 
+            {/*
             <div
               className="flex flex-col items-center justify-center text-center px-5 py-10"
               style={{
@@ -354,6 +355,7 @@ export default function PortfolioPage() {
                 Case study in progress
               </p>
             </div>
+            */}
           </div>
         </section>
 
