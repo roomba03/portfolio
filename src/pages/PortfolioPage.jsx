@@ -189,19 +189,19 @@ export default function PortfolioPage() {
               className="block group"
               style={{
                 position: "relative",
-                backgroundColor: "#D2DAC5",
+                backgroundColor: "#F2EEE1",
                 border: "1px solid rgba(51,47,28,0.18)",
-                boxShadow: "6px 7px 0 rgba(51,47,28,0.92)",
+                boxShadow: "6px 7px 0 rgba(51,47,28,0.4)",
                 textDecoration: "none",
                 transition: "transform 0.2s ease, box-shadow 0.2s ease",
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.transform = "translateY(-4px) rotate(-1.5deg)";
-                e.currentTarget.style.boxShadow = "8px 9px 0 rgba(51,47,28,0.92)";
+                e.currentTarget.style.boxShadow = "8px 9px 0 rgba(51,47,28,0.4)";
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.transform = "translateY(0) rotate(0deg)";
-                e.currentTarget.style.boxShadow = "6px 7px 0 rgba(51,47,28,0.92)";
+                e.currentTarget.style.boxShadow = "6px 7px 0 rgba(51,47,28,0.4)";
               }}
             >
               <div className="halftone" style={{ overflow: "hidden", position: "relative", height: "140px" }}>
