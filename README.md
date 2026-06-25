@@ -2,6 +2,8 @@
 
 **Live demo:** [reemfatimaportfolio.vercel.app](https://reemfatimaportfolio.vercel.app/)
 
+**Web dev version:** [web-dev-portfolio-eight-neon.vercel.app](https://web-dev-portfolio-eight-neon.vercel.app/)
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
