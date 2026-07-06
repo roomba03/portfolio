@@ -289,7 +289,17 @@ export default function BusyBunnyPage() {
           </p>
         </Card>
 
-        <ImagePlaceholder label="Wireframes / early explorations" />
+        <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+          <img
+            src="/busy-bunny-wireframes.jpeg"
+            alt="Hand-drawn notebook sketches of the calendar/task view and the game view with a bunny companion"
+            className="w-full"
+            style={{ display: "block" }}
+          />
+          <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+            <Tag>Fig. 02 — Wireframes / early explorations</Tag>
+          </span>
+        </div>
 
         {/* Design Approach */}
         <Card>
