@@ -6,7 +6,7 @@ const REACH = 130; // px radius the bleed grows to — scoped to a single word
 
 // Same cursor-chasing pink-reveal effect as the old full-headline version,
 // but scoped to one inline word so the rest of a sentence stays plain text.
-export default function InkBleedWord({ text }) {
+export default function InkBleedWord({ text, after = "" }) {
   const wrapRef = useRef(null);
   const eraserRef = useRef(null);
   const pinkRef = useRef(null);
@@ -56,8 +56,16 @@ export default function InkBleedWord({ text }) {
   }, []);
 
   return (
-    <span ref={wrapRef} className="relative inline-block" data-sparkle-suppress="true" style={{ cursor: "default" }}>
-      <span style={{ color: "#000000" }}>{text}</span>
+    <span
+      ref={wrapRef}
+      className="relative inline-block"
+      data-sparkle-suppress="true"
+      style={{ cursor: "default" }}
+    >
+      <span style={{ color: "#000000" }}>
+        {text}
+        {after}
+      </span>
       <span
         ref={eraserRef}
         aria-hidden="true"

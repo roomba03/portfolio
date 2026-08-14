@@ -437,8 +437,8 @@ export default function WebDevPage() {
           className="mt-3 -ml-[13px] font-bold text-[clamp(32px,5.2vw,68px)] leading-[1.15] tracking-tight"
           style={{ color: "#000000", fontFamily: "'Apple SD Gothic Neo', sans-serif", fontWeight: 500, letterSpacing: "0.045em" }}
         >
-          Designed with <InkBleedWord text="intention" />.<br />
-          Built with <InkBleedWord text="understanding" />.
+          Designed with <InkBleedWord text="intention" after="." /><br />
+          Built with <InkBleedWord text="understanding" after="." />
         </h1>
 
         <div className="flex flex-wrap items-center gap-2" style={{ marginTop: "10px", marginLeft: "-6px" }}>
