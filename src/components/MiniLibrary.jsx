@@ -266,21 +266,28 @@ function MiniProjectSlide({ project, active }) {
   );
 }
 
+const TAB_SWITCH_MS = 200; // must match the track's fade transition duration below
+
 export default function MiniLibrary({ selectedWork, miniProjects }) {
-  const [tab, setTab] = useState("selected");
+  const [tab, setTab] = useState("selected"); // drives the tab pills — updates instantly on click
+  const [visibleTab, setVisibleTab] = useState("selected"); // drives rendered cards — updates after the fade-out
+  const [switching, setSwitching] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [expandedTitle, setExpandedTitle] = useState(null);
   const [trackMinHeight, setTrackMinHeight] = useState(null);
   const scrollRef = useRef(null);
   const dragRef = useRef({ dragging: false, startX: 0, startScroll: 0, moved: 0 });
+  const switchTimeoutRef = useRef(null);
 
-  const items = tab === "selected" ? selectedWork : miniProjects;
+  const items = visibleTab === "selected" ? selectedWork : miniProjects;
+
+  useEffect(() => () => clearTimeout(switchTimeoutRef.current), []);
 
   // The Mini Projects track should reserve the same height as the (taller)
   // Selected Work track rather than shrinking, so it's measured only while
   // viewing Selected Work in its collapsed state and reused for both tabs.
   useEffect(() => {
-    if (tab !== "selected" || expandedTitle) return;
+    if (visibleTab !== "selected" || expandedTitle) return;
     const el = scrollRef.current;
     if (!el) return;
 
@@ -293,7 +300,7 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
     const ro = new ResizeObserver(measure);
     ro.observe(el);
     return () => ro.disconnect();
-  }, [tab, expandedTitle]);
+  }, [visibleTab, expandedTitle]);
 
   const scrollToIndex = useCallback((index, behavior = "smooth") => {
     const el = scrollRef.current;
@@ -303,12 +310,16 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
 
   function handleTabChange(nextTab) {
     if (nextTab === tab) return;
-    setTab(nextTab);
-    setActiveIndex(0);
+    setTab(nextTab); // pill switches immediately for instant feedback
     setExpandedTitle(null);
-    requestAnimationFrame(() => {
+    setSwitching(true); // cards fade out, then swap underneath while invisible
+    clearTimeout(switchTimeoutRef.current);
+    switchTimeoutRef.current = setTimeout(() => {
+      setVisibleTab(nextTab);
+      setActiveIndex(0);
       if (scrollRef.current) scrollRef.current.scrollTo({ left: 0, behavior: "auto" });
-    });
+      requestAnimationFrame(() => setSwitching(false));
+    }, TAB_SWITCH_MS);
   }
 
   function handleScroll() {
@@ -386,10 +397,14 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
             paddingLeft: EDGE_INSET,
             paddingRight: EDGE_INSET,
             minHeight: trackMinHeight || undefined,
+            opacity: switching ? 0 : 1,
+            transform: switching ? "translateY(8px)" : "translateY(0)",
+            transition: `opacity ${TAB_SWITCH_MS}ms ease, transform ${TAB_SWITCH_MS}ms ease`,
+            pointerEvents: switching ? "none" : "auto",
           }}
         >
           {items.map((project, i) =>
-            tab === "selected" ? (
+            visibleTab === "selected" ? (
               <SelectedWorkSlide
                 key={project.title}
                 project={project}
@@ -404,7 +419,7 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
         </div>
       </div>
 
-      <div style={chromeStyle}>
+      <div style={{ opacity: switching ? 0 : expandedTitle ? 0.45 : 1, transition: `opacity ${TAB_SWITCH_MS}ms ease` }}>
         <Dots
           count={items.length}
           activeIndex={activeIndex}
