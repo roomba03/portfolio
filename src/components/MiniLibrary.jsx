@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
@@ -64,17 +64,18 @@ function Dots({ count, activeIndex, onSelect }) {
   );
 }
 
-function SelectedWorkSlide({ project, onOpen }) {
+function SelectedWorkSlide({ project, expanded, onToggle }) {
   return (
     <div className="snap-center shrink-0 w-full px-1" style={{ scrollSnapStop: "always" }}>
       <div
         role="button"
         tabIndex={0}
-        onClick={() => onOpen(project)}
+        aria-expanded={expanded}
+        onClick={() => onToggle(project.title)}
         onKeyDown={e => {
           if (e.key === "Enter" || e.key === " ") {
             e.preventDefault();
-            onOpen(project);
+            onToggle(project.title);
           }
         }}
         className="block group"
@@ -88,7 +89,13 @@ function SelectedWorkSlide({ project, onOpen }) {
       >
         <div
           className={project.image ? "halftone" : "flex items-center justify-center"}
-          style={{ height: "170px", backgroundColor: project.color, position: "relative", overflow: "hidden" }}
+          style={{
+            height: expanded ? "230px" : "170px",
+            backgroundColor: project.color,
+            position: "relative",
+            overflow: "hidden",
+            transition: "height 0.3s ease",
+          }}
         >
           {project.image ? (
             <img
@@ -96,7 +103,7 @@ function SelectedWorkSlide({ project, onOpen }) {
               alt={`${project.title} screenshot`}
               style={{
                 width: "100%",
-                height: "170px",
+                height: "100%",
                 objectFit: "cover",
                 objectPosition: "top",
                 display: "block",
@@ -127,7 +134,22 @@ function SelectedWorkSlide({ project, onOpen }) {
         </div>
 
         <div className="px-5 pt-4 pb-5">
-          <span className="text-[11px]" style={{ fontFamily: MONO_FONT, color: MUTED }}>{project.number}</span>
+          <div className="flex items-center justify-between">
+            <span className="text-[11px]" style={{ fontFamily: MONO_FONT, color: MUTED }}>{project.number}</span>
+            <span
+              aria-hidden="true"
+              className="text-[10px]"
+              style={{
+                fontFamily: MONO_FONT,
+                color: MUTED,
+                display: "inline-block",
+                transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
+                transition: "transform 0.25s ease",
+              }}
+            >
+              ▾
+            </span>
+          </div>
           <h3
             className="mt-1 mb-3"
             style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.4rem", lineHeight: 1.1, color: "#000000" }}
@@ -139,6 +161,20 @@ function SelectedWorkSlide({ project, onOpen }) {
               {project.description}
             </p>
           )}
+
+          <div style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.3s ease" }}>
+            <div style={{ overflow: "hidden", minHeight: 0 }}>
+              <div style={{ opacity: expanded ? 1 : 0, transition: "opacity 0.25s ease 0.05s", paddingBottom: "12px" }}>
+                <span className="text-[10px] uppercase tracking-[0.08em]" style={{ fontFamily: MONO_FONT, color: MUTED }}>
+                  Role
+                </span>
+                <p className="text-[13px] mt-1" style={{ fontFamily: MONO_FONT, color: "#000000" }}>
+                  {project.role || "Design & Development"}
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="flex flex-wrap gap-2 mb-4">
             {project.tags.map(tag => (
               <span
@@ -213,163 +249,10 @@ function MiniProjectSlide({ project }) {
   );
 }
 
-function CaseStudyModal({ project, onClose }) {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (!project) return;
-    setVisible(false);
-    const raf = requestAnimationFrame(() => setVisible(true));
-
-    function onKeyDown(e) {
-      if (e.key === "Escape") onClose();
-    }
-    document.addEventListener("keydown", onKeyDown);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-
-    return () => {
-      cancelAnimationFrame(raf);
-      document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [project, onClose]);
-
-  if (!project) return null;
-
-  return (
-    <div
-      onClick={onClose}
-      style={{
-        position: "fixed",
-        inset: 0,
-        zIndex: 100,
-        backgroundColor: "rgba(51,47,28,0.55)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: "24px",
-        opacity: visible ? 1 : 0,
-        transition: "opacity 0.2s ease",
-      }}
-    >
-      <div
-        onClick={e => e.stopPropagation()}
-        style={{
-          position: "relative",
-          backgroundColor: "#F2EEE1",
-          border: "1px solid rgba(51,47,28,0.18)",
-          boxShadow: "8px 9px 0 rgba(51,47,28,0.4)",
-          maxWidth: "560px",
-          width: "100%",
-          maxHeight: "88vh",
-          overflowY: "auto",
-          transform: visible ? "translateY(0) scale(1)" : "translateY(10px) scale(0.98)",
-          transition: "transform 0.2s ease",
-        }}
-      >
-        <button
-          type="button"
-          onClick={onClose}
-          aria-label="Close case study"
-          style={{
-            position: "absolute",
-            top: "12px",
-            right: "12px",
-            zIndex: 2,
-            width: "28px",
-            height: "28px",
-            backgroundColor: "#000000",
-            color: "#F4EBBE",
-            border: "none",
-            fontFamily: MONO_FONT,
-            fontSize: "14px",
-            lineHeight: "28px",
-            cursor: "pointer",
-            boxShadow: "2px 2px 0 #8BA6A9",
-          }}
-        >
-          ✕
-        </button>
-
-        {project.image && (
-          <div className="halftone" style={{ height: "220px", backgroundColor: project.color, overflow: "hidden" }}>
-            <img
-              src={project.image}
-              alt={`${project.title} screenshot`}
-              style={{
-                width: "100%",
-                height: "220px",
-                objectFit: "cover",
-                objectPosition: "top",
-                display: "block",
-                filter: "contrast(1.05) saturate(0.92)",
-              }}
-            />
-          </div>
-        )}
-
-        <div className="px-6 pt-5 pb-6">
-          {project.badge && (
-            <span
-              className="text-[9px] font-bold uppercase tracking-[0.04em] inline-block mb-3"
-              style={{ backgroundColor: "#000000", color: "#F4EBBE", padding: "5px 8px", fontFamily: MONO_FONT, boxShadow: "2px 2px 0 #8BA6A9" }}
-            >
-              {project.badge}
-            </span>
-          )}
-
-          <h2 style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.9rem", lineHeight: 1.05, color: "#000000", marginBottom: "12px" }}>
-            {project.title}
-          </h2>
-
-          {project.description && (
-            <p className="text-[13px] leading-[1.6] mb-5" style={{ fontFamily: SANS_FONT, color: MUTED }}>
-              {project.description}
-            </p>
-          )}
-
-          <div className="grid grid-cols-2 gap-4 mb-6">
-            <div>
-              <span className="text-[10px] uppercase tracking-[0.08em]" style={{ fontFamily: MONO_FONT, color: MUTED }}>
-                Role
-              </span>
-              <p className="text-[13px] mt-1" style={{ fontFamily: MONO_FONT, color: "#000000" }}>
-                {project.role || "Design & Development"}
-              </p>
-            </div>
-            <div>
-              <span className="text-[10px] uppercase tracking-[0.08em]" style={{ fontFamily: MONO_FONT, color: MUTED }}>
-                Tools
-              </span>
-              <div className="flex flex-wrap gap-2 mt-1">
-                {project.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="text-[11px]"
-                    style={{ fontFamily: MONO_FONT, color: "#000000", border: "1px solid rgba(51,47,28,0.3)", padding: "2px 8px" }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-wrap gap-4">
-            <ActionLink href={project.href}>Visit site ↗</ActionLink>
-            {project.github && <ActionLink href={project.github}>GitHub ↗</ActionLink>}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 export default function MiniLibrary({ selectedWork, miniProjects }) {
   const [tab, setTab] = useState("selected");
   const [activeIndex, setActiveIndex] = useState(0);
-  const [modalProject, setModalProject] = useState(null);
+  const [expandedTitle, setExpandedTitle] = useState(null);
   const scrollRef = useRef(null);
   const dragRef = useRef({ dragging: false, startX: 0, startScroll: 0, moved: 0 });
 
@@ -385,6 +268,7 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
     if (nextTab === tab) return;
     setTab(nextTab);
     setActiveIndex(0);
+    setExpandedTitle(null);
     requestAnimationFrame(() => {
       if (scrollRef.current) scrollRef.current.scrollTo({ left: 0, behavior: "auto" });
     });
@@ -395,7 +279,10 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
     if (!el) return;
     const width = el.clientWidth || 1;
     const index = Math.round(el.scrollLeft / width);
-    setActiveIndex(prev => (prev === index ? prev : index));
+    if (index !== activeIndex) {
+      setActiveIndex(index);
+      setExpandedTitle(null); // the card that was expanded just scrolled out of view
+    }
   }
 
   function onPointerDown(e) {
@@ -425,20 +312,24 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
     el.style.scrollSnapType = "x mandatory";
     el.style.cursor = "grab";
     try { el.releasePointerCapture(e.pointerId); } catch { /* pointer already released */ }
+    if (state.moved <= DRAG_CLICK_THRESHOLD) return; // no real movement — this was a click, let onClick handle it
     const width = el.clientWidth || 1;
     const index = Math.round(el.scrollLeft / width);
     scrollToIndex(index);
     setActiveIndex(index);
+    setExpandedTitle(null);
   }
 
-  function handleCardOpen(project) {
+  function handleCardToggle(title) {
     if (dragRef.current.moved > DRAG_CLICK_THRESHOLD) return; // this click was really a drag release
-    setModalProject(project);
+    setExpandedTitle(prev => (prev === title ? null : title));
   }
+
+  const chromeStyle = { opacity: expandedTitle ? 0.45 : 1, transition: "opacity 0.25s ease" };
 
   return (
     <div>
-      <div className="flex items-center gap-3 mb-5">
+      <div className="flex items-center gap-3 mb-5" style={chromeStyle}>
         <LibraryTab label="Selected Work" active={tab === "selected"} onClick={() => handleTabChange("selected")} />
         <LibraryTab label="Mini Projects" active={tab === "mini"} onClick={() => handleTabChange("mini")} />
       </div>
@@ -452,28 +343,34 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
           onPointerUp={endDrag}
           onPointerLeave={endDrag}
           className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar"
-          style={{ cursor: "grab" }}
+          style={{ cursor: "grab", alignItems: "start" }}
         >
           {items.map(project =>
             tab === "selected" ? (
-              <SelectedWorkSlide key={project.title} project={project} onOpen={handleCardOpen} />
+              <SelectedWorkSlide
+                key={project.title}
+                project={project}
+                expanded={expandedTitle === project.title}
+                onToggle={handleCardToggle}
+              />
             ) : (
               <MiniProjectSlide key={project.title} project={project} />
             )
           )}
         </div>
 
-        <Dots
-          count={items.length}
-          activeIndex={activeIndex}
-          onSelect={i => {
-            scrollToIndex(i);
-            setActiveIndex(i);
-          }}
-        />
+        <div style={chromeStyle}>
+          <Dots
+            count={items.length}
+            activeIndex={activeIndex}
+            onSelect={i => {
+              scrollToIndex(i);
+              setActiveIndex(i);
+              setExpandedTitle(null);
+            }}
+          />
+        </div>
       </div>
-
-      <CaseStudyModal project={modalProject} onClose={() => setModalProject(null)} />
     </div>
   );
 }
