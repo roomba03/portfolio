@@ -332,9 +332,37 @@ function MiniProjectSlide({ project, active }) {
   );
 }
 
+// Placeholder slide appended after the real cards when a set only has one
+// or two entries, so scrolling past the last card reads as "there's more
+// coming" rather than the carousel just running out.
+function MoreToComeSlide({ active }) {
+  return (
+    <div className="snap-center shrink-0" style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
+      <div
+        className="flex flex-col items-center justify-center text-center px-6 py-14"
+        style={{
+          border: "1px dashed rgba(51,47,28,0.3)",
+          transform: active ? "scale(1)" : "scale(0.86)",
+          opacity: active ? 1 : 0.4,
+          transition: "transform 0.35s ease, opacity 0.35s ease",
+        }}
+      >
+        <span
+          className="text-[11px] uppercase tracking-[0.08em]"
+          style={{ fontFamily: MONO_FONT, color: MUTED }}
+        >
+          More to come
+        </span>
+      </div>
+    </div>
+  );
+}
+
 const TAB_SWITCH_MS = 200; // must match the track's fade transition duration below
 
-export default function MiniLibrary({ selectedWork, miniProjects }) {
+export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = false }) {
+  const hasMiniProjects = Boolean(miniProjects && miniProjects.length);
+
   const [tab, setTab] = useState("selected"); // drives the tab pills — updates instantly on click
   const [visibleTab, setVisibleTab] = useState("selected"); // drives rendered cards — updates after the fade-out
   const [switching, setSwitching] = useState(false);
@@ -345,7 +373,9 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
   const dragRef = useRef({ dragging: false, startX: 0, startScroll: 0, moved: 0 });
   const switchTimeoutRef = useRef(null);
 
-  const items = visibleTab === "selected" ? selectedWork : miniProjects;
+  const items = visibleTab === "selected" ? selectedWork : miniProjects || [];
+  const showComingSoon = comingSoon && visibleTab === "selected";
+  const slideCount = items.length + (showComingSoon ? 1 : 0);
 
   useEffect(() => () => clearTimeout(switchTimeoutRef.current), []);
 
@@ -443,7 +473,9 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
     <div>
       <div className="flex items-center gap-3 mb-5" style={chromeStyle}>
         <LibraryTab label="Selected Work" active={tab === "selected"} onClick={() => handleTabChange("selected")} />
-        <LibraryTab label="Mini Projects" active={tab === "mini"} onClick={() => handleTabChange("mini")} />
+        {hasMiniProjects && (
+          <LibraryTab label="Mini Projects" active={tab === "mini"} onClick={() => handleTabChange("mini")} />
+        )}
       </div>
 
       {/* Full-bleed track: breaks out of the page's px-8 gutters so off-screen
@@ -482,12 +514,13 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
               <MiniProjectSlide key={project.title} project={project} active={i === activeIndex} />
             )
           )}
+          {showComingSoon && <MoreToComeSlide active={items.length === activeIndex} />}
         </div>
       </div>
 
       <div style={{ opacity: switching ? 0 : expandedTitle ? 0.45 : 1, transition: `opacity ${TAB_SWITCH_MS}ms ease` }}>
         <Dots
-          count={items.length}
+          count={slideCount}
           activeIndex={activeIndex}
           onSelect={i => {
             scrollToIndex(i);
