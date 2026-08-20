@@ -7,6 +7,17 @@ const MUTED = "rgba(51,47,28,0.55)";
 
 const DRAG_CLICK_THRESHOLD = 6; // px of pointer movement before a drag suppresses the click
 
+const CARD_WIDTH = "min(420px, 78vw)"; // active-card width; the rest of the full-bleed track is peek space
+const EDGE_INSET = `calc(50% - (${CARD_WIDTH}) / 2)`; // side padding that centers the first/last card
+
+// Measures the live per-slide scroll step (slide width + gap) instead of assuming
+// one slide == the container width, since slides no longer fill the track.
+function getStep(el) {
+  if (!el || !el.firstElementChild) return el ? el.clientWidth || 1 : 1;
+  const gap = parseFloat(window.getComputedStyle(el).columnGap || "0") || 0;
+  return el.firstElementChild.getBoundingClientRect().width + gap;
+}
+
 function ActionLink({ href, children }) {
   return (
     <a
@@ -64,9 +75,9 @@ function Dots({ count, activeIndex, onSelect }) {
   );
 }
 
-function SelectedWorkSlide({ project, expanded, onToggle }) {
+function SelectedWorkSlide({ project, active, expanded, onToggle }) {
   return (
-    <div className="snap-center shrink-0 w-full px-1" style={{ scrollSnapStop: "always" }}>
+    <div className="snap-center shrink-0" style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
       <div
         role="button"
         tabIndex={0}
@@ -85,6 +96,9 @@ function SelectedWorkSlide({ project, expanded, onToggle }) {
           border: "1px solid rgba(51,47,28,0.18)",
           boxShadow: "6px 7px 0 rgba(51,47,28,0.4)",
           cursor: "pointer",
+          transform: active ? "scale(1)" : "scale(0.86)",
+          opacity: active ? 1 : 0.4,
+          transition: "transform 0.35s ease, opacity 0.35s ease",
         }}
       >
         <div
@@ -201,9 +215,9 @@ function SelectedWorkSlide({ project, expanded, onToggle }) {
   );
 }
 
-function MiniProjectSlide({ project }) {
+function MiniProjectSlide({ project, active }) {
   return (
-    <div className="snap-center shrink-0 w-full px-1" style={{ scrollSnapStop: "always" }}>
+    <div className="snap-center shrink-0" style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
       <div
         className="flex flex-col px-4 py-4"
         style={{
@@ -211,6 +225,9 @@ function MiniProjectSlide({ project }) {
           backgroundColor: "#F2EEE1",
           border: "1px solid rgba(51,47,28,0.18)",
           boxShadow: "4px 5px 0 rgba(51,47,28,0.4)",
+          transform: active ? "scale(1)" : "scale(0.86)",
+          opacity: active ? 1 : 0.4,
+          transition: "transform 0.35s ease, opacity 0.35s ease",
         }}
       >
         <div className="flex items-center gap-4">
@@ -261,7 +278,7 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
   const scrollToIndex = useCallback((index, behavior = "smooth") => {
     const el = scrollRef.current;
     if (!el) return;
-    el.scrollTo({ left: index * el.clientWidth, behavior });
+    el.scrollTo({ left: index * getStep(el), behavior });
   }, []);
 
   function handleTabChange(nextTab) {
@@ -277,8 +294,7 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
   function handleScroll() {
     const el = scrollRef.current;
     if (!el) return;
-    const width = el.clientWidth || 1;
-    const index = Math.round(el.scrollLeft / width);
+    const index = Math.round(el.scrollLeft / getStep(el));
     if (index !== activeIndex) {
       setActiveIndex(index);
       setExpandedTitle(null); // the card that was expanded just scrolled out of view
@@ -313,8 +329,7 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
     el.style.cursor = "grab";
     try { el.releasePointerCapture(e.pointerId); } catch { /* pointer already released */ }
     if (state.moved <= DRAG_CLICK_THRESHOLD) return; // no real movement — this was a click, let onClick handle it
-    const width = el.clientWidth || 1;
-    const index = Math.round(el.scrollLeft / width);
+    const index = Math.round(el.scrollLeft / getStep(el));
     scrollToIndex(index);
     setActiveIndex(index);
     setExpandedTitle(null);
@@ -334,7 +349,9 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
         <LibraryTab label="Mini Projects" active={tab === "mini"} onClick={() => handleTabChange("mini")} />
       </div>
 
-      <div className="w-full max-w-md mx-auto">
+      {/* Full-bleed track: breaks out of the page's px-8 gutters so off-screen
+          cards can peek in at the very edge of the viewport. */}
+      <div className="-mx-8">
         <div
           ref={scrollRef}
           onScroll={handleScroll}
@@ -342,34 +359,35 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
           onPointerMove={onPointerMove}
           onPointerUp={endDrag}
           onPointerLeave={endDrag}
-          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar"
-          style={{ cursor: "grab", alignItems: "start" }}
+          className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4"
+          style={{ cursor: "grab", alignItems: "start", paddingLeft: EDGE_INSET, paddingRight: EDGE_INSET }}
         >
-          {items.map(project =>
+          {items.map((project, i) =>
             tab === "selected" ? (
               <SelectedWorkSlide
                 key={project.title}
                 project={project}
+                active={i === activeIndex}
                 expanded={expandedTitle === project.title}
                 onToggle={handleCardToggle}
               />
             ) : (
-              <MiniProjectSlide key={project.title} project={project} />
+              <MiniProjectSlide key={project.title} project={project} active={i === activeIndex} />
             )
           )}
         </div>
+      </div>
 
-        <div style={chromeStyle}>
-          <Dots
-            count={items.length}
-            activeIndex={activeIndex}
-            onSelect={i => {
-              scrollToIndex(i);
-              setActiveIndex(i);
-              setExpandedTitle(null);
-            }}
-          />
-        </div>
+      <div style={chromeStyle}>
+        <Dots
+          count={items.length}
+          activeIndex={activeIndex}
+          onSelect={i => {
+            scrollToIndex(i);
+            setActiveIndex(i);
+            setExpandedTitle(null);
+          }}
+        />
       </div>
     </div>
   );
