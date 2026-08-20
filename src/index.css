@@ -181,6 +181,28 @@
       4px 5px 0 0 #8BA6A9;
   }
 
+  /* Outlined/muted variant — inactive state for caption-box-styled tabs. */
+  .caption-box--outline {
+    background-color: transparent;
+    color: rgba(51, 47, 28, 0.55);
+    border: 1.5px solid rgba(51, 47, 28, 0.3);
+    box-shadow: none;
+  }
+  .caption-box--outline:hover {
+    color: rgba(51, 47, 28, 0.85);
+    border-color: rgba(51, 47, 28, 0.5);
+  }
+
+  /* Hides the scrollbar on a native-scrolling carousel track while keeping
+     the element scrollable (wheel, touch, and programmatic scrollTo). */
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   .rough-edge {
     filter: url(#rough-edge);
   }

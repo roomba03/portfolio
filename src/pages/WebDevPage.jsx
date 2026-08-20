@@ -3,6 +3,7 @@ import FogWindow from "../components/FogWindow";
 import StarRevealWindow from "../components/StarRevealWindow";
 import Footer from "../components/Footer";
 import InkBleedWord from "../components/InkBleedWord";
+import MiniLibrary from "../components/MiniLibrary";
 // import StampedImage from "../components/StampedImage";
 
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
@@ -40,6 +41,7 @@ const SELECTED_WORK = [
     color: "#D2DAC5",
     badge: "Winner of Most Creative UI/UX",
     description: "A gamified productivity app that pairs task management with platformer gameplay. Built at HackKU26.",
+    role: "Design & Development — HackKU26 (36 hrs)",
     tags: ["Next.js", "Phaser", "Zustand"],
   },
   {
@@ -50,6 +52,7 @@ const SELECTED_WORK = [
     image: "/sidequest.png",
     color: "#A7CECB",
     description: "A campus exploration game with quests, achievements, and a live leaderboard.",
+    role: "Design & Development",
     tags: ["Next.js", "Supabase", "Framer Motion"],
   },
   {
@@ -64,6 +67,7 @@ const SELECTED_WORK = [
       hotspot: { left: "58%", top: "0%", width: "42%", height: "100%" },
     },
     description: "A pixel-art arcade game starring a gnome on a quest of his own. Built at HackKU25.",
+    role: "Design & Development — HackKU25",
     tags: ["Vanilla JS", "Phaser", "Canvas API"],
   },
 ];
@@ -483,30 +487,9 @@ export default function WebDevPage() {
         </section>
         */}
 
-        {/* ── Selected Work (WIP: scrollable "mini library" prototype) ── */}
+        {/* ── Mini Library (WIP: tabbed scroll-snap carousel prototype) ── */}
         <section>
-          <span className="caption-box caption-box--cyan mb-4" style={{ display: "inline-block" }}>
-            Selected Work
-          </span>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4">
-            {SELECTED_WORK.map(project => (
-              <WorkCard key={project.title} project={project} />
-            ))}
-          </div>
-        </section>
-
-        {/* ── Mini Projects ────────────────────────────────── */}
-        <section className="mt-12">
-          <span className="caption-box caption-box--cyan mb-4" style={{ display: "inline-block" }}>
-            Mini Projects
-          </span>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4 max-w-2xl">
-            {MINI_PROJECTS.map(project => (
-              <MiniProjectCard key={project.title} project={project} />
-            ))}
-          </div>
+          <MiniLibrary selectedWork={SELECTED_WORK} miniProjects={MINI_PROJECTS} />
         </section>
 
       </main>
