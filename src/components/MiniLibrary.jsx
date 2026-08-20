@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
@@ -270,10 +270,30 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
   const [tab, setTab] = useState("selected");
   const [activeIndex, setActiveIndex] = useState(0);
   const [expandedTitle, setExpandedTitle] = useState(null);
+  const [trackMinHeight, setTrackMinHeight] = useState(null);
   const scrollRef = useRef(null);
   const dragRef = useRef({ dragging: false, startX: 0, startScroll: 0, moved: 0 });
 
   const items = tab === "selected" ? selectedWork : miniProjects;
+
+  // The Mini Projects track should reserve the same height as the (taller)
+  // Selected Work track rather than shrinking, so it's measured only while
+  // viewing Selected Work in its collapsed state and reused for both tabs.
+  useEffect(() => {
+    if (tab !== "selected" || expandedTitle) return;
+    const el = scrollRef.current;
+    if (!el) return;
+
+    function measure() {
+      const heights = Array.from(el.children).map(child => child.getBoundingClientRect().height);
+      if (heights.length) setTrackMinHeight(Math.max(...heights));
+    }
+
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [tab, expandedTitle]);
 
   const scrollToIndex = useCallback((index, behavior = "smooth") => {
     const el = scrollRef.current;
@@ -360,7 +380,13 @@ export default function MiniLibrary({ selectedWork, miniProjects }) {
           onPointerUp={endDrag}
           onPointerLeave={endDrag}
           className="flex overflow-x-auto snap-x snap-mandatory hide-scrollbar gap-4"
-          style={{ cursor: "grab", alignItems: "start", paddingLeft: EDGE_INSET, paddingRight: EDGE_INSET }}
+          style={{
+            cursor: "grab",
+            alignItems: "center",
+            paddingLeft: EDGE_INSET,
+            paddingRight: EDGE_INSET,
+            minHeight: trackMinHeight || undefined,
+          }}
         >
           {items.map((project, i) =>
             tab === "selected" ? (
