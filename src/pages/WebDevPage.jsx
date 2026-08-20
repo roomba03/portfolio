@@ -64,7 +64,7 @@ const SELECTED_WORK = [
     color: "#CACC90",
     quip: {
       text: "Are you a slave to capitalism?",
-      hotspot: { left: "58%", top: "0%", width: "42%", height: "100%" },
+      hotspot: { left: "58%", top: "25%", width: "42%", height: "75%" },
     },
     description: "A pixel-art arcade game starring a gnome on a quest of his own. Built at HackKU25.",
     role: "Design & Development — HackKU25",

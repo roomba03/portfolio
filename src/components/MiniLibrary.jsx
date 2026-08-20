@@ -75,6 +75,61 @@ function Dots({ count, activeIndex, onSelect }) {
   );
 }
 
+function SpeechHotspot({ text, hotspot, wrap = false }) {
+  const [hover, setHover] = useState(false);
+
+  return (
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{ position: "absolute", ...hotspot }}
+    >
+      <div
+        className="transition-opacity duration-200"
+        style={{
+          position: "absolute", left: "50%", top: "0%",
+          transform: "translate(-50%, calc(-100% - 8px))",
+          opacity: hover ? 1 : 0,
+          pointerEvents: "none",
+        }}
+      >
+        <div
+          style={{
+            position: "relative",
+            backgroundColor: "#F4EBBE",
+            border: "1.5px solid #332F1C",
+            borderRadius: "10px",
+            padding: "3px 10px",
+            fontSize: "11px",
+            fontWeight: 700,
+            fontFamily: MONO_FONT,
+            color: "#000000",
+            whiteSpace: wrap ? "normal" : "nowrap",
+            width: wrap ? "150px" : "auto",
+            textAlign: wrap ? "center" : "left",
+            boxShadow: "2px 2px 0 #8BA6A9",
+          }}
+        >
+          {text}
+          <span
+            style={{
+              position: "absolute",
+              bottom: "-6px",
+              left: "50%",
+              width: "10px",
+              height: "10px",
+              backgroundColor: "#F4EBBE",
+              borderRight: "1.5px solid #332F1C",
+              borderBottom: "1.5px solid #332F1C",
+              transform: "translateX(-50%) rotate(45deg)",
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function SelectedWorkSlide({ project, active, expanded, onToggle }) {
   return (
     <div className="snap-center shrink-0" style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
@@ -107,7 +162,7 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
             height: expanded ? "230px" : "170px",
             backgroundColor: project.color,
             position: "relative",
-            overflow: "hidden",
+            overflow: project.quip ? "visible" : "hidden",
             transition: "height 0.3s ease",
           }}
         >
@@ -144,6 +199,15 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
             >
               {project.badge}
             </span>
+          )}
+          {active && project.hireMe && (
+            <SpeechHotspot
+              text="Hire me!"
+              hotspot={{ left: "61%", top: "39%", width: "24%", height: "61%" }}
+            />
+          )}
+          {active && project.quip && (
+            <SpeechHotspot text={project.quip.text} hotspot={project.quip.hotspot} wrap />
           )}
         </div>
 
