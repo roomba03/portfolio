@@ -238,3 +238,35 @@
   }
 }
 
+/* Visible keyboard-focus indicator for every interactive element — links,
+   buttons, and custom controls (e.g. the carousel dots). Left unlayered so
+   it always wins over Tailwind utilities. */
+:focus-visible {
+  outline: 3px solid #048BA8;
+  outline-offset: 2px;
+}
+
+/* Grows a text link's click/tap target to ~44px tall without changing its
+   visible size — padding expands the hit box, negative margin reclaims the
+   layout space so surrounding spacing is untouched. */
+.hit-area-btn {
+  padding: 14px 10px;
+  margin: -14px -10px;
+}
+
+/* Same goal for small controls with their own visible background (tabs,
+   carousel dots) where padding would visibly enlarge them: an invisible
+   ::before overlay grows only the clickable area, centered on the control. */
+.hit-area-44 {
+  position: relative;
+}
+.hit-area-44::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
+}
+

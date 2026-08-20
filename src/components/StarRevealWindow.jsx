@@ -259,7 +259,7 @@ export default function StarRevealWindow({ layout = "line" }) {
         pointerEvents: "none",
       }}
     >
-      <div role="img" aria-label="Decorative star reveal animation" style={{ width: "100%", height: "100%" }}>
+      <div aria-hidden="true" style={{ width: "100%", height: "100%" }}>
         <canvas
           ref={canvasRef}
           style={{ width: "100%", height: "100%", display: "block", willChange: "transform" }}

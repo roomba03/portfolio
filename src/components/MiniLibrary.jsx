@@ -25,7 +25,7 @@ function ActionLink({ href, children }) {
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors"
+      className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors hit-area-btn"
       style={{ color: "#000000", fontFamily: MONO_FONT, textDecoration: "none" }}
       onMouseEnter={e => (e.currentTarget.style.color = "#048BA8")}
       onMouseLeave={e => (e.currentTarget.style.color = "#000000")}
@@ -40,7 +40,7 @@ function CaseStudyLink({ to, children }) {
   return (
     <Link
       to={to}
-      className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors"
+      className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors hit-area-btn"
       style={{ color: "#000000", fontFamily: MONO_FONT, textDecoration: "none" }}
       onMouseEnter={e => (e.currentTarget.style.color = "#048BA8")}
       onMouseLeave={e => (e.currentTarget.style.color = "#000000")}
@@ -56,7 +56,7 @@ function LibraryTab({ label, active, onClick }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`caption-box caption-box--cyan${active ? "" : " caption-box--outline"}`}
+      className={`caption-box caption-box--cyan hit-area-44${active ? "" : " caption-box--outline"}`}
       style={{ cursor: "pointer" }}
     >
       {label}
@@ -76,16 +76,28 @@ function Dots({ count, activeIndex, onSelect }) {
           aria-current={i === activeIndex}
           onClick={() => onSelect(i)}
           style={{
-            width: i === activeIndex ? "18px" : "6px",
-            height: "6px",
-            borderRadius: "3px",
-            backgroundColor: i === activeIndex ? "#000000" : "rgba(51,47,28,0.25)",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: "24px",
+            height: "24px",
             border: "none",
+            background: "none",
             padding: 0,
             cursor: "pointer",
-            transition: "width 0.2s ease, background-color 0.2s ease",
           }}
-        />
+        >
+          <span
+            style={{
+              display: "block",
+              width: i === activeIndex ? "18px" : "6px",
+              height: "6px",
+              borderRadius: "3px",
+              backgroundColor: i === activeIndex ? "#000000" : "rgba(51,47,28,0.25)",
+              transition: "width 0.2s ease, background-color 0.2s ease",
+            }}
+          />
+        </button>
       ))}
     </div>
   );
@@ -246,12 +258,12 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
               ▾
             </span>
           </div>
-          <h3
+          <h2
             className="mt-1 mb-3"
             style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.4rem", lineHeight: 1.1, color: "#000000" }}
           >
             {project.title}
-          </h3>
+          </h2>
           {project.description && (
             <p className="text-[13px] leading-[1.5] mb-3" style={{ fontFamily: SANS_FONT, fontWeight: 400, color: MUTED }}>
               {project.description}
@@ -332,9 +344,9 @@ function MiniProjectSlide({ project, active }) {
             )}
           </span>
           <div className="flex-1">
-            <h3 style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1rem", lineHeight: 1, color: "#000000" }}>
+            <h2 style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1rem", lineHeight: 1, color: "#000000" }}>
               {project.title}
-            </h3>
+            </h2>
             <p className="text-[11px] mt-1" style={{ fontFamily: MONO_FONT, color: MUTED }}>
               {project.subtitle}
             </p>

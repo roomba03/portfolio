@@ -33,6 +33,7 @@ export default function PortfolioPage() {
     >
       {/* ── Hero ─────────────────────────────────────────── */}
       <div className="w-full min-h-screen px-8 md:px-16 flex flex-col items-start justify-center text-left" style={{ position: "relative", overflowX: "hidden", overflowY: "visible" }}>
+        <header>
         <span
           className="text-[15px]"
           style={{ position: "absolute", top: "2rem", left: "2rem", fontFamily: "'Lao MN', sans-serif", fontWeight: 700, color: "#000000" }}
@@ -82,7 +83,8 @@ export default function PortfolioPage() {
           </div>
         </span>
 
-        <div
+        <nav
+          aria-label="Social links"
           className="flex items-center gap-6 text-[12px] uppercase tracking-[0.05em]"
           style={{ position: "absolute", top: "2rem", right: "2rem", color: "#000000", fontFamily: MONO_FONT }}
         >
@@ -90,7 +92,7 @@ export default function PortfolioPage() {
             href="https://www.linkedin.com/in/reem-fatima-856288238/"
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-all"
+            className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
             onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
@@ -101,7 +103,7 @@ export default function PortfolioPage() {
             href="https://github.com/roomba03"
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-all"
+            className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
             onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
@@ -110,14 +112,15 @@ export default function PortfolioPage() {
           </a>
           <a
             href="mailto:reemfatima1@gmail.com"
-            className="transition-all"
+            className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
             onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
           >
             Email
           </a>
-        </div>
+        </nav>
+        </header>
 
         {/* halftone field bleeding off the right edge — temporarily disabled
         <div
