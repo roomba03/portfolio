@@ -469,17 +469,25 @@ export default function WebDevPage() {
 
       <main className="flex-1 w-full min-h-screen px-8 pb-4 flex flex-col justify-center">
 
-        {/* ── Selected Work ────────────────────────────────── */}
+        {/* ── Selected Work (original — kept for reference, not rendered) ──
         <section>
           <span className="caption-box caption-box--cyan mb-4" style={{ display: "inline-block" }}>
             Selected Work
           </span>
 
-          {/*
-          <div style={{ width: 220, height: 55 }}>
-            <StarRevealWindow />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4">
+            {SELECTED_WORK.map(project => (
+              <WorkCard key={project.title} project={project} />
+            ))}
           </div>
-          */}
+        </section>
+        */}
+
+        {/* ── Selected Work (WIP: scrollable "mini library" prototype) ── */}
+        <section>
+          <span className="caption-box caption-box--cyan mb-4" style={{ display: "inline-block" }}>
+            Selected Work
+          </span>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-4">
             {SELECTED_WORK.map(project => (
