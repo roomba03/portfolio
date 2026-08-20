@@ -67,6 +67,17 @@ const SELECTED_WORK = [
     role: "Design & Development — HackKU25",
     tags: ["Vanilla JS", "Phaser", "Canvas API"],
   },
+  {
+    number: "04",
+    title: "Two Dish",
+    href: "https://two-dish.vercel.app/",
+    github: "https://github.com/roomba03/Two_Dish",
+    image: "/two-dish.png",
+    color: "#B8A9C9",
+    description: "A catering ordering site for a small Hyderabadi kitchen, built around a day-by-day weekly menu and a live delivery-zone checker.",
+    role: "Design & Development — Client Project",
+    tags: ["Next.js", "Leaflet", "Client Work"],
+  },
 ];
 
 const MINI_PROJECTS = [

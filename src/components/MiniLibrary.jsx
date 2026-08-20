@@ -447,6 +447,7 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
 
   function onPointerDown(e) {
     if (e.pointerType === "touch") return; // native touch scrolling already handles swipe
+    if (e.target.closest("a")) return; // let link clicks fire natively instead of capturing the pointer
     const el = scrollRef.current;
     if (!el) return;
     dragRef.current = { dragging: true, startX: e.clientX, startScroll: el.scrollLeft, moved: 0 };
