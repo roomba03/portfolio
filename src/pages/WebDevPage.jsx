@@ -467,7 +467,7 @@ export default function WebDevPage() {
         */}
       </div>
 
-      <main className="flex-1 w-full px-8 pb-4">
+      <main className="flex-1 w-full min-h-screen px-8 pb-4 flex flex-col justify-center">
 
         {/* ── Selected Work ────────────────────────────────── */}
         <section>
