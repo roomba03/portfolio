@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import FogWindow from "../components/FogWindow";
 import StarRevealWindow from "../components/StarRevealWindow";
 import Footer from "../components/Footer";
@@ -324,6 +324,35 @@ function MiniProjectCard({ project }) {
 
 export default function WebDevPage() {
   const [nameHover, setNameHover] = useState(false);
+  const heroRef = useRef(null);
+
+  // Snaps the hero <-> Mini Library transition to the viewport, so a scroll
+  // down from the hero lands with the library filling the screen instead of
+  // stopping mid-transition. Implemented as a manual "settle" check rather
+  // than native CSS scroll-snap-type, which proved unpredictable here (small
+  // scrolls sometimes wouldn't release in either direction). This only acts
+  // within the single hero-to-library transition zone; everything past the
+  // library (footer) scrolls completely unmodified.
+  useEffect(() => {
+    let settleTimer = null;
+
+    function handleScroll() {
+      clearTimeout(settleTimer);
+      settleTimer = setTimeout(() => {
+        const heroHeight = heroRef.current?.offsetHeight;
+        if (!heroHeight) return;
+        const y = window.scrollY;
+        if (y <= 0 || y >= heroHeight) return; // already settled, or past the transition zone
+        window.scrollTo({ top: y > heroHeight / 2 ? heroHeight : 0, behavior: "smooth" });
+      }, 120);
+    }
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearTimeout(settleTimer);
+    };
+  }, []);
 
   return (
     <div
@@ -331,7 +360,7 @@ export default function WebDevPage() {
       style={{ position: "relative", zIndex: 1 }}
     >
       {/* ── Hero ─────────────────────────────────────────── */}
-      <div className="w-full min-h-screen px-8 md:px-16 flex flex-col items-start justify-center text-left" style={{ position: "relative", overflowX: "hidden", overflowY: "visible" }}>
+      <div ref={heroRef} className="w-full min-h-screen px-8 md:px-16 flex flex-col items-start justify-center text-left" style={{ position: "relative" }}>
         <span
           className="text-[15px]"
           style={{ position: "absolute", top: "2rem", left: "2rem", fontFamily: "'Lao MN', sans-serif", fontWeight: 700, color: "#000000" }}
