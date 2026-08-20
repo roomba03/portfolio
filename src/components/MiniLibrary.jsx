@@ -288,7 +288,7 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
             ))}
           </div>
           <div className="flex flex-wrap gap-4" onClick={e => e.stopPropagation()}>
-            <ActionLink href={project.href}>Visit site ↗</ActionLink>
+            {project.href && <ActionLink href={project.href}>Visit site ↗</ActionLink>}
             {project.github && <ActionLink href={project.github}>GitHub ↗</ActionLink>}
             {project.caseStudyHref && <CaseStudyLink to={project.caseStudyHref}>Case study →</CaseStudyLink>}
           </div>

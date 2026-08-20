@@ -12,8 +12,6 @@ const SELECTED_WORK = [
   {
     number: "01",
     title: "Busy Bunny",
-    href: "https://buns-green.vercel.app/",
-    github: "https://github.com/roomba03/busy_bunny",
     caseStudyHref: "/work/busy-bunny",
     image: "/busy-bunny-main.png",
     hireMe: true,
