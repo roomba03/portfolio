@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
@@ -31,6 +32,21 @@ function ActionLink({ href, children }) {
     >
       {children}
     </a>
+  );
+}
+
+// Same look as ActionLink, but an internal route (no target=_blank/rel).
+function CaseStudyLink({ to, children }) {
+  return (
+    <Link
+      to={to}
+      className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors"
+      style={{ color: "#000000", fontFamily: MONO_FONT, textDecoration: "none" }}
+      onMouseEnter={e => (e.currentTarget.style.color = "#048BA8")}
+      onMouseLeave={e => (e.currentTarget.style.color = "#000000")}
+    >
+      {children}
+    </Link>
   );
 }
 
@@ -274,6 +290,7 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
           <div className="flex flex-wrap gap-4" onClick={e => e.stopPropagation()}>
             <ActionLink href={project.href}>Visit site ↗</ActionLink>
             {project.github && <ActionLink href={project.github}>GitHub ↗</ActionLink>}
+            {project.caseStudyHref && <CaseStudyLink to={project.caseStudyHref}>Case study →</CaseStudyLink>}
           </div>
         </div>
       </div>
