@@ -206,9 +206,11 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
               hotspot={{ left: "61%", top: "39%", width: "24%", height: "61%" }}
             />
           )}
+          {/*
           {active && project.quip && (
             <SpeechHotspot text={project.quip.text} hotspot={project.quip.hotspot} wrap />
           )}
+          */}
         </div>
 
         <div className="px-5 pt-4 pb-5">
