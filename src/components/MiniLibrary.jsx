@@ -160,7 +160,7 @@ function SpeechHotspot({ text, hotspot, wrap = false }) {
 
 function SelectedWorkSlide({ project, active, expanded, onToggle }) {
   return (
-    <div className="snap-center shrink-0" style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
+    <div className="snap-center shrink-0" inert={!active} style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
       <div
         role="button"
         tabIndex={0}
@@ -312,7 +312,7 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
 
 function MiniProjectSlide({ project, active }) {
   return (
-    <div className="snap-center shrink-0" style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
+    <div className="snap-center shrink-0" inert={!active} style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
       <div
         className="flex flex-col px-4 py-4"
         style={{
@@ -366,7 +366,7 @@ function MiniProjectSlide({ project, active }) {
 // coming" rather than the carousel just running out.
 function MoreToComeSlide({ active }) {
   return (
-    <div className="snap-center shrink-0" style={{ width: CARD_WIDTH, scrollSnapStop: "always", alignSelf: "stretch" }}>
+    <div className="snap-center shrink-0" inert={!active} style={{ width: CARD_WIDTH, scrollSnapStop: "always", alignSelf: "stretch" }}>
       <div
         className="flex flex-col items-center justify-center text-center px-6 py-14 h-full"
         style={{
