@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
 const SANS_FONT = "'Fredoka', sans-serif";
-const MUTED = "rgba(51,47,28,0.55)";
+const MUTED = "rgba(51,47,28,0.7)";
 
 const DRAG_CLICK_THRESHOLD = 6; // px of pointer movement before a drag suppresses the click
 
@@ -67,7 +67,7 @@ function LibraryTab({ label, active, onClick }) {
 function Dots({ count, activeIndex, onSelect }) {
   if (count <= 1) return null;
   return (
-    <div className="flex items-center justify-center gap-2 mt-4" role="tablist" aria-label="Card position">
+    <div className="flex items-center justify-center gap-2 mt-4" role="group" aria-label="Card position">
       {Array.from({ length: count }).map((_, i) => (
         <button
           key={i}
