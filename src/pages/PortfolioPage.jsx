@@ -4,8 +4,10 @@ import StarRevealWindow from "../components/StarRevealWindow";
 import Footer from "../components/Footer";
 import InkBleedWord from "../components/InkBleedWord";
 import MiniLibrary from "../components/MiniLibrary";
+import useCopyEmail from "../hooks/useCopyEmail";
 // import StampedImage from "../components/StampedImage";
 
+const EMAIL = "reemfatima1@gmail.com";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
 
 const SELECTED_WORK = [
@@ -25,6 +27,7 @@ const SELECTED_WORK = [
 
 export default function PortfolioPage() {
   const [nameHover, setNameHover] = useState(false);
+  const { copied: emailCopied, handleClick: handleEmailClick } = useCopyEmail(EMAIL);
 
   return (
     <div
@@ -111,13 +114,15 @@ export default function PortfolioPage() {
             GitHub
           </a>
           <a
-            href="mailto:reemfatima1@gmail.com"
+            href={`mailto:${EMAIL}`}
             className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
             onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
+            onClick={handleEmailClick}
+            aria-live="polite"
           >
-            Email
+            {emailCopied ? "Copied!" : "Email"}
           </a>
         </nav>
         </header>
