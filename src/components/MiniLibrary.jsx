@@ -10,6 +10,7 @@ const DRAG_CLICK_THRESHOLD = 6; // px of pointer movement before a drag suppress
 
 const CARD_WIDTH = "min(420px, 78vw)"; // active-card width; the rest of the full-bleed track is peek space
 const EDGE_INSET = `calc(50% - (${CARD_WIDTH}) / 2)`; // side padding that centers the first/last card
+const SHADOW_CLEARANCE = 24; // extra track height so the tallest card's own box-shadow isn't clipped by the track's forced overflow-y
 
 // Measures the live per-slide scroll step (slide width + gap) instead of assuming
 // one slide == the container width, since slides no longer fill the track.
@@ -32,21 +33,6 @@ function ActionLink({ href, children }) {
     >
       {children}
     </a>
-  );
-}
-
-// Same look as ActionLink, but an internal route (no target=_blank/rel).
-function CaseStudyLink({ to, children }) {
-  return (
-    <Link
-      to={to}
-      className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] transition-colors hit-area-btn"
-      style={{ color: "#000000", fontFamily: MONO_FONT, textDecoration: "none" }}
-      onMouseEnter={e => (e.currentTarget.style.color = "#048BA8")}
-      onMouseLeave={e => (e.currentTarget.style.color = "#000000")}
-    >
-      {children}
-    </Link>
   );
 }
 
@@ -158,92 +144,73 @@ function SpeechHotspot({ text, hotspot, wrap = false }) {
   );
 }
 
+// Cards that carry a caseStudyHref are a single click target — the whole
+// tile is a Link to the case study, so there's nothing left to toggle open.
+// Visit site / GitHub move into the case study page itself; cards without
+// a case study (the web-dev page's set) keep the original expand-in-place
+// behavior with those links on the tile.
 function SelectedWorkSlide({ project, active, expanded, onToggle }) {
-  return (
-    <div className="snap-center shrink-0" inert={!active} style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
+  const hasCaseStudy = Boolean(project.caseStudyHref);
+  const imageHeight = !hasCaseStudy && expanded ? "230px" : "170px";
+
+  const cardBody = (
+    <>
       <div
-        role="button"
-        tabIndex={0}
-        aria-expanded={expanded}
-        onClick={() => onToggle(project.title)}
-        onKeyDown={e => {
-          if (e.key === "Enter" || e.key === " ") {
-            e.preventDefault();
-            onToggle(project.title);
-          }
-        }}
-        className="block group"
+        className={project.image ? "halftone" : "flex items-center justify-center"}
         style={{
+          height: imageHeight,
+          backgroundColor: project.color,
           position: "relative",
-          backgroundColor: "#F2EEE1",
-          border: "1px solid rgba(51,47,28,0.18)",
-          boxShadow: "6px 7px 0 rgba(51,47,28,0.4)",
-          cursor: "pointer",
-          transform: active ? "scale(1)" : "scale(0.86)",
-          opacity: active ? 1 : 0.4,
-          transition: "transform 0.35s ease, opacity 0.35s ease",
+          overflow: project.quip ? "visible" : "hidden",
+          transition: "height 0.3s ease",
         }}
       >
-        <div
-          className={project.image ? "halftone" : "flex items-center justify-center"}
-          style={{
-            height: expanded ? "230px" : "170px",
-            backgroundColor: project.color,
-            position: "relative",
-            overflow: project.quip ? "visible" : "hidden",
-            transition: "height 0.3s ease",
-          }}
-        >
-          {project.image ? (
-            <img
-              src={project.image}
-              alt={`${project.title} screenshot`}
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                objectPosition: "top",
-                display: "block",
-                filter: "contrast(1.05) saturate(0.92)",
-              }}
-            />
-          ) : (
-            <span style={{ fontSize: "2.75rem" }}>{project.emoji}</span>
-          )}
-          {project.badge && (
-            <span
-              className="text-[9px] font-bold uppercase tracking-[0.04em]"
-              style={{
-                position: "absolute",
-                bottom: "0",
-                right: "8px",
-                whiteSpace: "nowrap",
-                backgroundColor: "#000000",
-                color: "#F4EBBE",
-                padding: "5px 8px",
-                fontFamily: MONO_FONT,
-                boxShadow: "2px 2px 0 #8BA6A9",
-              }}
-            >
-              {project.badge}
-            </span>
-          )}
-          {active && project.hireMe && (
-            <SpeechHotspot
-              text="Hire me!"
-              hotspot={{ left: "61%", top: "39%", width: "24%", height: "61%" }}
-            />
-          )}
-          {/*
-          {active && project.quip && (
-            <SpeechHotspot text={project.quip.text} hotspot={project.quip.hotspot} wrap />
-          )}
-          */}
-        </div>
+        {project.image ? (
+          <img
+            src={project.image}
+            alt={`${project.title} screenshot`}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "top",
+              display: "block",
+              filter: "contrast(1.05) saturate(0.92)",
+            }}
+          />
+        ) : (
+          <span style={{ fontSize: "2.75rem" }}>{project.emoji}</span>
+        )}
+        {project.badge && (
+          <span
+            className="text-[9px] font-bold uppercase tracking-[0.04em]"
+            style={{
+              position: "absolute",
+              bottom: "0",
+              right: "8px",
+              whiteSpace: "nowrap",
+              backgroundColor: "#000000",
+              color: "#F4EBBE",
+              padding: "5px 8px",
+              fontFamily: MONO_FONT,
+              boxShadow: "2px 2px 0 #8BA6A9",
+            }}
+          >
+            {project.badge}
+          </span>
+        )}
+        {active && project.hireMe && (
+          <SpeechHotspot
+            text="Hire me!"
+            hotspot={{ left: "61%", top: "39%", width: "24%", height: "61%" }}
+          />
+        )}
+      </div>
 
-        <div className="px-5 pt-4 pb-5">
-          <div className="flex items-center justify-between">
-            <span className="text-[11px]" style={{ fontFamily: MONO_FONT, color: MUTED }}>{project.number}</span>
+      <div className="px-5 pt-4 pb-5">
+        <div className="flex items-center justify-between">
+          <span className="text-[11px]" style={{ fontFamily: MONO_FONT, color: MUTED }}>{project.number}</span>
+          {!hasCaseStudy && (
             <span
               aria-hidden="true"
               className="text-[10px]"
@@ -257,19 +224,21 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
             >
               ▾
             </span>
-          </div>
-          <h2
-            className="mt-1 mb-3"
-            style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.4rem", lineHeight: 1.1, color: "#000000" }}
-          >
-            {project.title}
-          </h2>
-          {project.description && (
-            <p className="text-[13px] leading-[1.5] mb-3" style={{ fontFamily: SANS_FONT, fontWeight: 400, color: MUTED }}>
-              {project.description}
-            </p>
           )}
+        </div>
+        <h2
+          className="mt-1 mb-3"
+          style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.4rem", lineHeight: 1.1, color: "#000000" }}
+        >
+          {project.title}
+        </h2>
+        {project.description && (
+          <p className="text-[13px] leading-[1.5] mb-3" style={{ fontFamily: SANS_FONT, fontWeight: 400, color: MUTED }}>
+            {project.description}
+          </p>
+        )}
 
+        {!hasCaseStudy && (
           <div style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.3s ease" }}>
             <div style={{ overflow: "hidden", minHeight: 0 }}>
               <div style={{ opacity: expanded ? 1 : 0, transition: "opacity 0.25s ease 0.05s", paddingBottom: "12px" }}>
@@ -282,30 +251,107 @@ function SelectedWorkSlide({ project, active, expanded, onToggle }) {
               </div>
             </div>
           </div>
+        )}
 
-          <div className="flex flex-wrap gap-2 mb-4">
-            {project.tags.map(tag => (
-              <span
-                key={tag}
-                className="text-[11px]"
-                style={{
-                  fontFamily: MONO_FONT,
-                  color: "#000000",
-                  border: "1px solid rgba(51,47,28,0.3)",
-                  padding: "3px 11px",
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tags.map(tag => (
+            <span
+              key={tag}
+              className="text-[11px]"
+              style={{
+                fontFamily: MONO_FONT,
+                color: "#000000",
+                border: "1px solid rgba(51,47,28,0.3)",
+                padding: "3px 11px",
+              }}
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+
+        {hasCaseStudy ? (
+          // Decorative label, not a nested link — the whole tile already is one.
+          // Still picks up the site's usual link-hover blue via the parent
+          // Link's "group" class, so hovering anywhere on the tile colors it.
+          <span
+            className="inline-flex items-center gap-1.5 text-[12px] uppercase tracking-[0.05em] text-black transition-colors group-hover:text-[#048BA8]"
+            style={{ fontFamily: MONO_FONT }}
+          >
+            Case study →
+          </span>
+        ) : (
           <div className="flex flex-wrap gap-4" onClick={e => e.stopPropagation()}>
             {project.href && <ActionLink href={project.href}>Visit site ↗</ActionLink>}
             {project.github && <ActionLink href={project.github}>GitHub ↗</ActionLink>}
-            {project.caseStudyHref && <CaseStudyLink to={project.caseStudyHref}>Case study →</CaseStudyLink>}
           </div>
-        </div>
+        )}
       </div>
+    </>
+  );
+
+  // The card's own opacity (dimmed to 0.4 for peek cards) multiplies with the
+  // shadow's own alpha as the browser composites the whole element, so a
+  // peek card's shadow was rendering at an almost-invisible 0.4 × 0.4 = 0.16
+  // instead of the active card's 0.4. Boost the shadow's alpha for inactive
+  // cards so it still reads at the same visible strength once dimmed.
+  const cardStyle = {
+    position: "relative",
+    display: "block",
+    backgroundColor: "#F2EEE1",
+    border: "1px solid rgba(51,47,28,0.18)",
+    boxShadow: active ? "6px 7px 0 rgba(51,47,28,0.4)" : "6px 7px 0 rgba(51,47,28,1)",
+    cursor: "pointer",
+    textDecoration: "none",
+    transform: active ? "scale(1)" : "scale(0.86)",
+    opacity: active ? 1 : 0.4,
+    transition: "transform 0.35s ease, opacity 0.35s ease, box-shadow 0.2s ease",
+  };
+
+  return (
+    <div className="snap-center shrink-0" inert={!active} style={{ width: CARD_WIDTH, scrollSnapStop: "always" }}>
+      {hasCaseStudy ? (
+        <Link
+          to={project.caseStudyHref}
+          className="block group"
+          style={cardStyle}
+          onMouseEnter={e => {
+            if (!active) return; // peek cards are inert — no hover affordance to give
+            e.currentTarget.style.transform = "translateY(-6px)";
+            e.currentTarget.style.boxShadow = "8px 9px 0 rgba(51,47,28,0.4)";
+          }}
+          onMouseLeave={e => {
+            // Must match cardStyle's active-aware alpha compensation below —
+            // if the carousel advances while this card is still hovered
+            // (active flips to false before the leave event fires), a
+            // hardcoded 0.4 alpha here would compound with the card's own
+            // 0.4 opacity and the shadow would render as good as invisible.
+            e.currentTarget.style.transform = active ? "scale(1)" : "scale(0.86)";
+            e.currentTarget.style.boxShadow = active
+              ? "6px 7px 0 rgba(51,47,28,0.4)"
+              : "6px 7px 0 rgba(51,47,28,1)";
+          }}
+        >
+          {cardBody}
+        </Link>
+      ) : (
+        <div
+          role="button"
+          tabIndex={0}
+          aria-expanded={expanded}
+          onClick={() => onToggle(project.title)}
+          onKeyDown={e => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              onToggle(project.title);
+            }
+          }}
+          className="block group"
+          style={cardStyle}
+        >
+          {cardBody}
+        </div>
+      )}
     </div>
   );
 }
@@ -319,7 +365,10 @@ function MiniProjectSlide({ project, active }) {
           position: "relative",
           backgroundColor: "#F2EEE1",
           border: "1px solid rgba(51,47,28,0.18)",
-          boxShadow: "4px 5px 0 rgba(51,47,28,0.4)",
+          // Same alpha-compensation as SelectedWorkSlide: the element's own
+          // opacity multiplies with the shadow's, so peek cards need a
+          // stronger base alpha to end up visually matching the active card.
+          boxShadow: active ? "4px 5px 0 rgba(51,47,28,0.4)" : "4px 5px 0 rgba(51,47,28,1)",
           transform: active ? "scale(1)" : "scale(0.86)",
           opacity: active ? 1 : 0.4,
           transition: "transform 0.35s ease, opacity 0.35s ease",
@@ -417,8 +466,25 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
     if (!el) return;
 
     function measure() {
-      const heights = Array.from(el.children).map(child => child.getBoundingClientRect().height);
-      if (heights.length) setTrackMinHeight(Math.max(...heights));
+      // getBoundingClientRect() only measures the card's border box — box-shadow
+      // is a paint effect outside that box, so it isn't included here. The track
+      // clips vertically (overflow-x: auto forces overflow-y: auto too) and
+      // centers each card within trackMinHeight, so whichever card is the
+      // tallest ends up with zero room below it for its own shadow to render
+      // into, while shorter cards get some by accident. Pad the measured max
+      // by SHADOW_CLEARANCE so every card — including the tallest — keeps
+      // enough headroom for its resting and hover shadows either way.
+      //
+      // The "More to come" placeholder uses alignSelf: stretch to match
+      // whatever height the track ends up with, rather than having a height
+      // of its own — it must be excluded here. Including it turned this into
+      // a runaway ResizeObserver loop: its stretched height feeds back in as
+      // a new "tallest card", which (once padded) grows the track again,
+      // which stretches it further, forever.
+      const heights = Array.from(el.children)
+        .filter(child => child.style.alignSelf !== "stretch")
+        .map(child => child.getBoundingClientRect().height);
+      if (heights.length) setTrackMinHeight(Math.max(...heights) + SHADOW_CLEARANCE);
     }
 
     measure();

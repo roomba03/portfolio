@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import BusyBunnyPage from "./pages/BusyBunnyPage";
+import TwoDishPage from "./pages/TwoDishPage";
+import PortfolioSitePage from "./pages/PortfolioSitePage";
 import PortfolioPage from "./pages/PortfolioPage";
 import WebDevPage from "./pages/WebDevPage";
 import LoadingScreen from "./components/LoadingScreen";
@@ -74,6 +76,8 @@ export default function App() {
         <Route path="/portfolio" element={<PortfolioPage />} />
         <Route path="/web-dev" element={<WebDevPage />} />
         <Route path="/work/busy-bunny" element={<BusyBunnyPage />} />
+        <Route path="/work/two-dish" element={<TwoDishPage />} />
+        <Route path="/work/portfolio-site" element={<PortfolioSitePage />} />
         <Route path="*" element={<Navigate to={DEFAULT_ROUTE} replace />} />
       </Routes>
     </BrowserRouter>
