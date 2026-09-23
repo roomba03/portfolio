@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ImagePlaceholder from "../components/ImagePlaceholder";
 import Footer from "../components/Footer";
 
 const ACCENT = "#75979A";
@@ -343,18 +342,18 @@ export default function BusyBunnyPage() {
             {[
               {
                 number: "01",
-                title: "Productivity as a Living System",
-                body: "Each task contributes to a dynamic system rather than a static checklist. Completing tasks generates rewards, while neglecting tasks affects the system state over time — reframing productivity as something the user participates in.",
+                title: "Rewards You Can't Lose",
+                body: "Streaks wipe out weeks of progress over one bad day, which is exactly when people quit. We used carrots instead. Each finished task earns carrots you spend on playtime, and nothing you've earned gets taken away.",
               },
               {
                 number: "02",
-                title: "Emotional Feedback Instead of Punishment",
-                body: "The game world reflects user behavior. Completed tasks generate 'carrots', progress advances the player experience, and neglected tasks gradually shift the environment state — creating awareness without shame-based mechanics.",
+                title: "Showing Neglect Without Shaming It",
+                body: "We didn't want red warnings or lost progress. Instead, the environment changes when tasks go untouched. We considered adding penalties but rejected them because we don't want to take away or punish the user for not finishing a task.",
               },
               {
                 number: "03",
-                title: "Environmental Storytelling",
-                body: "Rather than showing failure through explicit messages, the system communicates through environmental change: visual tone shifts, increased chaos in the environment, and the bunny's emotional state reflecting user consistency.",
+                title: "Breaks You Earn",
+                body: "Breaks usually turn into untracked scrolling. Making playtime the reward gives the break a clear start and end, and it's tied to something you actually finished.",
               },
               {
                 number: "04",
@@ -374,9 +373,21 @@ export default function BusyBunnyPage() {
               </Card>
             ))}
           </div>
+          <div className="mt-4">
+            <Prose>
+              A fair question is whether a sad bunny is just a softer guilt trip. The difference we
+              aimed for is that the change is ambient and fully reversible: finish one task and the
+              world starts recovering. Whether that actually feels different to users over time is
+              something we didn't get to test.
+            </Prose>
+          </div>
         </section>
 
-        <ImagePlaceholder label="Core interaction flows / UI screens" />
+        <Sketch
+          src="/busy-bunny-flow.png"
+          alt="Core interaction flow: starting screen, user adds a task, complete the task to receive a carrot, then play the game. If the task is incomplete, gameplay is denied and the user is sent back to finish it."
+          label="Fig. 05 — Core interaction flow"
+        />
 
         {/* Research Insights */}
         <Card>
@@ -403,42 +414,24 @@ export default function BusyBunnyPage() {
           <Prose>
             Busy Bunny was successfully built as a functional MVP during a 36-hour hackathon
             sprint and received the{" "}
-            <span className="font-bold" style={{ color: ACCENT }}>Most Creative UI/UX award at HackKU26</span>.
+            <span className="font-bold" style={{ color: ACCENT }}>Most Creative UI/UX award at HackKU26</span>, out of 241 participants.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-            Despite its short development time, the project demonstrated that:
+            What we couldn't test in a weekend is whether the loop keeps people engaged over
+            weeks, which is the question the project really raises.
           </p>
-          <ul className="mt-4 space-y-2">
-            {[
-              "Productivity systems can be emotionally engaging",
-              "Gamification can go beyond streak mechanics",
-              "Behavioral feedback systems increase user awareness without requiring punishment",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3 leading-[1.7] text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-                <Bullet />
-                {item}
-              </li>
-            ))}
-          </ul>
         </Card>
-
-        <ImagePlaceholder label="Final UI — task view + game world" />
 
         {/* Reflection */}
         <Card>
           <SectionHeading>Reflection</SectionHeading>
           <Prose>
-            This project shifted my perspective on productivity design. I originally approached
-            it as a motivation problem — how to make users "do more." But through design and
-            iteration, it became clear that the real challenge is emotional: users don't lack
-            systems. They lack systems that respond to their behavior in a meaningful,
-            non-punitive way.
+            The biggest tension I'd work on next is that Busy Bunny still runs on extrinsic
+            rewards. Carrots work in the short term, but external rewards can crowd out a person's
+            own reasons for doing something. The next version would need to shift from rewarding
+            tasks to reflecting progress back to the user, so the motivation eventually comes from
+            them instead of the game.
           </Prose>
-          <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-            If extended further, I would explore long-term progression systems, deeper
-            personalization of the game world, more nuanced emotional states beyond binary
-            success/failure, and reduced reliance on extrinsic rewards toward intrinsic motivation.
-          </p>
           <blockquote className="mt-6 pl-5 border-l-2" style={{ borderColor: "#332F1C" }}>
             <p className="italic leading-[1.7] text-[16px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
               How do we design systems that reflect human behavior without shaming it?
