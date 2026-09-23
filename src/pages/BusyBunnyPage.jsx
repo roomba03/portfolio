@@ -86,7 +86,7 @@ function Bullet() {
 
 function Sketch({ src, alt, label, className = "", style }) {
   return (
-    <div className={`halftone ${className}`} style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)", ...style }}>
+    <div className={`halftone ${className}`} style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000", ...style }}>
       <img src={src} alt={alt} className="w-full" style={{ display: "block" }} />
       <span style={{ position: "absolute", bottom: "12px", left: "12px", right: "12px" }}>
         <Tag>{label}</Tag>
@@ -131,7 +131,7 @@ function FigCaption({ number, stacked = false, children }) {
 // Moods as rows, poses as columns: the pink drains out of the bunny as you read down.
 function MoodGrid({ className = "" }) {
   return (
-    <figure className={`p-5 sm:p-6 ${className}`} style={{ border: "1px solid rgba(51,47,28,0.16)" }}>
+    <figure className={`p-5 sm:p-6 ${className}`} style={{ border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
       <div
         className="grid items-center gap-x-2 gap-y-1"
         style={{ gridTemplateColumns: "auto repeat(3, minmax(0, 1fr))" }}
@@ -172,7 +172,7 @@ function HoppenheimerFigure() {
   return (
     <figure
       className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8"
-      style={{ border: "1px solid rgba(51,47,28,0.16)" }}
+      style={{ border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}
     >
       <img
         src="/busy-bunny-moods/hoppenheimer.png"
@@ -278,7 +278,7 @@ export default function BusyBunnyPage() {
           </div>
         </Card>
 
-        <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+        <div className="halftone" style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
           <img
             src="/busy-bunny-main.png"
             alt="Busy Bunny app: task list on the left, bunny companion on the right"
@@ -459,8 +459,8 @@ export default function BusyBunnyPage() {
               },
               {
                 number: "02",
-                title: "Showing Neglect Without Shaming It",
-                body: "We didn't want red warnings or lost progress. Instead, Anya reacts. One overdue task makes her annoyed, three make her unhinged, and her color drains from pink to gray along the way. We rejected penalties because they trigger the avoidance we were designing against: people stop opening apps that punish them.",
+                title: "Feedback Without Shame",
+                body: "We didn't want red warnings or lost progress. Instead, Anya reacts. One overdue task makes her annoyed, three make her unhinged, and her color drains from pink to gray along the way. Anya's mood is the app's feedback system, so falling behind is something you see, not something you're told. We rejected penalties because they trigger the avoidance we were designing against: people stop opening apps that punish them.",
               },
               {
                 number: "03",

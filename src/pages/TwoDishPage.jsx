@@ -128,7 +128,7 @@ export default function TwoDishPage() {
           </div>
         </Card>
 
-        <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+        <div className="halftone" style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
           <img
             src="/two-dish.png"
             alt="Two Dish homepage: gold pan line-art mark and wordmark on a deep plum ground, above the kitchen's one-dish-a-day explanation"
@@ -264,6 +264,10 @@ export default function TwoDishPage() {
             ))}
           </ul>
           <p className="leading-[1.8] mt-5 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+            Every limit became either feedforward, shown before the customer acts, or a
+            constraint, built in so the wrong action isn't possible.
+          </p>
+          <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             That produced two surfaces designed together rather than in sequence: a storefront
             built around a seven-day schedule, and a cook dashboard where the schedule, the
             headcount, the ingredient math, and the delivery boundary are all editable by the
@@ -306,8 +310,8 @@ export default function TwoDishPage() {
               },
               {
                 number: "04",
-                title: "One Accent Doing All the Work",
-                body: "The system landed on two tones and nothing else: ivory carrying every surface and every line of text, amber-gold reserved for headings, prices, links, active states, and the single primary action per view. Hairline borders separate cards from the ground instead of a second fill. Anything that would normally claim its own color earns hierarchy from type and spacing instead.",
+                title: "Gold as a Signifier",
+                body: "On the plum ground, the system landed on two tones and nothing else: ivory for body text and everyday UI, and amber-gold for what matters most on each screen, like headings, dish names, prices, and links. Gold's strongest job is the single primary action per view, a solid gold button, so customers always know where to act. Hairline borders separate cards from the ground instead of a second fill. Anything that would normally claim its own color earns hierarchy from type and spacing instead.",
               },
               {
                 number: "05",
@@ -334,7 +338,7 @@ export default function TwoDishPage() {
                   ))}
                 </Card>
                 {figure && (
-                  <div className="halftone self-center" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+                  <div className="halftone self-center" style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
                     <img src={figure.src} alt={figure.alt} className="w-full" style={{ display: "block" }} loading="lazy" />
                     <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
                       <Tag>{figure.label}</Tag>
@@ -382,7 +386,7 @@ export default function TwoDishPage() {
               <div
                 key={src}
                 className="halftone min-w-0 sm:[flex:var(--ratio)_1_0%]"
-                style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)", "--ratio": ratio }}
+                style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000", "--ratio": ratio }}
               >
                 <img src={src} alt={alt} className="w-full" style={{ display: "block" }} loading="lazy" />
                 <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
@@ -438,7 +442,7 @@ export default function TwoDishPage() {
                 label: "Fig. 11: Zone editor",
               },
             ].map(({ src, alt, label }) => (
-              <div key={src} className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+              <div key={src} className="halftone" style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
                 <img
                   src={src}
                   alt={alt}
