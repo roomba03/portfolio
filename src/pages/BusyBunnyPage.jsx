@@ -104,19 +104,8 @@ export default function BusyBunnyPage() {
       <main className="max-w-4xl mx-auto px-6 pb-24 space-y-10">
         {/* Header card */}
         <Card>
-          <div className="flex flex-wrap gap-x-4 gap-y-1 mb-6">
-            {["UX Design", "Interaction Design", "Hackathon", "Frontend"].map((tag) => (
-              <Tag key={tag}>{tag}</Tag>
-            ))}
-          </div>
-          <h1
-            className="mb-5"
-            style={{ fontFamily: "'Bangla MN', sans-serif", fontWeight: 700, fontSize: "clamp(2.6rem, 6vw, 4.2rem)", lineHeight: 1.1, color: "#000000" }}
-          >
-            Busy Bunny — Gamified Productivity System
-          </h1>
           <span
-            className="firework-trigger text-[18px] font-bold uppercase tracking-[0.1em] inline-block mb-3"
+            className="firework-trigger text-[18px] font-bold uppercase tracking-[0.1em] inline-block mb-5"
             style={{ color: ACCENT, fontFamily: MONO_FONT }}
           >
             ★ Most Creative UI/UX — HackKU26
@@ -135,6 +124,17 @@ export default function BusyBunnyPage() {
               />
             ))}
           </span>
+          <div className="flex flex-wrap gap-x-4 gap-y-1 mb-6">
+            {["UX Design", "Interaction Design", "Hackathon", "Frontend"].map((tag) => (
+              <Tag key={tag}>{tag}</Tag>
+            ))}
+          </div>
+          <h1
+            className="mb-5"
+            style={{ fontFamily: "'Bangla MN', sans-serif", fontWeight: 700, fontSize: "clamp(2.6rem, 6vw, 4.2rem)", lineHeight: 1.1, color: "#000000" }}
+          >
+            Busy Bunny — Gamified Productivity System
+          </h1>
           <p className="text-[14px] leading-[1.8] mb-6 max-w-2xl" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             A UX exploration of motivation, emotional feedback loops, and behavioral design.
           </p>
@@ -193,8 +193,8 @@ export default function BusyBunnyPage() {
           <Prose>
             Busy Bunny is a gamified productivity web application that combines task management
             with lightweight platformer gameplay. It was designed during a 36-hour hackathon at
-            HackKU26 as an exploration into how productivity systems can sustain long-term
-            engagement through emotional feedback rather than discipline alone.
+            HackKU26 as an exploration into how productivity systems can motivate through
+            emotional feedback rather than discipline alone.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             Instead of treating productivity and entertainment as separate systems competing
