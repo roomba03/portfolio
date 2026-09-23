@@ -211,7 +211,7 @@ export default function BusyBunnyPage() {
             className="firework-trigger text-[18px] font-bold uppercase tracking-[0.1em] inline-block mb-5"
             style={{ color: ACCENT, fontFamily: MONO_FONT }}
           >
-            ★ Most Creative UI/UX — HackKU26
+            ★ Most Creative UI/UX: HackKU26
             {FIREWORK_SPARKS_TR.map((spark, i) => (
               <span
                 key={`tr-${i}`}
@@ -228,7 +228,7 @@ export default function BusyBunnyPage() {
             ))}
           </span>
           <div className="flex flex-wrap gap-x-4 gap-y-1 mb-6">
-            {["UX Design", "Interaction Design", "Hackathon", "Frontend"].map((tag) => (
+            {["UX Design", "Interaction Design", "Hackathon"].map((tag) => (
               <Tag key={tag}>{tag}</Tag>
             ))}
           </div>
@@ -236,7 +236,7 @@ export default function BusyBunnyPage() {
             className="mb-5"
             style={{ fontFamily: "'Bangla MN', sans-serif", fontWeight: 700, fontSize: "clamp(2.6rem, 6vw, 4.2rem)", lineHeight: 1.1, color: "#000000" }}
           >
-            Busy Bunny — Gamified Productivity System
+            Busy Bunny: A Gamified Productivity System
           </h1>
           <p className="text-[14px] leading-[1.8] mb-6 max-w-2xl" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             A productivity app that reacts to how you're doing instead of punishing you for falling behind.
@@ -281,12 +281,12 @@ export default function BusyBunnyPage() {
         <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
           <img
             src="/busy-bunny-main.png"
-            alt="Busy Bunny app — task list on the left, bunny companion on the right"
+            alt="Busy Bunny app: task list on the left, bunny companion on the right"
             className="w-full"
             style={{ display: "block" }}
           />
           <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
-            <Tag>Fig. 01 — App Screenshot</Tag>
+            <Tag>Fig. 01: App Screenshot</Tag>
           </span>
         </div>
 
@@ -298,8 +298,8 @@ export default function BusyBunnyPage() {
             small platformer game. Our team of four built it in 36 hours at HackKU26 to test one
             idea: people abandon productivity tools because they feel bad to use, not because
             they're disorganized. Instead of keeping tasks and rewards in separate places, Busy
-            Bunny ties them into one loop, so what you do in real life shows up in how Anya
-            feels.
+            Bunny ties them into one loop, so what you do in real life shows up in how Anya, your
+            bunny companion, feels.
           </Prose>
         </Card>
 
@@ -386,7 +386,7 @@ export default function BusyBunnyPage() {
           <Sketch
             src="/busy-bunny-wireframes.jpeg"
             alt="Hand-drawn notebook sketches of the calendar/task view and the game view with a bunny companion"
-            label="Fig. 02 — Wireframes / early explorations"
+            label="Fig. 02: Wireframes / early explorations"
             className="sm:w-[65%] sm:mx-auto"
           />
           <div className="flex flex-col sm:flex-row gap-6">
@@ -395,13 +395,13 @@ export default function BusyBunnyPage() {
                 src: "/busy-bunny-whiteboard-profile.jpg",
                 ratio: 1170 / 718,
                 alt: "Whiteboard sketch of the to-do/profile screen: a task list with done, overdue, and on-time counts next to the bunny Anya sitting in a garden with her level and coin count",
-                label: "Fig. 03 — Whiteboard: Ver 1",
+                label: "Fig. 03: Whiteboard Ver 1",
               },
               {
                 src: "/busy-bunny-whiteboard-game.jpg",
                 ratio: 1066 / 739,
                 alt: "Whiteboard sketch of the to-do list with a weekly day picker and done/overdue/total counts beside the game panel showing plays left, the bunny Anya, her level, and caffeine needed to reach the next level",
-                label: "Fig. 04 — Whiteboard: Ver 2",
+                label: "Fig. 04: Whiteboard Ver 2",
               },
             ].map(({ src, ratio, alt, label }) => (
               <Sketch
@@ -504,7 +504,7 @@ export default function BusyBunnyPage() {
         <Sketch
           src="/busy-bunny-flow.png"
           alt="Core interaction flow: starting screen, user adds a task, complete the task to receive a carrot, then play the game. If the task is incomplete, gameplay is denied and the user is sent back to finish it."
-          label="Fig. 06 — Core interaction flow"
+          label="Fig. 06: Core interaction flow"
         />
 
         <HoppenheimerFigure />
