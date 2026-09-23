@@ -187,7 +187,7 @@ export default function TwoDishPage() {
             Off-the-shelf ordering patterns are built for restaurants with a standing menu,
             elastic inventory, and a delivery network. A one-person kitchen has none of those.
             Dropping this business into a generic storefront would let customers do things the
-            kitchen physically cannot honor:
+            kitchen physically cannot honor.
           </Prose>
           <blockquote className="my-6 pl-5 border-l-2" style={{ borderColor: "#332F1C" }}>
             <p className="italic leading-[1.7] text-[16px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
@@ -276,7 +276,7 @@ export default function TwoDishPage() {
               {
                 number: "01",
                 title: "The Schedule Is the Menu",
-                body: "Customers browse dates, not a catalog. Each date carries exactly one dish. That rule is enforced all the way down in the data model, where one kitchen can hold only one scheduled dish per delivery date. The homepage leads with the next few days so the first impression is 'here is what's cooking', not 'here is everything we could make'.",
+                body: "Customers browse dates, not a catalog. Each date carries exactly one dish. That rule is enforced all the way down in the data model, where one kitchen can hold only one scheduled dish per delivery date. The homepage leads with the next few days so the first impression is what's cooking this week, not everything the kitchen could make.",
               },
               {
                 number: "02",
@@ -285,7 +285,7 @@ export default function TwoDishPage() {
               },
               {
                 number: "03",
-                title: "Capacity as a Visible Idea",
+                title: "Show Capacity Before Checkout",
                 body: "Each cooking day carries a maximum headcount and a running count against it. Low-stock and slot-full states surface while the customer is still choosing, and the final claim on a spot happens in a single locked database operation so two people checking out at once can't both take the last portion.",
               },
               {
@@ -342,45 +342,18 @@ export default function TwoDishPage() {
         <Card>
           <SectionHeading>Outcome</SectionHeading>
           <Prose>
-            Two Dish shipped as a complete two-sided product rather than a marketing site with a
-            form attached: a storefront and the kitchen tools behind it.
+            Two Dish is built and ready for launch, waiting on the kitchen to start taking orders.
+            It shipped as a complete two-sided product rather than a marketing site with a form
+            attached. Customers can check their address against the delivery zone, browse the
+            week, order for a specific date and slot, and save validated addresses to an account.
+            The cook can schedule dishes and headcounts, scale ingredient ratios to the day's
+            orders, see a production run for each day, and redraw her delivery zone on a map.
           </Prose>
-          <div className="grid sm:grid-cols-2 gap-6 mt-5">
-            <div>
-              <Eyebrow>Customer side</Eyebrow>
-              <ul className="space-y-2 mt-3">
-                {[
-                  "Seven-day schedule with next-days preview and add-to-cart on hover",
-                  "Address check against the live delivery zone before ordering",
-                  "Accounts with saved, zone-validated delivery addresses",
-                  "Cart that catches mixing dishes from two different days",
-                  "Checkout with delivery-slot choice and order history",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-                    <Bullet />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <Eyebrow>Kitchen side</Eyebrow>
-              <ul className="space-y-2 mt-3">
-                {[
-                  "Schedule a dish and headcount per date",
-                  "Dish management with real photo uploads",
-                  "Ingredient ratios that scale to the day's orders",
-                  "Production run view with per-dish subtotals",
-                  "Map editor for redrawing the delivery zone",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-                    <Bullet />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+          <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+            The real test hasn't happened yet. Once orders start coming in, I'll be watching
+            whether customers actually read the schedule as a menu and whether the cutoff and
+            capacity limits cut down on orders the kitchen can't fill.
+          </p>
         </Card>
 
         <ImagePlaceholder label="Cook dashboard: schedule, production run, zone editor" />
