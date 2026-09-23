@@ -145,10 +145,10 @@ export default function TwoDishPage() {
           <SectionHeading>Overview</SectionHeading>
           <Prose>
             Two Dish is an ordering site built for a real client, my family's home catering
-            kitchen. The kitchen already ran on a very specific rhythm. It cooked one dish a day,
-            fresh and in small batches matched to that day's headcount. Orders closed at midnight
-            the night before, and deliveries went out in one of two evening slots, 6:30 pm or
-            7:30 pm, within a radius the cook could actually drive.
+            kitchen. My client planned it around a very specific rhythm. The kitchen would cook
+            one dish a day, fresh and in small batches matched to that day's headcount. Orders
+            would close at midnight the night before, and deliveries would go out in one of two
+            evening slots, 6:30 pm or 7:30 pm, within a radius the cook could actually drive.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             Ordinary food-ordering software treats every one of those constraints as a problem to
@@ -229,6 +229,10 @@ export default function TwoDishPage() {
               </ul>
             </div>
           </div>
+          <p className="mt-5 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+            These came from working through how my client planned to run the kitchen before I
+            designed anything.
+          </p>
           <div className="mt-7 px-6 py-5" style={{ backgroundColor: CALLOUT }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
               Central design question
@@ -275,12 +279,25 @@ export default function TwoDishPage() {
               {
                 number: "01",
                 title: "The Schedule Is the Menu",
-                body: "Customers browse dates, not a catalog. Each date carries exactly one dish. That rule is enforced all the way down in the data model, where one kitchen can hold only one scheduled dish per delivery date. The homepage leads with the next few days so the first impression is what's cooking this week, not everything the kitchen could make. The midnight cutoff sits right under the menu heading and again as step two of the ordering process, so customers see it before they plan around a date.",
+                body: [
+                  "Customers browse dates, not a catalog, and each date carries exactly one dish. I enforced that rule all the way down in the data model, where the kitchen can only hold one scheduled dish per delivery date. The homepage leads with the next few days, so the first impression is what's cooking this week, not everything the kitchen could make.",
+                  "Because every dish is cooked to a fixed headcount, orders have to close at 11:59 PM the night before. I put that cutoff right under the menu heading and again as step two of the homepage's ordering process, so customers learn the deadline while they're still choosing a date, not after they miss it.",
+                ],
+                figure: {
+                  src: "/two-dish-menu.jpg",
+                  alt: "This week's menu: one dish card per day with date, price, and an add-to-cart button. Today's haleem is marked orders closed, and the midnight cutoff sits under the heading.",
+                  label: "Fig. 02: Weekly schedule",
+                },
               },
               {
                 number: "02",
                 title: "Draw the Boundary, Don't Type It",
-                body: "The cook draws her real delivery zone as a polygon on a map; customers check their address against it on the homepage before they ever reach a cart. Geocoding plus a point-in-polygon test answers a yes/no question honestly, with a ZIP-code list kept as a fallback for when lookup fails.",
+                body: "The cook draws their real delivery zone as a polygon on a map; customers check their address against it on the homepage before they ever reach a cart. Geocoding plus a point-in-polygon test answers a yes/no question honestly, with a ZIP-code list kept as a fallback for when lookup fails.",
+                figure: {
+                  src: "/two-dish-zone.jpg",
+                  alt: "Delivery coverage: a map with the delivery zone drawn as a shaded polygon, next to an address field and a Check my address button",
+                  label: "Fig. 03: Delivery-zone checker",
+                },
               },
               {
                 number: "03",
@@ -292,42 +309,42 @@ export default function TwoDishPage() {
                 title: "One Accent Doing All the Work",
                 body: "The system landed on two tones and nothing else: ivory carrying every surface and every line of text, amber-gold reserved for headings, prices, links, active states, and the single primary action per view. Hairline borders separate cards from the ground instead of a second fill. Anything that would normally claim its own color earns hierarchy from type and spacing instead.",
               },
-            ].map(({ number, title, body }) => (
-              <Card key={number}>
-                <span style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "3.4rem", lineHeight: 1, color: ACCENT }}>{number}</span>
-                <h3
-                  className="mt-1 mb-3"
-                  style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.5rem", lineHeight: 1, color: "#000000" }}
-                >
-                  {title}
-                </h3>
-                <p className="text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>{body}</p>
-              </Card>
+              {
+                number: "05",
+                title: "Lock the Grocery List at the Cutoff",
+                body: "The cook needs to shop for exactly the orders they'll fill. The ingredient calculator scales each dish's ratios to the day's orders, and the totals lock at 11:59 PM, the same moment ordering closes. The customer deadline and the cook's shopping list are the same line, so nothing changes after they've bought ingredients.",
+                figure: {
+                  src: "/two-dish-dash-ingredients.jpg",
+                  alt: "Ingredient calculator for a delivery date, with an empty grocery list explaining that totals lock at the 11:59 pm cutoff",
+                  label: "Fig. 04: Ingredient calculator",
+                },
+              },
+            ].map(({ number, title, body, figure }) => (
+              <React.Fragment key={number}>
+                <Card>
+                  <span style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "3.4rem", lineHeight: 1, color: ACCENT }}>{number}</span>
+                  <h3
+                    className="mt-1 mb-3"
+                    style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.5rem", lineHeight: 1, color: "#000000" }}
+                  >
+                    {title}
+                  </h3>
+                  {[].concat(body).map((para, i) => (
+                    <p key={i} className={`text-[13px] leading-[1.7] ${i > 0 ? "mt-3" : ""}`} style={{ color: "#000000", fontFamily: MONO_FONT }}>{para}</p>
+                  ))}
+                </Card>
+                {figure && (
+                  <div className="halftone self-center" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+                    <img src={figure.src} alt={figure.alt} className="w-full" style={{ display: "block" }} loading="lazy" />
+                    <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+                      <Tag>{figure.label}</Tag>
+                    </span>
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
         </section>
-
-        <div className="grid sm:grid-cols-2 gap-6 items-start">
-          {[
-            {
-              src: "/two-dish-menu.jpg",
-              alt: "This week's menu: one dish card per day with date, price, and an add-to-cart button. Today's haleem is marked orders closed, and the midnight cutoff sits under the heading.",
-              label: "Fig. 02: Weekly schedule",
-            },
-            {
-              src: "/two-dish-zone.jpg",
-              alt: "Delivery coverage: a map with the delivery zone drawn as a shaded polygon, next to an address field and a Check my address button",
-              label: "Fig. 03: Delivery-zone checker",
-            },
-          ].map(({ src, alt, label }) => (
-            <div key={src} className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
-              <img src={src} alt={alt} className="w-full" style={{ display: "block" }} loading="lazy" />
-              <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
-                <Tag>{label}</Tag>
-              </span>
-            </div>
-          ))}
-        </div>
 
         {/* Iteration */}
         <Card>
@@ -346,6 +363,34 @@ export default function TwoDishPage() {
             arbitrary, so it was cut down to two: one neutral for everything, gold for the
             things that matter.
           </p>
+          {/* Same screen, before and after. flex-grow is each image's aspect ratio so both share one height. */}
+          <div className="flex flex-col sm:flex-row gap-6 mt-7">
+            {[
+              {
+                src: "/two-dish-zone-sage.jpg",
+                ratio: 1600 / 642,
+                alt: "Early sage palette: the delivery-zone checker on a pale sage ground with dark green text, a terracotta zone outline, and a grey button",
+                label: "Fig. 05: Early sage palette",
+              },
+              {
+                src: "/two-dish-zone.jpg",
+                ratio: 1600 / 836,
+                alt: "Final palette: the same delivery-zone checker on deep plum with ivory text and a single gold button",
+                label: "Fig. 06: Final palette",
+              },
+            ].map(({ src, ratio, alt, label }) => (
+              <div
+                key={src}
+                className="halftone min-w-0 sm:[flex:var(--ratio)_1_0%]"
+                style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)", "--ratio": ratio }}
+              >
+                <img src={src} alt={alt} className="w-full" style={{ display: "block" }} loading="lazy" />
+                <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+                  <Tag>{label}</Tag>
+                </span>
+              </div>
+            ))}
+          </div>
           <div className="mt-7 px-6 py-5" style={{ backgroundColor: CALLOUT }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
               Key Insight
@@ -357,16 +402,67 @@ export default function TwoDishPage() {
           </div>
         </Card>
 
+        {/* The Kitchen Side */}
+        <Card>
+          <SectionHeading>The Kitchen Side</SectionHeading>
+          <Prose>
+            Behind the storefront, the cook will run each day from a dashboard: the production
+            run, the dish list, the schedule, and the delivery zone.
+          </Prose>
+          {/* Cook dashboard, in the order of its own nav (the ingredient calculator sits with Decision 05). Cells share one aspect ratio so the grid lines up. */}
+          <div className="grid sm:grid-cols-2 gap-6 mt-6">
+            {[
+              {
+                src: "/two-dish-dash-run.jpg",
+                alt: "Production run for the week: order, meal, early-window and late-window counts, revenue, capacity used out of 350, and an order list filterable by delivery window",
+                label: "Fig. 07: Production run",
+              },
+              {
+                src: "/two-dish-dash-dishes.jpg",
+                alt: "Dishes table listing biryani, haleem, and smash burger with description, price, and edit and delete actions",
+                label: "Fig. 08: Dishes",
+              },
+              {
+                src: "/two-dish-dash-add-dish.jpg",
+                alt: "Add new dish form with name, price, description, and an optional photo upload",
+                label: "Fig. 09: Add a dish",
+              },
+              {
+                src: "/two-dish-dash-schedule.jpg",
+                alt: "Schedule page: pick a delivery date, dish, and max capacity, above a table of the next 14 days with capacity and order counts",
+                label: "Fig. 10: Schedule",
+              },
+              {
+                src: "/two-dish-dash-zone.jpg",
+                alt: "Delivery zone editor: a map where the cook clicks to place vertices of the delivery boundary polygon",
+                label: "Fig. 11: Zone editor",
+              },
+            ].map(({ src, alt, label }) => (
+              <div key={src} className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+                <img
+                  src={src}
+                  alt={alt}
+                  className="w-full aspect-[12/7] object-cover object-top"
+                  style={{ display: "block" }}
+                  loading="lazy"
+                />
+                <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+                  <Tag>{label}</Tag>
+                </span>
+              </div>
+            ))}
+          </div>
+        </Card>
+
         {/* Outcome */}
         <Card>
           <SectionHeading>Outcome</SectionHeading>
           <Prose>
             Two Dish is built and ready for launch, waiting on the kitchen to start taking orders.
-            It shipped as a complete two-sided product rather than a marketing site with a form
-            attached. Customers can check their address against the delivery zone, browse the
+            It's a complete two-sided product rather than a marketing site with a form attached. Customers can check their address against the delivery zone, browse the
             week, order for a specific date and slot, and save validated addresses to an account.
             The cook can schedule dishes and headcounts, scale ingredient ratios to the day's
-            orders, see a production run for each day, and redraw her delivery zone on a map.
+            orders, see a production run for each day, and redraw their delivery zone on a map.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             The real test hasn't happened yet. Once orders start coming in, I'll be watching
@@ -374,55 +470,6 @@ export default function TwoDishPage() {
             capacity limits cut down on orders the kitchen can't fill.
           </p>
         </Card>
-
-        {/* Cook dashboard, in the order of its own nav. Cells share one aspect ratio so the grid lines up. */}
-        <div className="grid sm:grid-cols-2 gap-6">
-          {[
-            {
-              src: "/two-dish-dash-run.jpg",
-              alt: "Production run for the week: order, meal, early-window and late-window counts, revenue, capacity used out of 350, and an order list filterable by delivery window",
-              label: "Fig. 04: Production run",
-            },
-            {
-              src: "/two-dish-dash-dishes.jpg",
-              alt: "Dishes table listing biryani, haleem, and smash burger with description, price, and edit and delete actions",
-              label: "Fig. 05: Dishes",
-            },
-            {
-              src: "/two-dish-dash-add-dish.jpg",
-              alt: "Add new dish form with name, price, description, and an optional photo upload",
-              label: "Fig. 06: Add a dish",
-            },
-            {
-              src: "/two-dish-dash-schedule.jpg",
-              alt: "Schedule page: pick a delivery date, dish, and max capacity, above a table of the next 14 days with capacity and order counts",
-              label: "Fig. 07: Schedule",
-            },
-            {
-              src: "/two-dish-dash-ingredients.jpg",
-              alt: "Ingredient calculator for a delivery date, with an empty grocery list explaining that totals lock at the 11:59 pm cutoff",
-              label: "Fig. 08: Ingredient calculator",
-            },
-            {
-              src: "/two-dish-dash-zone.jpg",
-              alt: "Delivery zone editor: a map where the cook clicks to place vertices of the delivery boundary polygon",
-              label: "Fig. 09: Zone editor",
-            },
-          ].map(({ src, alt, label }) => (
-            <div key={src} className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
-              <img
-                src={src}
-                alt={alt}
-                className="w-full aspect-[12/7] object-cover object-top"
-                style={{ display: "block" }}
-                loading="lazy"
-              />
-              <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
-                <Tag>{label}</Tag>
-              </span>
-            </div>
-          ))}
-        </div>
 
         {/* Reflection */}
         <Card>
