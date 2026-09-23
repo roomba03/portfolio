@@ -112,13 +112,13 @@ export default function PortfolioSitePage() {
             className="mb-5"
             style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "clamp(2.6rem, 6vw, 4.2rem)", lineHeight: 1.1, color: "#000000" }}
           >
-            This Portfolio — One Codebase, Two Audiences
+            This Portfolio: One Codebase, Two Audiences
           </h1>
           <span
             className="text-[18px] font-bold uppercase tracking-[0.1em] inline-block mb-3"
             style={{ color: ACCENT, fontFamily: MONO_FONT }}
           >
-            Personal project — ongoing since June 2026
+            Personal project: ongoing since June 2026
           </span>
           <p className="text-[14px] leading-[1.8] mb-6 max-w-2xl" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             A case study about the site you're reading it on, and what changed when I started
@@ -133,12 +133,12 @@ export default function PortfolioSitePage() {
         <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
           <img
             src="/portfolio-site-main.png"
-            alt="This portfolio's homepage — hero headline reading 'Designed with intention. Built with understanding.'"
+            alt="This portfolio's homepage: hero headline reading 'Designed with intention. Built with understanding.'"
             className="w-full"
             style={{ display: "block" }}
           />
           <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
-            <Tag>Fig. 01 — Homepage</Tag>
+            <Tag>Fig. 01: Homepage</Tag>
           </span>
         </div>
 
@@ -148,16 +148,16 @@ export default function PortfolioSitePage() {
           <Prose>
             This site is my own portfolio, and also the longest-running project I own end to end.
             It started as a single static page in June 2026 and has been rebuilt in place ever
-            since — the same repository now ships two different portfolios from one component
+            since. The same repository now ships two different portfolios from one component
             library: a product-design-focused version for recruiters and a code-focused version
             for engineers, toggled by which URL you land on.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             Because I'm both the designer and the only user I can watch in real time, this project
             became less about drafting a layout once and more about noticing where my own first
-            version was wrong — a hard-cut tab switch that read as broken, a modal that felt
-            heavier than the content deserved, a scroll transition that stopped short of where it
-            should land — and rebuilding until it wasn't.
+            version was wrong and rebuilding until it wasn't. A hard-cut tab switch read as
+            broken, a modal felt heavier than the content deserved, and a scroll transition
+            stopped short of where it should land.
           </p>
         </Card>
 
@@ -170,9 +170,9 @@ export default function PortfolioSitePage() {
           </Prose>
           <ul className="mt-4 space-y-2">
             {[
-              "Product definition — deciding the site needed two audiences, not one",
+              "Product definition: deciding the site needed two audiences, not one",
               "Interaction and motion design for the project carousel",
-              "Visual design system — type, color, shadow, and shape language",
+              "Visual design system: type, color, shadow, and shape language",
               "Frontend implementation (React, Vite, Tailwind, React Router)",
               "Accessibility and performance auditing against Lighthouse and WCAG 2.2",
             ].map((item) => (
@@ -189,8 +189,8 @@ export default function PortfolioSitePage() {
           <SectionHeading>The Problem</SectionHeading>
           <Prose>
             A portfolio has to convince two different readers with two different jobs. A recruiter
-            or hiring manager wants to feel the work — visual craft, the story behind a decision,
-            whether the taste is theirs. An engineer wants to see the work — the actual repo, the
+            or hiring manager wants to feel the work: visual craft, the story behind a decision,
+            whether the taste is theirs. An engineer wants to see the work: the actual repo, the
             stack, whether the code behind the polish is real. Most portfolios pick one reader and
             make the other one dig.
           </Prose>
@@ -250,8 +250,8 @@ export default function PortfolioSitePage() {
           <SectionHeading>Design Approach</SectionHeading>
           <Prose>
             Rather than design each project card twice, I kept one shared component library and
-            let the data feeding it — and a couple of conditionals — do the work of speaking to
-            each audience differently:
+            let the data feeding it and a couple of conditionals do the work of speaking to each
+            audience differently:
           </Prose>
           <ul className="mt-5 space-y-3">
             {[
@@ -268,8 +268,8 @@ export default function PortfolioSitePage() {
           <p className="leading-[1.8] mt-5 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             That question about my own reaction to an interaction ended up doing the most work.
             A large share of this project's history is one round of shipping something, using it
-            for real, and rebuilding the part that felt wrong — not redesigning from scratch, but
-            replacing one mechanism with another closer one.
+            for real, and rebuilding the part that felt wrong. That meant replacing one mechanism
+            with another closer one, not redesigning from scratch.
           </p>
         </Card>
 
@@ -281,12 +281,12 @@ export default function PortfolioSitePage() {
               {
                 number: "01",
                 title: "One Component, Two Data Sets",
-                body: "Both portfolio variants render through the same Mini Library carousel component. The product-design version's cards carry a caseStudyHref and expand to show role/process detail; the web-dev version's cards carry href and github fields and skip the case-study link entirely. A build-time env var picks the default route, and a global '9' keyboard shortcut lets anyone toggle between them live — the same visit, either audience.",
+                body: "Both portfolio variants render through the same Mini Library carousel component. The product-design version's cards carry a caseStudyHref and expand to show role/process detail; the web-dev version's cards carry href and github fields and skip the case-study link entirely. A build-time env var picks the default route, and a global '9' keyboard shortcut lets anyone toggle between them live: the same visit, either audience.",
               },
               {
                 number: "02",
                 title: "Expand-in-Place, Not a Modal",
-                body: "The first version of the project carousel opened a full modal overlay per card. After using it, the modal felt like more ceremony than a short case-study blurb warranted — it interrupted the scroll instead of extending it. It was replaced with cards that grow in place: a taller preview image and a revealed role block, with only one card ever expanded at a time.",
+                body: "The first version of the project carousel opened a full modal overlay per card. After using it, the modal felt like more ceremony than a short case-study blurb warranted. It interrupted the scroll instead of extending it. It was replaced with cards that grow in place: a taller preview image and a revealed role block, with only one card ever expanded at a time.",
               },
               {
                 number: "03",
@@ -313,7 +313,7 @@ export default function PortfolioSitePage() {
           </div>
         </section>
 
-        <ImagePlaceholder label="Selected Work carousel — collapsed and expanded card states" />
+        <ImagePlaceholder label="Selected Work carousel: collapsed and expanded card states" />
 
         {/* Shadows as Affordance */}
         <Card>
@@ -327,11 +327,11 @@ export default function PortfolioSitePage() {
             {[
               {
                 label: "Role tags",
-                body: "The Web Developer and UX Engineer tags in the hero carried the same crisp offset shadow as real buttons, so they invited clicks they couldn't answer. I tried softening it into a glow, and briefly a hover state that flattened the shadow — but any hover response still says \"interactive.\" They ended up with a soft, centered teal shadow and no hover at all, so they read as printed labels.",
+                body: "The Web Developer and UX Engineer tags in the hero carried the same crisp offset shadow as real buttons, so they invited clicks they couldn't answer. I tried softening it into a glow, and briefly a hover state that flattened the shadow. But any hover response still says \"interactive.\" They ended up with a soft, centered teal shadow and no hover at all, so they read as printed labels.",
               },
               {
                 label: "Project tabs",
-                body: "The active tab had the raised shadow and the inactive one had none — exactly backwards, since the tab you're already on looked like the thing to click. Swapping them fixed the hierarchy, but a shadowless active tab looked unfinished; an inset shadow on the black fill rendered as a gray bevel; and nudging the tab down into its own shadow knocked the labels out of line. The version that stuck keeps a teal shadow on both, smaller and muted on the active tab, with both tabs matched to the same height.",
+                body: "The active tab had the raised shadow and the inactive one had none. That was exactly backwards, since the tab you're already on looked like the thing to click. Swapping them fixed the hierarchy, but a shadowless active tab looked unfinished; an inset shadow on the black fill rendered as a gray bevel; and nudging the tab down into its own shadow knocked the labels out of line. The version that stuck keeps a teal shadow on both, smaller and muted on the active tab, with both tabs matched to the same height.",
               },
               {
                 label: "Carousel arrows",
@@ -372,9 +372,9 @@ export default function PortfolioSitePage() {
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             A second bug only showed up through use, not code review: clicking a card's outbound
             link intermittently did nothing. The carousel's drag-to-scroll handler was calling
-            setPointerCapture() on every pointerdown — including ones that started on a link —
-            which made the browser retarget the resulting click to the scroll container instead
-            of the anchor. Neither of these would have surfaced from reading the component in
+            setPointerCapture() on every pointerdown, even ones that started on a link. That made
+            the browser retarget the resulting click to the scroll container instead of the
+            anchor. Neither of these would have surfaced from reading the component in
             isolation; both only showed up from clicking through the actual carousel the way a
             visitor would.
           </p>
@@ -383,7 +383,7 @@ export default function PortfolioSitePage() {
               Key Insight
             </span>
             <p className="leading-[1.7] mt-2 text-[14px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-              The bugs worth remembering weren't caught by looking at the code — they were caught
+              The bugs worth remembering weren't caught by looking at the code. They were caught
               by using the thing I built the way a visitor actually would, and noticing when it
               didn't behave the way it looked like it should.
             </p>
@@ -394,10 +394,9 @@ export default function PortfolioSitePage() {
         <Card>
           <SectionHeading>Outcome</SectionHeading>
           <Prose>
-            The site now runs as two live deployments from one codebase — a product-design
-            portfolio and a web-dev portfolio — sharing every component, project screenshot, and
-            motion pattern between them, and passing a full Lighthouse accessibility, performance,
-            and SEO sweep.
+            The site now runs as two live deployments from one codebase: a product-design
+            portfolio and a web-dev portfolio. They share every component, project screenshot, and
+            motion pattern, and pass a full Lighthouse accessibility, performance, and SEO sweep.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             What shipped along the way:
@@ -406,9 +405,9 @@ export default function PortfolioSitePage() {
             {[
               "A full-bleed, scroll-snap project carousel with peeking side cards and expand-in-place detail",
               "A shared component library serving two audience-specific data sets from one build",
-              "A site-wide accessibility pass — landmarks, focus states, touch targets, inert peek cards",
+              "A site-wide accessibility pass: landmarks, focus states, touch targets, inert peek cards",
               "A one-click copy-to-clipboard email link with a hover tooltip, replacing a plain mailto:",
-              "A consistent shadow language — raised means clickable — plus prev/next arrows on the carousel",
+              "A consistent shadow language where raised means clickable, plus prev/next arrows on the carousel",
             ].map((item) => (
               <li key={item} className="flex items-start gap-3 leading-[1.7] text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
                 <Bullet />
@@ -428,13 +427,13 @@ export default function PortfolioSitePage() {
             I'm the only person who has used every version of it: a design isn't finished when it
             looks right in a static frame, it's finished when I've clicked through it enough times
             to trust it. Almost everything I'd point to as a real improvement in this repo's
-            history came from that second pass — from using the thing, not from planning it better
+            history came from that second pass: from using the thing, not from planning it better
             the first time.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             It also reframed what "the same project, two audiences" means. It's tempting to think
             of that as two designs. In practice it was one design and two small, deliberate
-            differences in what data reaches it — which meant almost everything I built for one
+            differences in what data reaches it. That meant almost everything I built for one
             audience, the other got for free.
           </p>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
