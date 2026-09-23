@@ -95,6 +95,98 @@ function Sketch({ src, alt, label, className = "", style }) {
   );
 }
 
+const MOODS = [
+  { key: "happy", label: "Happy", detail: "nothing overdue" },
+  { key: "annoyed", label: "Annoyed", detail: "1 to 2 overdue" },
+  { key: "frazzled", label: "Frazzled", detail: "3 or more overdue" },
+];
+const POSES = [
+  { key: "coffee", label: "Idle" },
+  { key: "rest", label: "Sitting" },
+  { key: "hop", label: "Jumping" },
+];
+
+function GridLabel({ children, className = "" }) {
+  return (
+    <span
+      className={`text-[11px] font-bold uppercase tracking-[0.08em] ${className}`}
+      style={{ color: "#000000", fontFamily: MONO_FONT }}
+    >
+      {children}
+    </span>
+  );
+}
+
+function FigCaption({ number, stacked = false, children }) {
+  return (
+    <figcaption className={`mt-5 flex flex-col gap-2 ${stacked ? "" : "sm:flex-row sm:items-start sm:gap-3"}`}>
+      <span className="flex-shrink-0"><Tag>Fig. {number}</Tag></span>
+      <span className="text-[12px] leading-[1.6]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+        {children}
+      </span>
+    </figcaption>
+  );
+}
+
+// Moods as rows, poses as columns: the pink drains out of the bunny as you read down.
+function MoodGrid({ className = "" }) {
+  return (
+    <figure className={`p-5 sm:p-6 ${className}`} style={{ border: "1px solid rgba(51,47,28,0.16)" }}>
+      <div
+        className="grid items-center gap-x-2 gap-y-1"
+        style={{ gridTemplateColumns: "auto repeat(3, minmax(0, 1fr))" }}
+      >
+        <span />
+        {POSES.map(({ key, label }) => (
+          <GridLabel key={key} className="text-center">{label}</GridLabel>
+        ))}
+        {MOODS.map((mood) => (
+          <React.Fragment key={mood.key}>
+            <div className="flex flex-col pr-2">
+              <GridLabel>{mood.label}</GridLabel>
+              <span className="text-[11px] leading-[1.4] mt-0.5" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+                {mood.detail}
+              </span>
+            </div>
+            {POSES.map(({ key, label }) => (
+              <img
+                key={key}
+                src={`/busy-bunny-moods/${key}-${mood.key}.png`}
+                alt={`${mood.label} bunny (${mood.detail}), ${label.toLowerCase()}`}
+                className="w-full"
+                loading="lazy"
+              />
+            ))}
+          </React.Fragment>
+        ))}
+      </div>
+      <FigCaption number="05">
+        Anya's mood tracks overdue tasks. Her color fades from pink to gray as she goes from
+        happy to frazzled, and recovers as soon as tasks are done.
+      </FigCaption>
+    </figure>
+  );
+}
+
+function HoppenheimerFigure({ className = "" }) {
+  return (
+    <figure className={`p-5 sm:p-6 flex flex-col ${className}`} style={{ border: "1px solid rgba(51,47,28,0.16)" }}>
+      <div className="flex-1 flex items-center justify-center">
+        <img
+          src="/busy-bunny-moods/hoppenheimer.png"
+          alt="Hoppenheimer: a grey bunny in a black fedora, scowling"
+          className="w-full max-w-[160px] sm:max-w-[200px]"
+          loading="lazy"
+        />
+      </div>
+      <FigCaption number="06" stacked>
+        Hoppenheimer, drawn for a planned mode where he chases you through the backrooms. We cut
+        it for time, so he now lives in the empty state.
+      </FigCaption>
+    </figure>
+  );
+}
+
 export default function BusyBunnyPage() {
   return (
     <div className="min-h-screen" style={{ position: "relative", zIndex: 1 }}>
@@ -214,19 +306,23 @@ export default function BusyBunnyPage() {
         <Card>
           <SectionHeading>My Role</SectionHeading>
           <Prose>
-            This project was built in a 4-person team during a 36-hour hackathon sprint.
+            I led UX and interaction design and illustrated all 10 bunny states, including Anya's
+            mood system and Hoppenheimer.
           </Prose>
-          <ul className="mt-4 space-y-2">
+          <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+            My teammates worked on:
+          </p>
+          <ul className="mt-2 space-y-2">
             {[
-              "Illustrated the bunny mascot",
-              "UX/UI direction and interaction design",
-              "Frontend implementation support",
-              "Visual design and interface polish",
-              "Designing progression and feedback systems",
-            ].map((item) => (
-              <li key={item} className="flex items-start gap-3 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+              { who: "Teammate 1", did: "Level generation" },
+              { who: "Teammate 2", did: "Frontend development" },
+              { who: "Teammate 3", did: "Implementing the hopping game, integrating the assets, and setting up tooling for random level generation" },
+            ].map(({ who, did }) => (
+              <li key={who} className="flex items-start gap-3 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
                 <Bullet />
-                {item}
+                <span>
+                  <span className="font-bold">{who}:</span> {did}
+                </span>
               </li>
             ))}
           </ul>
@@ -348,7 +444,7 @@ export default function BusyBunnyPage() {
               {
                 number: "02",
                 title: "Showing Neglect Without Shaming It",
-                body: "We didn't want red warnings or lost progress. Instead, the environment changes when tasks go untouched. We considered adding penalties but rejected them because we don't want to take away or punish the user for not finishing a task.",
+                body: "We didn't want red warnings or lost progress. Instead, Anya reacts. One overdue task makes her annoyed, three make her frazzled, and her color drains from pink to gray along the way. We rejected penalties because they trigger the avoidance we were designing against: people stop opening apps that punish them.",
               },
               {
                 number: "03",
@@ -360,17 +456,25 @@ export default function BusyBunnyPage() {
                 title: "Immediate Reward Loops",
                 body: "Each completed task provides instant feedback through reward points, gameplay access, and visual confirmation of progress — intentionally designed to feel satisfying and reinforce task completion behavior.",
               },
-            ].map(({ number, title, body }, i) => (
-              <Card key={number}>
-                <span style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "3.4rem", lineHeight: 1, color: ACCENT }}>{number}</span>
-                <h3
-                  className="mt-1 mb-3"
-                  style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.5rem", lineHeight: 1, color: "#000000" }}
-                >
-                  {title}
-                </h3>
-                <p className="text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>{body}</p>
-              </Card>
+            ].map(({ number, title, body }) => (
+              <React.Fragment key={number}>
+                <Card>
+                  <span style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "3.4rem", lineHeight: 1, color: ACCENT }}>{number}</span>
+                  <h3
+                    className="mt-1 mb-3"
+                    style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "1.5rem", lineHeight: 1, color: "#000000" }}
+                  >
+                    {title}
+                  </h3>
+                  <p className="text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>{body}</p>
+                </Card>
+                {number === "02" && (
+                  <div className="sm:col-span-2 flex flex-col sm:flex-row gap-6">
+                    <MoodGrid className="flex-1 min-w-0" />
+                    <HoppenheimerFigure className="sm:w-[30%]" />
+                  </div>
+                )}
+              </React.Fragment>
             ))}
           </div>
           <div className="mt-4">
@@ -386,7 +490,7 @@ export default function BusyBunnyPage() {
         <Sketch
           src="/busy-bunny-flow.png"
           alt="Core interaction flow: starting screen, user adds a task, complete the task to receive a carrot, then play the game. If the task is incomplete, gameplay is denied and the user is sent back to finish it."
-          label="Fig. 05 — Core interaction flow"
+          label="Fig. 07 — Core interaction flow"
         />
 
         {/* Research Insights */}
