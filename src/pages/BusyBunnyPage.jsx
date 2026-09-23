@@ -211,6 +211,7 @@ export default function BusyBunnyPage() {
           </Prose>
           <ul className="mt-4 space-y-2">
             {[
+              "Illustrated the bunny mascot",
               "UX/UI direction and interaction design",
               "Game-system design and reward logic",
               "Frontend implementation support",
