@@ -85,6 +85,17 @@ function Bullet() {
   );
 }
 
+function Sketch({ src, alt, label, className = "", style }) {
+  return (
+    <div className={`halftone ${className}`} style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)", ...style }}>
+      <img src={src} alt={alt} className="w-full" style={{ display: "block" }} />
+      <span style={{ position: "absolute", bottom: "12px", left: "12px", right: "12px" }}>
+        <Tag>{label}</Tag>
+      </span>
+    </div>
+  );
+}
+
 export default function BusyBunnyPage() {
   return (
     <div className="min-h-screen" style={{ position: "relative", zIndex: 1 }}>
@@ -240,7 +251,10 @@ export default function BusyBunnyPage() {
             </p>
           </blockquote>
           <div className="mt-4">
-            <Eyebrow>Patterns we identified</Eyebrow>
+            <Eyebrow>What we noticed going in</Eyebrow>
+            <p className="mt-2 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+              Drawn from our own team's habits and conversations with peers.
+            </p>
             <ul className="space-y-2 mt-3">
               {[
                 "Task lists accumulate emotional weight over time",
@@ -270,16 +284,40 @@ export default function BusyBunnyPage() {
           </p>
         </Card>
 
-        <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
-          <img
+        {/* Sketches: notebook on top, whiteboards below. Top is slightly wider than one column; the bottom
+            pair's flex-grow is each image's aspect ratio so both share one height. */}
+        <div className="space-y-6">
+          <Sketch
             src="/busy-bunny-wireframes.jpeg"
             alt="Hand-drawn notebook sketches of the calendar/task view and the game view with a bunny companion"
-            className="w-full"
-            style={{ display: "block" }}
+            label="Fig. 02 — Wireframes / early explorations"
+            className="sm:w-[65%] sm:mx-auto"
           />
-          <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
-            <Tag>Fig. 02 — Wireframes / early explorations</Tag>
-          </span>
+          <div className="flex flex-col sm:flex-row gap-6">
+            {[
+              {
+                src: "/busy-bunny-whiteboard-profile.jpg",
+                ratio: 1170 / 718,
+                alt: "Whiteboard sketch of the to-do/profile screen: a task list with done, overdue, and on-time counts next to the bunny Anya sitting in a garden with her level and coin count",
+                label: "Fig. 03 — Whiteboard: Ver 1",
+              },
+              {
+                src: "/busy-bunny-whiteboard-game.jpg",
+                ratio: 1066 / 739,
+                alt: "Whiteboard sketch of the to-do list with a weekly day picker and done/overdue/total counts beside the game panel showing plays left, the bunny Anya, her level, and caffeine needed to reach the next level",
+                label: "Fig. 04 — Whiteboard: Ver 2",
+              },
+            ].map(({ src, ratio, alt, label }) => (
+              <Sketch
+                key={src}
+                src={src}
+                alt={alt}
+                label={label}
+                className="min-w-0 sm:[flex:var(--ratio)_1_0%]"
+                style={{ "--ratio": ratio }}
+              />
+            ))}
+          </div>
         </div>
 
         {/* Design Approach */}
