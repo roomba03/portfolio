@@ -98,7 +98,7 @@ function Sketch({ src, alt, label, className = "", style }) {
 const MOODS = [
   { key: "happy", label: "Happy", detail: "nothing overdue" },
   { key: "annoyed", label: "Annoyed", detail: "1 to 2 overdue" },
-  { key: "frazzled", label: "Frazzled", detail: "3 or more overdue" },
+  { key: "frazzled", label: "Unhinged", detail: "3 or more overdue" },
 ];
 const POSES = [
   { key: "coffee", label: "Idle" },
@@ -119,7 +119,7 @@ function GridLabel({ children, className = "" }) {
 
 function FigCaption({ number, stacked = false, children }) {
   return (
-    <figcaption className={`mt-5 flex flex-col gap-2 ${stacked ? "" : "sm:flex-row sm:items-start sm:gap-3"}`}>
+    <figcaption className={`flex flex-col gap-2 ${stacked ? "" : "mt-5 sm:flex-row sm:items-start sm:gap-3"}`}>
       <span className="flex-shrink-0"><Tag>Fig. {number}</Tag></span>
       <span className="text-[12px] leading-[1.6]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
         {children}
@@ -162,24 +162,25 @@ function MoodGrid({ className = "" }) {
       </div>
       <FigCaption number="05">
         Anya's mood tracks overdue tasks. Her color fades from pink to gray as she goes from
-        happy to frazzled, and recovers as soon as tasks are done.
+        happy to unhinged, and recovers as soon as tasks are done.
       </FigCaption>
     </figure>
   );
 }
 
-function HoppenheimerFigure({ className = "" }) {
+function HoppenheimerFigure() {
   return (
-    <figure className={`p-5 sm:p-6 flex flex-col ${className}`} style={{ border: "1px solid rgba(51,47,28,0.16)" }}>
-      <div className="flex-1 flex items-center justify-center">
-        <img
-          src="/busy-bunny-moods/hoppenheimer.png"
-          alt="Hoppenheimer: a grey bunny in a black fedora, scowling"
-          className="w-full max-w-[160px] sm:max-w-[200px]"
-          loading="lazy"
-        />
-      </div>
-      <FigCaption number="06" stacked>
+    <figure
+      className="p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-8"
+      style={{ border: "1px solid rgba(51,47,28,0.16)" }}
+    >
+      <img
+        src="/busy-bunny-moods/hoppenheimer.png"
+        alt="Hoppenheimer: a grey bunny in a black fedora, scowling"
+        className="w-full max-w-[160px] self-center flex-shrink-0"
+        loading="lazy"
+      />
+      <FigCaption number="07" stacked>
         Hoppenheimer, drawn for a planned mode where he chases you through the backrooms. We cut
         it for time, so he now lives in the empty state.
       </FigCaption>
@@ -297,8 +298,8 @@ export default function BusyBunnyPage() {
             small platformer game. Our team of four built it in 36 hours at HackKU26 to test one
             idea: people abandon productivity tools because they feel bad to use, not because
             they're disorganized. Instead of keeping tasks and rewards in separate places, Busy
-            Bunny ties them into one loop, so what you do in real life changes the world you
-            play in.
+            Bunny ties them into one loop, so what you do in real life shows up in how Anya
+            feels.
           </Prose>
         </Card>
 
@@ -314,9 +315,9 @@ export default function BusyBunnyPage() {
           </p>
           <ul className="mt-2 space-y-2">
             {[
-              { who: "Teammate 1", did: "Level generation" },
-              { who: "Teammate 2", did: "Frontend development" },
-              { who: "Teammate 3", did: "Implementing the hopping game, integrating the assets, and setting up tooling for random level generation" },
+              { who: "Bella", did: "Level generation" },
+              { who: "Pashia", did: "Frontend development" },
+              { who: "Alejandro", did: "Implementing the hopping game and integrating the assets" },
             ].map(({ who, did }) => (
               <li key={who} className="flex items-start gap-3 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
                 <Bullet />
@@ -355,6 +356,15 @@ export default function BusyBunnyPage() {
             </ul>
           </div>
           <div className="mt-7 px-6 py-5" style={{ backgroundColor: "#D2DAC5" }}>
+            <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+              Key Insight
+            </span>
+            <p className="leading-[1.7] mt-2 text-[14px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+              Productivity tools optimize for structure, while games optimize for emotional
+              continuity. This gap became the foundation for Busy Bunny.
+            </p>
+          </div>
+          <div className="mt-4 px-6 py-5" style={{ backgroundColor: "#D2DAC5" }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
               Central design question
             </span>
@@ -404,6 +414,12 @@ export default function BusyBunnyPage() {
               />
             ))}
           </div>
+          <p className="text-[12px] leading-[1.6]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+            Ver 1 had a single currency: coins, sitting next to Anya's level. In Ver 2 we split it
+            in two. Finished tasks earn plays (the "3 plays left" row, which became carrots), and
+            caffeine collected inside the game fills the bar to Anya's next level. Ver 2 also
+            added a weekly day picker and a direct "Go to game" link.
+          </p>
         </div>
 
         {/* Design Approach */}
@@ -426,8 +442,8 @@ export default function BusyBunnyPage() {
             ))}
           </ul>
           <p className="leading-[1.8] mt-5 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-            This led us toward a hybrid system combining task management, reward loops,
-            environmental storytelling, and light narrative feedback.
+            This led us toward a system combining task management, reward loops, and a character
+            who reacts to how you're doing.
           </p>
         </Card>
 
@@ -439,12 +455,12 @@ export default function BusyBunnyPage() {
               {
                 number: "01",
                 title: "Rewards You Can't Lose",
-                body: "Streaks wipe out weeks of progress over one bad day, which is exactly when people quit. We used carrots instead. Each finished task earns carrots you spend on playtime, and nothing you've earned gets taken away.",
+                body: "Streaks wipe out weeks of progress over one bad day, which is exactly when people quit. We used carrots instead. Carrots drop the moment a task is checked off, and each one is a game play. Inside the game, you collect caffeine to level Anya up. Nothing you've earned in either currency gets taken away.",
               },
               {
                 number: "02",
                 title: "Showing Neglect Without Shaming It",
-                body: "We didn't want red warnings or lost progress. Instead, Anya reacts. One overdue task makes her annoyed, three make her frazzled, and her color drains from pink to gray along the way. We rejected penalties because they trigger the avoidance we were designing against: people stop opening apps that punish them.",
+                body: "We didn't want red warnings or lost progress. Instead, Anya reacts. One overdue task makes her annoyed, three make her unhinged, and her color drains from pink to gray along the way. We rejected penalties because they trigger the avoidance we were designing against: people stop opening apps that punish them.",
               },
               {
                 number: "03",
@@ -453,8 +469,8 @@ export default function BusyBunnyPage() {
               },
               {
                 number: "04",
-                title: "Immediate Reward Loops",
-                body: "Each completed task provides instant feedback through reward points, gameplay access, and visual confirmation of progress — intentionally designed to feel satisfying and reinforce task completion behavior.",
+                title: "Grumpy, Not Sad",
+                body: "We could have made Anya sad when tasks slipped, but sadness puts the weight back on the user. We made her grumpy and unhinged instead, so falling behind reads as a joke you're in on, not a disappointment.",
               },
             ].map(({ number, title, body }) => (
               <React.Fragment key={number}>
@@ -469,9 +485,8 @@ export default function BusyBunnyPage() {
                   <p className="text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>{body}</p>
                 </Card>
                 {number === "02" && (
-                  <div className="sm:col-span-2 flex flex-col sm:flex-row gap-6">
-                    <MoodGrid className="flex-1 min-w-0" />
-                    <HoppenheimerFigure className="sm:w-[30%]" />
+                  <div className="sm:col-span-2">
+                    <MoodGrid className="sm:max-w-[640px] sm:mx-auto" />
                   </div>
                 )}
               </React.Fragment>
@@ -479,10 +494,9 @@ export default function BusyBunnyPage() {
           </div>
           <div className="mt-4">
             <Prose>
-              A fair question is whether a sad bunny is just a softer guilt trip. The difference we
-              aimed for is that the change is ambient and fully reversible: finish one task and the
-              world starts recovering. Whether that actually feels different to users over time is
-              something we didn't get to test.
+              A fair question is whether an upset bunny is still a guilt trip. Humor and
+              reversibility were our answer: finish one task and she starts recovering. Whether
+              that feels different to users over time is something we didn't get to test.
             </Prose>
           </div>
         </section>
@@ -490,33 +504,16 @@ export default function BusyBunnyPage() {
         <Sketch
           src="/busy-bunny-flow.png"
           alt="Core interaction flow: starting screen, user adds a task, complete the task to receive a carrot, then play the game. If the task is incomplete, gameplay is denied and the user is sent back to finish it."
-          label="Fig. 07 — Core interaction flow"
+          label="Fig. 06 — Core interaction flow"
         />
 
-        {/* Research Insights */}
-        <Card>
-          <SectionHeading>Research Insights</SectionHeading>
-          <Prose>
-            Due to hackathon constraints, research was lightweight and exploratory. We analyzed
-            existing productivity tools and their retention patterns, game reward systems and
-            progression loops, and gathered peer feedback from rapid prototyping sessions.
-          </Prose>
-          <div className="mt-7 px-6 py-5" style={{ backgroundColor: "#D2DAC5" }}>
-            <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-              Key Insight
-            </span>
-            <p className="leading-[1.7] mt-2 text-[14px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-              Productivity tools optimize for structure, while games optimize for emotional
-              continuity. This gap became the foundation for Busy Bunny.
-            </p>
-          </div>
-        </Card>
+        <HoppenheimerFigure />
 
         {/* Outcome */}
         <Card>
           <SectionHeading>Outcome</SectionHeading>
           <Prose>
-            Busy Bunny was successfully built as a functional MVP during a 36-hour hackathon
+            Busy Bunny was built as a functional MVP during a 36-hour hackathon
             sprint and received the{" "}
             <span className="font-bold" style={{ color: ACCENT }}>Most Creative UI/UX award at HackKU26</span>, out of 241 participants.
           </Prose>
