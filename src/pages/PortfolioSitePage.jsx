@@ -315,6 +315,49 @@ export default function PortfolioSitePage() {
 
         <ImagePlaceholder label="Selected Work carousel — collapsed and expanded card states" />
 
+        {/* Shadows as Affordance */}
+        <Card>
+          <SectionHeading>Shadows as Affordance</SectionHeading>
+          <Prose>
+            On this site, a hard offset shadow is shorthand for &ldquo;you can press this.&rdquo; Once
+            I started treating it as a promise rather than decoration, I found three places where
+            the shadows were saying the wrong thing:
+          </Prose>
+          <ul className="mt-5 space-y-4">
+            {[
+              {
+                label: "Role tags",
+                body: "The Web Developer and UX Engineer tags in the hero carried the same crisp offset shadow as real buttons, so they invited clicks they couldn't answer. I tried softening it into a glow, and briefly a hover state that flattened the shadow — but any hover response still says \"interactive.\" They ended up with a soft, centered teal shadow and no hover at all, so they read as printed labels.",
+              },
+              {
+                label: "Project tabs",
+                body: "The active tab had the raised shadow and the inactive one had none — exactly backwards, since the tab you're already on looked like the thing to click. Swapping them fixed the hierarchy, but a shadowless active tab looked unfinished; an inset shadow on the black fill rendered as a gray bevel; and nudging the tab down into its own shadow knocked the labels out of line. The version that stuck keeps a teal shadow on both, smaller and muted on the active tab, with both tabs matched to the same height.",
+              },
+              {
+                label: "Carousel arrows",
+                body: "The carousel relied on drag, swipe, and the dots, none of which announce themselves at a glance. Small prev/next arrows now sit beside the active card, borrowing the inactive tab's raised teal shadow so they read as clickable. They live outside the scroll container, so native scrolling is untouched, and they fade out at either end of the track.",
+              },
+            ].map(({ label, body }) => (
+              <li key={label} className="flex items-start gap-3 leading-[1.7] text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+                <span className="font-bold" style={{ color: ACCENT }}>→</span>
+                <span>
+                  <span className="font-bold uppercase tracking-[0.05em]">{label}:</span> {body}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <div className="mt-7 px-6 py-5" style={{ backgroundColor: CALLOUT }}>
+            <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+              Key Insight
+            </span>
+            <p className="leading-[1.7] mt-2 text-[14px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+              A visual style only works as a signal if it means the same thing everywhere. Each fix
+              here was less about how a shadow looked and more about whether it was telling the
+              truth about what the element does.
+            </p>
+          </div>
+        </Card>
+
         {/* Designing in the Real Thing */}
         <Card>
           <SectionHeading>Designing in the Real Thing</SectionHeading>
@@ -365,6 +408,7 @@ export default function PortfolioSitePage() {
               "A shared component library serving two audience-specific data sets from one build",
               "A site-wide accessibility pass — landmarks, focus states, touch targets, inert peek cards",
               "A one-click copy-to-clipboard email link with a hover tooltip, replacing a plain mailto:",
+              "A consistent shadow language — raised means clickable — plus prev/next arrows on the carousel",
             ].map((item) => (
               <li key={item} className="flex items-start gap-3 leading-[1.7] text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
                 <Bullet />
