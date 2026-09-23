@@ -112,13 +112,13 @@ export default function TwoDishPage() {
             className="mb-5"
             style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "clamp(2.6rem, 6vw, 4.2rem)", lineHeight: 1.1, color: "#000000" }}
           >
-            Two Dish — Ordering Around a Kitchen's Real Limits
+            Two Dish: Ordering Around a Kitchen's Real Limits
           </h1>
           <span
             className="text-[18px] font-bold uppercase tracking-[0.1em] inline-block mb-3"
             style={{ color: ACCENT, fontFamily: MONO_FONT }}
           >
-            Client project — solo design & build, 11 weeks
+            Client project: solo design & build, 11 weeks
           </span>
           <p className="text-[14px] leading-[1.8] mb-6 max-w-2xl" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             A product study in designing scarcity as a promise rather than an apology.
@@ -132,12 +132,12 @@ export default function TwoDishPage() {
         <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
           <img
             src="/two-dish.png"
-            alt="Two Dish homepage — gold pan line-art mark and wordmark on a deep plum ground, above the kitchen's one-dish-a-day explanation"
+            alt="Two Dish homepage: gold pan line-art mark and wordmark on a deep plum ground, above the kitchen's one-dish-a-day explanation"
             className="w-full"
             style={{ display: "block" }}
           />
           <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
-            <Tag>Fig. 01 — Homepage</Tag>
+            <Tag>Fig. 01: Homepage</Tag>
           </span>
         </div>
 
@@ -145,17 +145,16 @@ export default function TwoDishPage() {
         <Card>
           <SectionHeading>Overview</SectionHeading>
           <Prose>
-            Two Dish is an ordering site for a small home catering kitchen cooking Hyderabadi
-            food. The kitchen already ran on a very specific rhythm: one dish a day, cooked
-            fresh in small batches to match exactly that day's headcount, ordered by midnight
-            the night before, delivered in one of two evening slots inside a radius the cook
-            could actually drive.
+            Two Dish is an ordering site built for a real client, my family's home catering
+            kitchen. The kitchen already ran on a very specific rhythm. It cooked one dish a day,
+            fresh and in small batches matched to that day's headcount. Orders closed at midnight
+            the night before, and deliveries went out in one of two evening slots within a radius
+            the cook could actually drive.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-            Every one of those is a constraint that ordinary food-ordering software treats as a
-            problem to work around. The design premise here was the opposite: build the interface
-            out of the constraints, so the thing the kitchen is good at is the first thing the
-            customer sees.
+            Ordinary food-ordering software treats every one of those constraints as a problem to
+            work around. I did the opposite and built the interface out of them, so the thing the
+            kitchen does best is the first thing a customer sees.
           </p>
         </Card>
 
@@ -168,7 +167,7 @@ export default function TwoDishPage() {
           <ul className="mt-4 space-y-2">
             {[
               "Product definition and ordering-flow design",
-              "Design system — palette, type, shape, and photography rules",
+              "Design system: palette, type, shape, and photography rules",
               "Interaction design across storefront, checkout, and cook dashboard",
               "Frontend implementation (Next.js, React, Tailwind)",
               "Data model and server-side ordering logic (Supabase/Postgres)",
@@ -277,7 +276,7 @@ export default function TwoDishPage() {
               {
                 number: "01",
                 title: "The Schedule Is the Menu",
-                body: "Customers browse dates, not a catalog. Each date carries exactly one dish — a rule enforced all the way down in the data model, where one kitchen can hold only one scheduled dish per delivery date. The homepage leads with the next few days so the first impression is 'here is what's cooking', not 'here is everything we could make'.",
+                body: "Customers browse dates, not a catalog. Each date carries exactly one dish. That rule is enforced all the way down in the data model, where one kitchen can hold only one scheduled dish per delivery date. The homepage leads with the next few days so the first impression is 'here is what's cooking', not 'here is everything we could make'.",
               },
               {
                 number: "02",
@@ -316,7 +315,7 @@ export default function TwoDishPage() {
           <SectionHeading>Designing in the Real Thing</SectionHeading>
           <Prose>
             The visual system did not land on the first attempt. An early sage-and-terracotta
-            palette was applied across the whole app and then judged in context — where it read
+            palette was applied across the whole app and then judged in context. It read
             cluttered, with too many colors competing for the same job. Rather than argue it out
             in static mockups, I put alternate palettes behind a keyboard toggle on the live
             site so entire versions could be compared in real use, on real content, with the
@@ -324,9 +323,9 @@ export default function TwoDishPage() {
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             That let the system get simpler in public. The winning version started with three
-            pale tones that turned out to be indistinguishable at text size — making the
-            hierarchy look arbitrary — and was cut down to two: one neutral for everything,
-            gold for the things that matter.
+            pale tones. At text size they were indistinguishable, which made the hierarchy look
+            arbitrary, so it was cut down to two: one neutral for everything, gold for the
+            things that matter.
           </p>
           <div className="mt-7 px-6 py-5" style={{ backgroundColor: CALLOUT }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
@@ -343,8 +342,8 @@ export default function TwoDishPage() {
         <Card>
           <SectionHeading>Outcome</SectionHeading>
           <Prose>
-            Two Dish shipped as a complete two-sided product — a storefront and the kitchen tools
-            behind it — rather than a marketing site with a form attached.
+            Two Dish shipped as a complete two-sided product rather than a marketing site with a
+            form attached: a storefront and the kitchen tools behind it.
           </Prose>
           <div className="grid sm:grid-cols-2 gap-6 mt-5">
             <div>
@@ -384,7 +383,7 @@ export default function TwoDishPage() {
           </div>
         </Card>
 
-        <ImagePlaceholder label="Cook dashboard — schedule, production run, zone editor" />
+        <ImagePlaceholder label="Cook dashboard: schedule, production run, zone editor" />
 
         {/* Reflection */}
         <Card>
@@ -392,9 +391,9 @@ export default function TwoDishPage() {
           <Prose>
             I started this project trying to fit a kitchen into an ordering pattern, and spent
             most of it doing the reverse. The interface got better every time I stopped treating
-            a limitation as something to soften — the single dish, the midnight cutoff, the
-            drawn boundary, the fixed headcount — and let it be the structure the customer
-            navigates.
+            a limitation as something to soften and let it be the structure the customer
+            navigates: the single dish, the midnight cutoff, the drawn boundary, the fixed
+            headcount.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             The other pattern I noticed in my own decisions: nearly all the ones I'd defend were
