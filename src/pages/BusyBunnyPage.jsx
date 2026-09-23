@@ -202,16 +202,13 @@ export default function BusyBunnyPage() {
         <Card>
           <SectionHeading>Overview</SectionHeading>
           <Prose>
-            Busy Bunny is a gamified productivity web application that combines task management
-            with lightweight platformer gameplay. It was designed during a 36-hour hackathon at
-            HackKU26 as an exploration into how productivity systems can motivate through
-            emotional feedback rather than discipline alone.
+            Busy Bunny is a productivity web app where finishing real tasks earns you time in a
+            small platformer game. Our team of four built it in 36 hours at HackKU26 to test one
+            idea: people abandon productivity tools because they feel bad to use, not because
+            they're disorganized. Instead of keeping tasks and rewards in separate places, Busy
+            Bunny ties them into one loop, so what you do in real life changes the world you
+            play in.
           </Prose>
-          <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-            Instead of treating productivity and entertainment as separate systems competing
-            for attention, Busy Bunny merges them into a unified loop where real-world actions
-            directly shape a responsive game environment.
-          </p>
         </Card>
 
         {/* My Role */}
@@ -240,26 +237,20 @@ export default function BusyBunnyPage() {
         <Card>
           <SectionHeading>The Problem</SectionHeading>
           <Prose>
-            Most productivity tools assume that users fail due to poor organization or lack of
-            discipline. As a result, they focus heavily on task structuring, lists, and reminders.
-            However, the deeper issue is different:
+            Most productivity tools assume people fail because they're disorganized, so they keep
+            adding structure: more lists, more reminders. We think the real reason people quit is
+            that these tools become emotionally exhausting.
           </Prose>
-          <blockquote className="my-6 pl-5 border-l-2" style={{ borderColor: "#332F1C" }}>
-            <p className="italic leading-[1.7] text-[16px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-              Users do not disengage from productivity systems because they are disorganized —
-              they disengage because the emotional experience of using them is exhausting.
-            </p>
-          </blockquote>
-          <div className="mt-4">
+          <div className="mt-6">
             <Eyebrow>What we noticed going in</Eyebrow>
             <p className="mt-2 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
               Drawn from our own team's habits and conversations with peers.
             </p>
             <ul className="space-y-2 mt-3">
               {[
-                "Task lists accumulate emotional weight over time",
-                "Gamification relies on streak pressure, not motivation",
-                "No meaningful feedback when users fall behind",
+                "Task lists pile up and start to feel heavy → opening the app becomes something to avoid.",
+                "Gamified apps mostly rely on streaks → one missed day becomes a reason to give up.",
+                "When you fall behind → most tools either say nothing or show you a wall of overdue items.",
               ].map((item) => (
                 <li key={item} className="flex items-start gap-2.5 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
                   <Bullet />
