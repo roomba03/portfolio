@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ImagePlaceholder from "../components/ImagePlaceholder";
 import Footer from "../components/Footer";
 
 const ACCENT = "#75979A";
@@ -148,8 +147,8 @@ export default function TwoDishPage() {
             Two Dish is an ordering site built for a real client, my family's home catering
             kitchen. The kitchen already ran on a very specific rhythm. It cooked one dish a day,
             fresh and in small batches matched to that day's headcount. Orders closed at midnight
-            the night before, and deliveries went out in one of two evening slots within a radius
-            the cook could actually drive.
+            the night before, and deliveries went out in one of two evening slots, 6:30 pm or
+            7:30 pm, within a radius the cook could actually drive.
           </Prose>
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             Ordinary food-ordering software treats every one of those constraints as a problem to
@@ -276,7 +275,7 @@ export default function TwoDishPage() {
               {
                 number: "01",
                 title: "The Schedule Is the Menu",
-                body: "Customers browse dates, not a catalog. Each date carries exactly one dish. That rule is enforced all the way down in the data model, where one kitchen can hold only one scheduled dish per delivery date. The homepage leads with the next few days so the first impression is what's cooking this week, not everything the kitchen could make.",
+                body: "Customers browse dates, not a catalog. Each date carries exactly one dish. That rule is enforced all the way down in the data model, where one kitchen can hold only one scheduled dish per delivery date. The homepage leads with the next few days so the first impression is what's cooking this week, not everything the kitchen could make. The midnight cutoff sits right under the menu heading and again as step two of the ordering process, so customers see it before they plan around a date.",
               },
               {
                 number: "02",
@@ -308,7 +307,27 @@ export default function TwoDishPage() {
           </div>
         </section>
 
-        <ImagePlaceholder label="Weekly schedule + delivery-zone checker" />
+        <div className="grid sm:grid-cols-2 gap-6 items-start">
+          {[
+            {
+              src: "/two-dish-menu.jpg",
+              alt: "This week's menu: one dish card per day with date, price, and an add-to-cart button. Today's haleem is marked orders closed, and the midnight cutoff sits under the heading.",
+              label: "Fig. 02: Weekly schedule",
+            },
+            {
+              src: "/two-dish-zone.jpg",
+              alt: "Delivery coverage: a map with the delivery zone drawn as a shaded polygon, next to an address field and a Check my address button",
+              label: "Fig. 03: Delivery-zone checker",
+            },
+          ].map(({ src, alt, label }) => (
+            <div key={src} className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+              <img src={src} alt={alt} className="w-full" style={{ display: "block" }} loading="lazy" />
+              <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+                <Tag>{label}</Tag>
+              </span>
+            </div>
+          ))}
+        </div>
 
         {/* Iteration */}
         <Card>
@@ -356,7 +375,54 @@ export default function TwoDishPage() {
           </p>
         </Card>
 
-        <ImagePlaceholder label="Cook dashboard: schedule, production run, zone editor" />
+        {/* Cook dashboard, in the order of its own nav. Cells share one aspect ratio so the grid lines up. */}
+        <div className="grid sm:grid-cols-2 gap-6">
+          {[
+            {
+              src: "/two-dish-dash-run.jpg",
+              alt: "Production run for the week: order, meal, early-window and late-window counts, revenue, capacity used out of 350, and an order list filterable by delivery window",
+              label: "Fig. 04: Production run",
+            },
+            {
+              src: "/two-dish-dash-dishes.jpg",
+              alt: "Dishes table listing biryani, haleem, and smash burger with description, price, and edit and delete actions",
+              label: "Fig. 05: Dishes",
+            },
+            {
+              src: "/two-dish-dash-add-dish.jpg",
+              alt: "Add new dish form with name, price, description, and an optional photo upload",
+              label: "Fig. 06: Add a dish",
+            },
+            {
+              src: "/two-dish-dash-schedule.jpg",
+              alt: "Schedule page: pick a delivery date, dish, and max capacity, above a table of the next 14 days with capacity and order counts",
+              label: "Fig. 07: Schedule",
+            },
+            {
+              src: "/two-dish-dash-ingredients.jpg",
+              alt: "Ingredient calculator for a delivery date, with an empty grocery list explaining that totals lock at the 11:59 pm cutoff",
+              label: "Fig. 08: Ingredient calculator",
+            },
+            {
+              src: "/two-dish-dash-zone.jpg",
+              alt: "Delivery zone editor: a map where the cook clicks to place vertices of the delivery boundary polygon",
+              label: "Fig. 09: Zone editor",
+            },
+          ].map(({ src, alt, label }) => (
+            <div key={src} className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
+              <img
+                src={src}
+                alt={alt}
+                className="w-full aspect-[12/7] object-cover object-top"
+                style={{ display: "block" }}
+                loading="lazy"
+              />
+              <span style={{ position: "absolute", bottom: "12px", left: "12px" }}>
+                <Tag>{label}</Tag>
+              </span>
+            </div>
+          ))}
+        </div>
 
         {/* Reflection */}
         <Card>
