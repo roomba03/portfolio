@@ -13,6 +13,15 @@ const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
 const SELECTED_WORK = [
   {
     number: "01",
+    title: "Two Dish",
+    caseStudyHref: "/work/two-dish",
+    image: "/two-dish.png",
+    color: "#E5D9C3",
+    description: "An ordering site for a home catering kitchen, built around a day-by-day menu, a drawn delivery zone, and a real headcount per dish.",
+    tags: ["Next.js", "Supabase", "Leaflet"],
+  },
+  {
+    number: "02",
     title: "Busy Bunny",
     caseStudyHref: "/work/busy-bunny",
     image: "/busy-bunny-main.png",
@@ -21,15 +30,6 @@ const SELECTED_WORK = [
     badge: "Winner of Most Creative UI/UX",
     description: "A gamified productivity app that pairs task management with platformer gameplay. Built at HackKU26.",
     tags: ["Next.js", "Phaser", "Zustand"],
-  },
-  {
-    number: "02",
-    title: "Two Dish",
-    caseStudyHref: "/work/two-dish",
-    image: "/two-dish.png",
-    color: "#E5D9C3",
-    description: "An ordering site for a home catering kitchen, built around a day-by-day menu, a drawn delivery zone, and a real headcount per dish.",
-    tags: ["Next.js", "Supabase", "Leaflet"],
   },
   {
     number: "03",
