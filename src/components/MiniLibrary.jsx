@@ -42,10 +42,57 @@ function LibraryTab({ label, active, onClick }) {
       type="button"
       onClick={onClick}
       aria-pressed={active}
-      className={`caption-box caption-box--cyan hit-area-44${active ? "" : " caption-box--outline"}`}
+      className={`caption-box caption-box--cyan hit-area-44${active ? " caption-box--pressed" : " caption-box--outline"}`}
       style={{ cursor: "pointer" }}
     >
       {label}
+    </button>
+  );
+}
+
+// Prev/next control overlaid on the track beside the active card. Sits outside
+// the scroll container, so drag, swipe, and wheel scrolling are unaffected.
+// Uses the inactive tab's raised teal shadow so it reads as clickable.
+function CarouselArrow({ direction, hidden, dimmed, onClick }) {
+  const isPrev = direction === "prev";
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={isPrev ? "Previous project" : "Next project"}
+      tabIndex={hidden ? -1 : 0}
+      aria-hidden={hidden}
+      className="hit-area-44"
+      style={{
+        position: "absolute",
+        top: "50%",
+        [isPrev ? "left" : "right"]: `max(8px, calc(50% - (${CARD_WIDTH}) / 2 - 48px))`,
+        zIndex: 2,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: "32px",
+        height: "32px",
+        padding: 0,
+        backgroundColor: "#F2EEE1",
+        border: "1.5px solid #000000",
+        boxShadow: "3px 3px 0 #8BA6A9",
+        cursor: "pointer",
+        opacity: hidden ? 0 : dimmed ? 0.45 : 1, // dims with the tabs and dots while a card is expanded
+        pointerEvents: hidden ? "none" : "auto",
+        transform: "translateY(-50%)",
+        transition: "opacity 0.2s ease",
+      }}
+    >
+      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+        <path
+          d={isPrev ? "M7.5 2 L3.5 6 L7.5 10" : "M4.5 2 L8.5 6 L4.5 10"}
+          fill="none"
+          stroke="#000000"
+          strokeWidth="1.75"
+          strokeLinecap="square"
+        />
+      </svg>
     </button>
   );
 }
@@ -558,6 +605,13 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
     setExpandedTitle(null);
   }
 
+  function goToIndex(index) {
+    const next = Math.max(0, Math.min(slideCount - 1, index));
+    scrollToIndex(next);
+    setActiveIndex(next);
+    setExpandedTitle(null);
+  }
+
   function handleCardToggle(title) {
     if (dragRef.current.moved > DRAG_CLICK_THRESHOLD) return; // this click was really a drag release
     setExpandedTitle(prev => (prev === title ? null : title));
@@ -576,7 +630,19 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
 
       {/* Full-bleed track: breaks out of the page's px-8 gutters so off-screen
           cards can peek in at the very edge of the viewport. */}
-      <div className="-mx-8">
+      <div className="-mx-8" style={{ position: "relative" }}>
+        <CarouselArrow
+          direction="prev"
+          hidden={switching || activeIndex <= 0}
+          dimmed={Boolean(expandedTitle)}
+          onClick={() => goToIndex(activeIndex - 1)}
+        />
+        <CarouselArrow
+          direction="next"
+          hidden={switching || activeIndex >= slideCount - 1}
+          dimmed={Boolean(expandedTitle)}
+          onClick={() => goToIndex(activeIndex + 1)}
+        />
         <div
           ref={scrollRef}
           onScroll={handleScroll}
@@ -618,11 +684,7 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
         <Dots
           count={slideCount}
           activeIndex={activeIndex}
-          onSelect={i => {
-            scrollToIndex(i);
-            setActiveIndex(i);
-            setExpandedTitle(null);
-          }}
+          onSelect={goToIndex}
         />
       </div>
     </div>

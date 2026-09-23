@@ -13,7 +13,7 @@ const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
 function RoleTag({ children }) {
   return (
     <span
-      className="text-[11px] font-bold uppercase tracking-[0.08em]"
+      className="text-[11px] font-bold uppercase tracking-[0.08em] cursor-default shadow-[0_0_6px_rgba(139,166,169,0.7)]"
       style={{
         display: "inline-block",
         border: "1.5px solid #000000",
@@ -21,7 +21,6 @@ function RoleTag({ children }) {
         backgroundColor: "transparent",
         padding: "4px 10px",
         fontFamily: MONO_FONT,
-        boxShadow: "2px 2px 0 #8BA6A9",
       }}
     >
       {children}

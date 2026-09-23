@@ -178,12 +178,22 @@
       4px 5px 0 0 #8BA6A9;
   }
 
-  /* Outlined/muted variant — inactive state for caption-box-styled tabs. */
+  /* Pressed variant — active state for caption-box-styled tabs. A smaller
+     shadow than .caption-box--outline's 4px 5px, so the current tab reads as
+     sitting lower than the clickable one without shifting out of line. */
+  .caption-box--pressed {
+    border-width: 1.5px; /* match --outline so both tabs are the same height */
+    box-shadow: 3px 3px 0 rgba(139, 166, 169, 0.55);
+  }
+
+  /* Outlined/muted variant — inactive state for caption-box-styled tabs.
+     Full-strength teal offset shadow so the clickable tab reads as raised;
+     the active tab's .caption-box--pressed uses a smaller, muted teal. */
   .caption-box--outline {
     background-color: transparent;
     color: rgba(51, 47, 28, 0.55);
     border: 1.5px solid rgba(51, 47, 28, 0.3);
-    box-shadow: none;
+    box-shadow: 4px 5px 0 #8BA6A9;
   }
   .caption-box--outline:hover {
     color: rgba(51, 47, 28, 0.85);
