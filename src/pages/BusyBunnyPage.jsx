@@ -213,7 +213,6 @@ export default function BusyBunnyPage() {
             {[
               "Illustrated the bunny mascot",
               "UX/UI direction and interaction design",
-              "Game-system design and reward logic",
               "Frontend implementation support",
               "Visual design and interface polish",
               "Designing progression and feedback systems",
