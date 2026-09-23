@@ -146,7 +146,7 @@ export default function BusyBunnyPage() {
             Busy Bunny — Gamified Productivity System
           </h1>
           <p className="text-[14px] leading-[1.8] mb-6 max-w-2xl" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-            A UX exploration of motivation, emotional feedback loops, and behavioral design.
+            A productivity app that reacts to how you're doing instead of punishing you for falling behind.
           </p>
           <div className="flex flex-wrap gap-3">
             <a
