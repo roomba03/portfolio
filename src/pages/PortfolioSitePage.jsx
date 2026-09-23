@@ -133,7 +133,7 @@ export default function PortfolioSitePage() {
         <div className="halftone" style={{ position: "relative", border: "1px solid rgba(51,47,28,0.16)" }}>
           <img
             src="/portfolio-site-main.png"
-            alt="This portfolio's homepage — hero headline with the Mini Library project carousel below it"
+            alt="This portfolio's homepage — hero headline reading 'Designed with intention. Built with understanding.'"
             className="w-full"
             style={{ display: "block" }}
           />
