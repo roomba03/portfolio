@@ -10,6 +10,24 @@ import useCopyEmail from "../hooks/useCopyEmail";
 const EMAIL = "reemfatima1@gmail.com";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
 
+function RoleTag({ children }) {
+  return (
+    <span
+      className="text-[11px] font-bold uppercase tracking-[0.08em] cursor-default shadow-[0_0_6px_rgba(139,166,169,0.7)]"
+      style={{
+        display: "inline-block",
+        border: "1.5px solid #000000",
+        color: "#000000",
+        backgroundColor: "transparent",
+        padding: "4px 10px",
+        fontFamily: MONO_FONT,
+      }}
+    >
+      {children}
+    </span>
+  );
+}
+
 const SELECTED_WORK = [
   {
     number: "01",
@@ -171,6 +189,11 @@ export default function PortfolioPage() {
           Built with <InkBleedWord text="understanding" after="." />
         </h1>
 
+        <div className="flex flex-wrap items-center gap-2" style={{ marginTop: "10px", marginLeft: "-6px" }}>
+          <RoleTag>Product Designer</RoleTag>
+          <RoleTag>UX Engineer</RoleTag>
+        </div>
+
         <div
           className="hidden md:block w-[clamp(70px,11vw,140px)] h-[clamp(70px,11vw,140px)]"
           style={{ position: "absolute", right: "20%", top: "50%", transform: "translateY(-50%)" }}
@@ -196,7 +219,7 @@ export default function PortfolioPage() {
 
         {/* ── Mini Library ─────────────────────────────────── */}
         <section>
-          <MiniLibrary selectedWork={SELECTED_WORK} comingSoon />
+          <MiniLibrary selectedWork={SELECTED_WORK} />
         </section>
 
       </main>
