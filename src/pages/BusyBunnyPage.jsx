@@ -239,39 +239,20 @@ export default function BusyBunnyPage() {
               they disengage because the emotional experience of using them is exhausting.
             </p>
           </blockquote>
-          <div className="grid sm:grid-cols-2 gap-6 mt-4">
-            <div>
-              <Eyebrow>Patterns we identified</Eyebrow>
-              <ul className="space-y-2 mt-3">
-                {[
-                  "Apps feel overwhelming after initial use",
-                  "Task lists accumulate emotional weight over time",
-                  "Breaks turn into untracked distraction loops",
-                  "Gamification relies on streak pressure, not motivation",
-                  "No meaningful feedback when users fall behind",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-                    <Bullet />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <Eyebrow>Why games work</Eyebrow>
-              <ul className="space-y-2 mt-3">
-                {[
-                  "Immediate feedback on every action",
-                  "Clear progression systems",
-                  "Emotional responsiveness to player behavior",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-2.5 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
-                    <Bullet />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="mt-4">
+            <Eyebrow>Patterns we identified</Eyebrow>
+            <ul className="space-y-2 mt-3">
+              {[
+                "Task lists accumulate emotional weight over time",
+                "Gamification relies on streak pressure, not motivation",
+                "No meaningful feedback when users fall behind",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-2.5 text-[13px] leading-[1.7]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
+                  <Bullet />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
           <div className="mt-7 px-6 py-5" style={{ backgroundColor: "#D2DAC5" }}>
             <span className="text-[11px] font-bold uppercase tracking-[0.08em]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
