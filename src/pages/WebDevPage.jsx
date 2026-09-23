@@ -37,7 +37,7 @@ const SELECTED_WORK = [
     image: "/two-dish.png",
     color: "#B8A9C9",
     description: "A catering ordering site for a small Hyderabadi kitchen, built around a day-by-day weekly menu and a live delivery-zone checker.",
-    role: "Design & Development — Client Project",
+    role: "Client Project: Design & Development",
     tags: ["Next.js", "Leaflet", "Client Work"],
   },
   {
@@ -50,7 +50,7 @@ const SELECTED_WORK = [
     color: "#D2DAC5",
     badge: "Winner of Most Creative UI/UX",
     description: "A gamified productivity app that pairs task management with platformer gameplay. Built at HackKU26.",
-    role: "Design & Development — HackKU26 (36 hrs)",
+    role: "HackKU26 (36 hrs): Design & Development",
     tags: ["Next.js", "Phaser", "Zustand"],
   },
   {
@@ -76,7 +76,7 @@ const SELECTED_WORK = [
       hotspot: { left: "58%", top: "25%", width: "42%", height: "75%" },
     },
     description: "A pixel-art arcade game starring a gnome on a quest of his own. Built at HackKU25.",
-    role: "Design & Development — HackKU25",
+    role: "HackKU25: Design & Development",
     tags: ["Vanilla JS", "Phaser", "Canvas API"],
   },
 ];
