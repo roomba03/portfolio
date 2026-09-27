@@ -130,7 +130,7 @@ export default function TwoDishPage() {
 
         <div className="halftone" style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
           <img
-            src="/two-dish.png"
+            src="/two-dish.webp"
             alt="Two Dish homepage: gold pan line-art mark and wordmark on a deep plum ground, above the kitchen's one-dish-a-day explanation"
             className="w-full"
             style={{ display: "block" }}

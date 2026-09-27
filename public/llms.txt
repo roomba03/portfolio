@@ -1,0 +1,29 @@
+# Reem Fatima
+
+> Reem Fatima is a product designer and web developer who builds thoughtful, user-centered digital experiences. This site has two portfolios built from one codebase: product-design case studies and web-development projects.
+
+## Portfolios
+
+- [Product design portfolio](https://reemfatimaportfolio.vercel.app/portfolio): Selected work with in-depth case studies
+- [Web development portfolio](https://reemfatimaportfolio.vercel.app/web-dev): Shipped sites, apps, games, and experiments
+
+## Case studies
+
+- [Two Dish](https://reemfatimaportfolio.vercel.app/work/two-dish): An ordering site for a home catering kitchen, built around a day-by-day menu, a drawn delivery zone, and a real headcount per dish (Next.js, Supabase, Leaflet)
+- [Busy Bunny](https://reemfatimaportfolio.vercel.app/work/busy-bunny): A gamified productivity app that pairs task management with platformer gameplay. Winner of Most Creative UI/UX at HackKU26 (Next.js, Phaser, Zustand)
+- [This portfolio](https://reemfatimaportfolio.vercel.app/work/portfolio-site): One component library shipping a product-design portfolio and a web-dev portfolio from the same codebase (React, Vite, Tailwind)
+
+## Live projects
+
+- [Two Dish](https://two-dish.vercel.app/): Catering ordering site for a small Hyderabadi kitchen
+- [Busy Bunny](https://buns-green.vercel.app/): Gamified to-do app with a bunny companion
+- [Side Quest](https://eecs582-sidequest.vercel.app): Campus exploration game with quests, achievements, and a live leaderboard
+- [Gnometastic Gnomular Quest](https://thegnomefour.vercel.app): Pixel-art arcade game, built at HackKU25
+- [Design Sandbox](https://design-sandbox-chi.vercel.app/): Animation playground with Three.js and GSAP
+- [Shahi Chai Cart](https://shahi-chai-cart.vercel.app/): Client site built with React and Framer Motion
+
+## Contact
+
+- [LinkedIn](https://www.linkedin.com/in/reem-fatima-856288238/)
+- [GitHub](https://github.com/roomba03)
+- [Email](mailto:reemfatima1@gmail.com)

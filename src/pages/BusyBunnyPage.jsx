@@ -280,7 +280,7 @@ export default function BusyBunnyPage() {
 
         <div className="halftone" style={{ position: "relative", border: "1.5px solid #000000", boxShadow: "4px 4px 0 0 #000000" }}>
           <img
-            src="/busy-bunny-main.png"
+            src="/busy-bunny-main.webp"
             alt="Busy Bunny app: task list on the left, bunny companion on the right"
             className="w-full"
             style={{ display: "block" }}
