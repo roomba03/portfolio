@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 const DISPLAY_FONT = "'Bangla MN', sans-serif";
@@ -457,35 +457,9 @@ function MiniProjectSlide({ project, active }) {
   );
 }
 
-// Placeholder slide appended after the real cards when a set only has one
-// or two entries, so scrolling past the last card reads as "there's more
-// coming" rather than the carousel just running out.
-function MoreToComeSlide({ active }) {
-  return (
-    <div className="snap-center shrink-0" inert={!active} style={{ width: CARD_WIDTH, scrollSnapStop: "always", alignSelf: "stretch" }}>
-      <div
-        className="flex flex-col items-center justify-center text-center px-6 py-14 h-full"
-        style={{
-          border: "1px dashed rgba(51,47,28,0.3)",
-          transform: active ? "scale(1)" : "scale(0.86)",
-          opacity: active ? 1 : 0.4,
-          transition: "transform 0.35s ease, opacity 0.35s ease",
-        }}
-      >
-        <span
-          className="text-[11px] uppercase tracking-[0.08em]"
-          style={{ fontFamily: MONO_FONT, color: MUTED }}
-        >
-          More to come
-        </span>
-      </div>
-    </div>
-  );
-}
-
 const TAB_SWITCH_MS = 200; // must match the track's fade transition duration below
 
-export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = false }) {
+export default function MiniLibrary({ selectedWork, miniProjects }) {
   const hasMiniProjects = Boolean(miniProjects && miniProjects.length);
 
   const [tab, setTab] = useState("selected"); // drives the tab pills — updates instantly on click
@@ -499,8 +473,6 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
   const switchTimeoutRef = useRef(null);
 
   const items = visibleTab === "selected" ? selectedWork : miniProjects || [];
-  const showComingSoon = comingSoon && visibleTab === "selected";
-  const slideCount = items.length + (showComingSoon ? 1 : 0);
 
   useEffect(() => () => clearTimeout(switchTimeoutRef.current), []);
 
@@ -521,16 +493,7 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
       // into, while shorter cards get some by accident. Pad the measured max
       // by SHADOW_CLEARANCE so every card — including the tallest — keeps
       // enough headroom for its resting and hover shadows either way.
-      //
-      // The "More to come" placeholder uses alignSelf: stretch to match
-      // whatever height the track ends up with, rather than having a height
-      // of its own — it must be excluded here. Including it turned this into
-      // a runaway ResizeObserver loop: its stretched height feeds back in as
-      // a new "tallest card", which (once padded) grows the track again,
-      // which stretches it further, forever.
-      const heights = Array.from(el.children)
-        .filter(child => child.style.alignSelf !== "stretch")
-        .map(child => child.getBoundingClientRect().height);
+      const heights = Array.from(el.children).map(child => child.getBoundingClientRect().height);
       if (heights.length) setTrackMinHeight(Math.max(...heights) + SHADOW_CLEARANCE);
     }
 
@@ -606,7 +569,7 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
   }
 
   function goToIndex(index) {
-    const next = Math.max(0, Math.min(slideCount - 1, index));
+    const next = Math.max(0, Math.min(items.length - 1, index));
     scrollToIndex(next);
     setActiveIndex(next);
     setExpandedTitle(null);
@@ -639,7 +602,7 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
         />
         <CarouselArrow
           direction="next"
-          hidden={switching || activeIndex >= slideCount - 1}
+          hidden={switching || activeIndex >= items.length - 1}
           dimmed={Boolean(expandedTitle)}
           onClick={() => goToIndex(activeIndex + 1)}
         />
@@ -676,13 +639,12 @@ export default function MiniLibrary({ selectedWork, miniProjects, comingSoon = f
               <MiniProjectSlide key={project.title} project={project} active={i === activeIndex} />
             )
           )}
-          {showComingSoon && <MoreToComeSlide active={items.length === activeIndex} />}
         </div>
       </div>
 
       <div style={{ opacity: switching ? 0 : expandedTitle ? 0.45 : 1, transition: `opacity ${TAB_SWITCH_MS}ms ease` }}>
         <Dots
-          count={slideCount}
+          count={items.length}
           activeIndex={activeIndex}
           onSelect={goToIndex}
         />

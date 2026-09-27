@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 function rand(min, max) {
   return min + Math.random() * (max - min);
@@ -244,7 +244,7 @@ export default function StarRevealWindow({ layout = "line" }) {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       clearTimeout(resizeTimeout);
     };
-  }, [reducedMotion]);
+  }, [reducedMotion, layout]);
 
   if (reducedMotion) return null;
 

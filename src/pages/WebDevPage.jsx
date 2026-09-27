@@ -1,11 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import FogWindow from "../components/FogWindow";
+import { useState } from "react";
 import StarRevealWindow from "../components/StarRevealWindow";
 import Footer from "../components/Footer";
 import InkBleedWord from "../components/InkBleedWord";
 import MiniLibrary from "../components/MiniLibrary";
 import useCopyEmail from "../hooks/useCopyEmail";
-// import StampedImage from "../components/StampedImage";
 
 const EMAIL = "reemfatima1@gmail.com";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
@@ -36,9 +34,9 @@ const SELECTED_WORK = [
     github: "https://github.com/roomba03/Two_Dish",
     image: "/two-dish.webp",
     color: "#B8A9C9",
-    description: "A catering ordering site for a small Hyderabadi kitchen, built around a day-by-day weekly menu and a live delivery-zone checker.",
+    description: "An ordering site for a home catering kitchen, built around a day-by-day menu, a drawn delivery zone, and a real headcount per dish.",
     role: "Client Project: Design & Development",
-    tags: ["Next.js", "Leaflet", "Client Work"],
+    tags: ["Next.js", "Supabase", "Leaflet"],
   },
   {
     number: "02",
@@ -103,35 +101,6 @@ const MINI_PROJECTS = [
 export default function WebDevPage() {
   const [nameHover, setNameHover] = useState(false);
   const { copied: emailCopied, handleClick: handleEmailClick } = useCopyEmail(EMAIL);
-  const heroRef = useRef(null);
-
-  // Snaps the hero <-> Mini Library transition to the viewport, so a scroll
-  // down from the hero lands with the library filling the screen instead of
-  // stopping mid-transition. Implemented as a manual "settle" check rather
-  // than native CSS scroll-snap-type, which proved unpredictable here (small
-  // scrolls sometimes wouldn't release in either direction). This only acts
-  // within the single hero-to-library transition zone; everything past the
-  // library (footer) scrolls completely unmodified.
-  useEffect(() => {
-    let settleTimer = null;
-
-    function handleScroll() {
-      clearTimeout(settleTimer);
-      settleTimer = setTimeout(() => {
-        const heroHeight = heroRef.current?.offsetHeight;
-        if (!heroHeight) return;
-        const y = window.scrollY;
-        if (y <= 0 || y >= heroHeight) return; // already settled, or past the transition zone
-        window.scrollTo({ top: y > heroHeight / 2 ? heroHeight : 0, behavior: "smooth" });
-      }, 120);
-    }
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      clearTimeout(settleTimer);
-    };
-  }, []);
 
   return (
     <div
@@ -139,7 +108,7 @@ export default function WebDevPage() {
       style={{ position: "relative", zIndex: 1 }}
     >
       {/* ── Hero ─────────────────────────────────────────── */}
-      <div ref={heroRef} className="w-full min-h-screen px-8 md:px-16 flex flex-col items-start justify-center text-left" style={{ position: "relative" }}>
+      <div className="w-full min-h-screen px-8 md:px-16 flex flex-col items-start justify-center text-left" style={{ position: "relative" }}>
         <header>
         <span
           className="text-[15px]"
@@ -202,7 +171,7 @@ export default function WebDevPage() {
             className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#000000"; e.currentTarget.style.fontSize = "12px"; }}
           >
             LinkedIn
           </a>
@@ -213,7 +182,7 @@ export default function WebDevPage() {
             className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#000000"; e.currentTarget.style.fontSize = "12px"; }}
           >
             GitHub
           </a>
@@ -222,7 +191,7 @@ export default function WebDevPage() {
             className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#000000"; e.currentTarget.style.fontSize = "12px"; }}
             onClick={handleEmailClick}
             aria-live="polite"
           >
@@ -231,27 +200,8 @@ export default function WebDevPage() {
         </nav>
         </header>
 
-        {/* halftone field bleeding off the right edge — temporarily disabled
-        <div
-          aria-hidden="true"
-          className="hidden md:block"
-          style={{
-            position: "absolute",
-            top: "6%",
-            right: "-8%",
-            width: "48%",
-            height: "82%",
-            backgroundImage: "radial-gradient(circle, #332F1C 2.2px, transparent 2.6px)",
-            backgroundSize: "7px 7px",
-            opacity: 0.08,
-            maskImage: "radial-gradient(ellipse 65% 65% at 55% 40%, black 35%, transparent 88%)",
-            WebkitMaskImage: "radial-gradient(ellipse 65% 65% at 55% 40%, black 35%, transparent 88%)",
-          }}
-        />
-        */}
-
         <h1
-          className="mt-3 -ml-[13px] font-bold text-[clamp(32px,5.2vw,68px)] leading-[1.15] tracking-tight"
+          className="mt-3 -ml-[13px] text-[clamp(32px,5.2vw,68px)] leading-[1.15] tracking-tight"
           style={{ color: "#000000", fontFamily: "'Apple SD Gothic Neo', sans-serif", fontWeight: 500, letterSpacing: "0.045em" }}
         >
           Designed with <InkBleedWord text="intention" after="." /><br />
@@ -269,19 +219,6 @@ export default function WebDevPage() {
         >
           <StarRevealWindow layout="cluster" />
         </div>
-
-        {/*
-        <div className="flex flex-wrap items-center gap-2" style={{ marginTop: "-8px", marginLeft: "-3px" }}>
-          <span className="caption-box">UX Engineer</span>
-          <span className="caption-box">Product Designer</span>
-        </div>
-        */}
-
-        {/*
-        <div className="mt-6 max-w-sm">
-          <StampedImage src="/stamp-test.jpg" alt="Stamp test" blend="color-burn" />
-        </div>
-        */}
       </div>
 
       <main className="flex-1 w-full min-h-screen px-8 pb-4 flex flex-col justify-center">

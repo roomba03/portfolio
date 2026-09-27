@@ -4,10 +4,10 @@ A case study about the site you're reading it on, and what changed when I starte
 ## Overview
 This site is my own portfolio, and also the longest-running project I own end to end. It started as a single static page in June 2026 and has been rebuilt in place ever since — the same repository now ships two different portfolios from one component library: a product-design-focused version for recruiters and a code-focused version for engineers, toggled by which URL you land on.
 
-Because I'm both the designer and the only user I can watch in real time, this project became less about drafting a layout once and more about noticing where my own first version was wrong — a hard-cut tab switch that read as broken, a modal that felt heavier than the content deserved, a scroll transition that stopped short of where it should land — and rebuilding until it wasn't.
+Because I'm both the designer and the only user I can watch in real time, this project became less about drafting a layout once and more about noticing where my own first version was wrong — a hard-cut tab switch that read as broken, a modal that felt heavier than the content deserved, a card link that sometimes did nothing when clicked — and rebuilding until it wasn't.
 
 ## My Role
-Solo project. Every commit in this repository is mine, spanning design and implementation together rather than in separate passes.
+Solo project. I made every design and product decision and built it end to end, with Claude Code as an AI pair programmer for much of the implementation. Design and implementation happened together rather than in separate passes.
 - Product definition — deciding the site needed two audiences, not one
 - Interaction and motion design for the project carousel
 - Visual design system — type, color, shadow, and shape language
@@ -49,8 +49,8 @@ Both portfolio variants render through the same Mini Library carousel component.
 ### 2. Expand-in-Place, Not a Modal
 The first version of the project carousel opened a full modal overlay per card. After using it, the modal felt like more ceremony than a short case-study blurb warranted — it interrupted the scroll instead of extending it. It was replaced with cards that grow in place: a taller preview image and a revealed role block, with only one card ever expanded at a time.
 
-### 3. Motion That Earns Its Keep
-Tab switches fade the card track out, swap its content while invisible, then fade it back in, instead of hard-cutting content mid-click. The hero-to-carousel scroll transition settles into a full view of one section or the other via a debounced scroll-check, because native CSS scroll-snap proved unpredictable in testing and was swapped out for JS that behaves the same way every time.
+### 3. Motion as Feedback
+Tab switches fade the card track out, swap its content while invisible, then fade it back in, instead of hard-cutting content mid-click. The carousel uses CSS scroll-snap to settle each card in place. I also tried snapping the page-level scroll from the hero down to the carousel. Native scroll-snap proved unpredictable there, so I replaced it with a short JS scroll-check, but it only ever shipped on the web-dev version. Keeping the two versions behaving the same mattered more than the snap, so I removed it, and both now scroll freely between the hero and the carousel.
 
 ### 4. Accessibility as a Pass, Not an Afterthought
 A dedicated sweep fixed a skipped heading level, added visible focus rings site-wide, grew touch targets to WCAG 2.2 minimums, corrected an ARIA role misuse on the carousel dots, and made faded peek cards inert so keyboard users can't tab into cards that are only 40% visible. Paired with a Lighthouse pass for contrast, font-loading strategy, and a robots.txt the SPA's catch-all rewrite had been silently swallowing.
@@ -64,7 +64,7 @@ Key insight:
 The bugs worth remembering weren't caught by looking at the code — they were caught by using the thing I built the way a visitor actually would, and noticing when it didn't behave the way it looked like it should.
 
 ## Outcome
-The site now runs as two live deployments from one codebase — a product-design portfolio and a web-dev portfolio — sharing every component, project screenshot, and motion pattern between them, and passing a full Lighthouse accessibility, performance, and SEO sweep.
+The site now runs as two live deployments from one codebase — a product-design portfolio and a web-dev portfolio — sharing every component, project screenshot, and motion pattern between them. On Lighthouse, the site scores 100 in accessibility, best practices, and SEO, and 99 in performance on mobile (100 on desktop).
 
 What shipped along the way:
 - A full-bleed, scroll-snap project carousel with peeking side cards and expand-in-place detail

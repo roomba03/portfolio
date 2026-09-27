@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 // Anchor position (%) and how strongly each glow drifts toward the cursor —
 // lower influence keeps a blob closer to its resting spot, so the cluster

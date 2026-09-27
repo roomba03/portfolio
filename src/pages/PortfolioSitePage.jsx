@@ -1,87 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-
-const ACCENT = "#75979A";
-const CALLOUT = "#D2DAC5";
-const DISPLAY_FONT = "'Bangla MN', sans-serif";
-const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
-
-function SectionHeading({ children }) {
-  return (
-    <h2
-      className="mb-4"
-      style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "2rem", lineHeight: 0.95, color: "#000000" }}
-    >
-      {children}
-    </h2>
-  );
-}
-
-function Tag({ children }) {
-  return (
-    <span
-      className="text-[10px] font-bold uppercase tracking-[0.05em]"
-      style={{
-        display: "inline-block",
-        backgroundColor: "#000000",
-        color: "#F4EBBE",
-        padding: "4px 8px",
-        fontFamily: MONO_FONT,
-        boxShadow: `2px 2px 0 ${ACCENT}`,
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-function Eyebrow({ children }) {
-  return (
-    <span className="caption-box mb-3" style={{ display: "inline-block" }}>
-      {children}
-    </span>
-  );
-}
-
-function Prose({ children }) {
-  return (
-    <p style={{ color: "#000000", fontFamily: MONO_FONT }} className="text-[13px] leading-[1.8]">{children}</p>
-  );
-}
-
-function Card({ children, className = "" }) {
-  return <div className={`py-6 ${className}`}>{children}</div>;
-}
-
-function Bullet() {
-  return (
-    <span
-      className="mt-[7px] flex-shrink-0"
-      style={{
-        width: "6px",
-        height: "6px",
-        backgroundColor: ACCENT,
-      }}
-    />
-  );
-}
-
-function ActionButton({ href, children }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-[12px] font-bold uppercase tracking-[0.08em]"
-      style={{ borderColor: "#000000", color: "#000000", backgroundColor: "transparent", fontFamily: MONO_FONT, boxShadow: "4px 4px 0 0 #000000", transform: "translate(0, 0)", transition: "transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease, color 0.12s ease" }}
-      onMouseEnter={e => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.borderColor = ACCENT; e.currentTarget.style.color = "#F4EBBE"; e.currentTarget.style.transform = "translate(2px, 2px)"; e.currentTarget.style.boxShadow = "2px 2px 0 0 #000000"; }}
-      onMouseLeave={e => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.borderColor = "#000000"; e.currentTarget.style.color = "#000000"; e.currentTarget.style.transform = "translate(0, 0)"; e.currentTarget.style.boxShadow = "4px 4px 0 0 #000000"; }}
-    >
-      {children}
-    </a>
-  );
-}
+import { SectionHeading, Tag, Eyebrow, Prose, Card, Bullet, ActionButton } from "../components/CaseStudyKit";
+import { ACCENT, CALLOUT, DISPLAY_FONT, MONO_FONT } from "../components/caseStudyTheme";
 
 export default function PortfolioSitePage() {
   return (
@@ -125,7 +46,7 @@ export default function PortfolioSitePage() {
           </p>
           <div className="flex flex-wrap gap-3">
             <ActionButton href="https://reemfatimaportfolio.vercel.app/">Live Site</ActionButton>
-            <ActionButton href="https://github.com/roomba03">GitHub</ActionButton>
+            <ActionButton href="https://github.com/roomba03/portfolio">GitHub</ActionButton>
           </div>
         </Card>
 
@@ -154,8 +75,8 @@ export default function PortfolioSitePage() {
           <p className="leading-[1.8] mt-4 text-[13px]" style={{ color: "#000000", fontFamily: MONO_FONT }}>
             I'm also the only user I can watch in real time, and most of its history is fixing my
             own first versions: a hard-cut tab switch that read as broken, a modal that felt
-            heavier than the content deserved, and a scroll transition that stopped short of where
-            it should land.
+            heavier than the content deserved, and a card link that sometimes did nothing when
+            clicked.
           </p>
         </Card>
 
@@ -163,8 +84,9 @@ export default function PortfolioSitePage() {
         <Card>
           <SectionHeading>My Role</SectionHeading>
           <Prose>
-            Solo project. Every commit in this repository is mine, spanning design and
-            implementation together rather than in separate passes.
+            Solo project. I made every design and product decision and built it end to end,
+            with Claude Code as an AI pair programmer for much of the implementation. Design
+            and implementation happened together rather than in separate passes.
           </Prose>
           <ul className="mt-4 space-y-2">
             {[
@@ -269,7 +191,7 @@ export default function PortfolioSitePage() {
               {
                 number: "03",
                 title: "Motion as Feedback",
-                body: "Tab switches fade the card track out, swap its content while invisible, then fade it back in, instead of hard-cutting content mid-click. The carousel itself still uses CSS scroll-snap to settle each card in place. The page-level scroll from the hero down to the carousel is different: native scroll-snap proved unpredictable there in testing, so I swapped it for a short JS scroll-check that settles into a full view of one section or the other the same way every time.",
+                body: "Tab switches fade the card track out, swap its content while invisible, then fade it back in, instead of hard-cutting content mid-click. The carousel uses CSS scroll-snap to settle each card in place. I also tried snapping the page-level scroll from the hero down to the carousel. Native scroll-snap proved unpredictable there, so I replaced it with a short JS scroll-check, but it only ever shipped on the web-dev version. Keeping the two versions behaving the same mattered more than the snap, so I removed it, and both now scroll freely between the hero and the carousel.",
               },
               {
                 number: "04",
@@ -399,8 +321,8 @@ export default function PortfolioSitePage() {
         <Card>
           <SectionHeading>Outcome</SectionHeading>
           <Prose>
-            On Lighthouse, the site scores 96 in each of accessibility, performance, and best
-            practices, and 100 in SEO.
+            On Lighthouse, the site scores 100 in accessibility, best practices, and SEO, and
+            99 in performance on mobile (100 on desktop).
           </Prose>
         </Card>
 

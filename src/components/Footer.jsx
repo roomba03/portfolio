@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useCopyEmail from "../hooks/useCopyEmail";
 
 const EMAIL = "reemfatima1@gmail.com";

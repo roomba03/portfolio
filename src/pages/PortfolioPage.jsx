@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-import FogWindow from "../components/FogWindow";
+import { useState } from "react";
 import StarRevealWindow from "../components/StarRevealWindow";
 import Footer from "../components/Footer";
 import InkBleedWord from "../components/InkBleedWord";
 import MiniLibrary from "../components/MiniLibrary";
 import useCopyEmail from "../hooks/useCopyEmail";
-// import StampedImage from "../components/StampedImage";
 
 const EMAIL = "reemfatima1@gmail.com";
 const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
@@ -55,7 +53,7 @@ const SELECTED_WORK = [
     caseStudyHref: "/work/portfolio-site",
     image: "/portfolio-site-card.webp",
     color: "#F0D9C9",
-    description: "The site you're on — one component library shipping a product-design portfolio and a web-dev portfolio from the same codebase.",
+    description: "The site you're on: one component library shipping a product-design portfolio and a web-dev portfolio from the same codebase.",
     tags: ["React", "Vite", "Tailwind"],
   },
 ];
@@ -133,7 +131,7 @@ export default function PortfolioPage() {
             className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#000000"; e.currentTarget.style.fontSize = "12px"; }}
           >
             LinkedIn
           </a>
@@ -144,7 +142,7 @@ export default function PortfolioPage() {
             className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#000000"; e.currentTarget.style.fontSize = "12px"; }}
           >
             GitHub
           </a>
@@ -153,7 +151,7 @@ export default function PortfolioPage() {
             className="transition-all hit-area-btn"
             style={{ color: "inherit", textDecoration: "none", fontSize: "12px" }}
             onMouseEnter={e => { e.currentTarget.style.color = "#048BA8"; e.currentTarget.style.fontSize = "13px"; }}
-            onMouseLeave={e => { e.currentTarget.style.color = "#332F1C"; e.currentTarget.style.fontSize = "12px"; }}
+            onMouseLeave={e => { e.currentTarget.style.color = "#000000"; e.currentTarget.style.fontSize = "12px"; }}
             onClick={handleEmailClick}
             aria-live="polite"
           >
@@ -162,27 +160,8 @@ export default function PortfolioPage() {
         </nav>
         </header>
 
-        {/* halftone field bleeding off the right edge — temporarily disabled
-        <div
-          aria-hidden="true"
-          className="hidden md:block"
-          style={{
-            position: "absolute",
-            top: "6%",
-            right: "-8%",
-            width: "48%",
-            height: "82%",
-            backgroundImage: "radial-gradient(circle, #332F1C 2.2px, transparent 2.6px)",
-            backgroundSize: "7px 7px",
-            opacity: 0.08,
-            maskImage: "radial-gradient(ellipse 65% 65% at 55% 40%, black 35%, transparent 88%)",
-            WebkitMaskImage: "radial-gradient(ellipse 65% 65% at 55% 40%, black 35%, transparent 88%)",
-          }}
-        />
-        */}
-
         <h1
-          className="mt-3 -ml-[13px] font-bold text-[clamp(32px,5.2vw,68px)] leading-[1.15] tracking-tight"
+          className="mt-3 -ml-[13px] text-[clamp(32px,5.2vw,68px)] leading-[1.15] tracking-tight"
           style={{ color: "#000000", fontFamily: "'Apple SD Gothic Neo', sans-serif", fontWeight: 500, letterSpacing: "0.045em" }}
         >
           Designed with <InkBleedWord text="intention" after="." /><br />
@@ -200,19 +179,6 @@ export default function PortfolioPage() {
         >
           <StarRevealWindow layout="cluster" />
         </div>
-
-        {/*
-        <div className="flex flex-wrap items-center gap-2" style={{ marginTop: "-8px", marginLeft: "-3px" }}>
-          <span className="caption-box">UX Engineer</span>
-          <span className="caption-box">Product Designer</span>
-        </div>
-        */}
-
-        {/*
-        <div className="mt-6 max-w-sm">
-          <StampedImage src="/stamp-test.jpg" alt="Stamp test" blend="color-burn" />
-        </div>
-        */}
       </div>
 
       <main className="flex-1 w-full min-h-screen px-8 pb-4 flex flex-col justify-center">

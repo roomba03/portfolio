@@ -1,10 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
-
-const ACCENT = "#75979A";
-const DISPLAY_FONT = "'Bangla MN', sans-serif";
-const MONO_FONT = "'Courier Prime', 'Courier New', monospace";
+import { SectionHeading, Tag, Eyebrow, Prose, Card, Bullet } from "../components/CaseStudyKit";
+import { ACCENT, DISPLAY_FONT, MONO_FONT } from "../components/caseStudyTheme";
 
 const FIREWORK_SPARKS_TR = [
   { dx: "34px", dy: "-30px", color: "#FFD24A", delay: "0s" },
@@ -23,66 +21,6 @@ const FIREWORK_SPARKS_BL = [
   { dx: "-20px", dy: "-40px", color: "#FFD24A", delay: "0.02s" },
   { dx: "-40px", dy: "-18px", color: "#FFEFC2", delay: "0.09s" },
 ];
-
-function SectionHeading({ children }) {
-  return (
-    <h2
-      className="mb-4"
-      style={{ fontFamily: DISPLAY_FONT, fontWeight: 700, fontSize: "2rem", lineHeight: 0.95, color: "#000000" }}
-    >
-      {children}
-    </h2>
-  );
-}
-
-function Tag({ children }) {
-  return (
-    <span
-      className="text-[10px] font-bold uppercase tracking-[0.05em]"
-      style={{
-        display: "inline-block",
-        backgroundColor: "#000000",
-        color: "#F4EBBE",
-        padding: "4px 8px",
-        fontFamily: MONO_FONT,
-        boxShadow: `2px 2px 0 ${ACCENT}`,
-      }}
-    >
-      {children}
-    </span>
-  );
-}
-
-function Eyebrow({ children }) {
-  return (
-    <span className="caption-box mb-3" style={{ display: "inline-block" }}>
-      {children}
-    </span>
-  );
-}
-
-function Prose({ children }) {
-  return (
-    <p style={{ color: "#000000", fontFamily: MONO_FONT }} className="text-[13px] leading-[1.8]">{children}</p>
-  );
-}
-
-function Card({ children, className = "" }) {
-  return <div className={`py-6 ${className}`}>{children}</div>;
-}
-
-function Bullet() {
-  return (
-    <span
-      className="mt-[7px] flex-shrink-0"
-      style={{
-        width: "6px",
-        height: "6px",
-        backgroundColor: ACCENT,
-      }}
-    />
-  );
-}
 
 function Sketch({ src, alt, label, className = "", style }) {
   return (
