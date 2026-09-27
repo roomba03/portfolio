@@ -169,7 +169,7 @@ export default function PortfolioPage() {
         </h1>
 
         <div className="flex flex-wrap items-center gap-2" style={{ marginTop: "10px", marginLeft: "-6px" }}>
-          <RoleTag>Product Designer</RoleTag>
+          <RoleTag>UI/UX Designer</RoleTag>
           <RoleTag>UX Engineer</RoleTag>
         </div>
 

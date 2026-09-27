@@ -8,6 +8,7 @@ New entries go at the top whenever a visible change ships.
 
 ## 2026-09-27: Performance, agent readability, and cleanup
 
+- **Portfolio hero role tag renamed** from "Product Designer" to "UI/UX Designer." The tags now read UI/UX Designer and UX Engineer.
 - **Images compressed.** The Two Dish, Busy Bunny, and portfolio card screenshots moved from PNG to resized WebP, taking the page from about 3 MB to about 250 KB.
   - Why: they were the main thing slowing the mobile Lighthouse score (87).
 - **Fonts self-hosted.** Fredoka and Courier Prime now load from the site itself, with the two Courier Prime weights preloaded. The unused Switzer font was dropped.
