@@ -6,6 +6,35 @@ New entries go at the top whenever a visible change ships.
 
 ---
 
+## Lighthouse history
+
+Scores for `/portfolio` on the live site. Add a row after each audit, and save the reports in [`docs/lighthouse/`](docs/lighthouse/).
+
+| Audit | Device | Performance | Accessibility | Best Practices | SEO | Agentic Browsing |
+|---|---|---|---|---|---|---|
+| 2026-09-27, after self-hosting fonts (`a58ab6b`) | Mobile | 99 | 100 | 100 | 100 | 100 |
+| | Desktop | 100 | 100 | 100 | 100 | 100 |
+| 2026-09-27, after compressing images and adding `llms.txt` (`080a67a`) | Mobile | 93 | 100 | 100 | 100 | 100 |
+| | Desktop | 99 | 100 | 100 | 100 | 100 |
+| 2026-09-27, starting point (`6620d28`) | Mobile | 87 | 100 | 100 | 100 | 50 |
+| | Desktop | 99 | 100 | 100 | 100 | 50 |
+| After the 2026-08-20 accessibility and Lighthouse pass | Not recorded | 96 | 96 | 96 | 100 | Not tracked |
+
+Mobile load timings from the 2026-09-27 audits:
+
+| Audit | First paint | Main content loaded | Speed Index | Blocking time | Page size |
+|---|---|---|---|---|---|
+| After self-hosting fonts | 1.5s | 1.6s | 2.3s | 30ms | 250 KiB |
+| After compressing images | 2.6s | 2.6s | 2.6s | 40ms | ~253 KiB (local build) |
+| Starting point | 2.9s | 2.9s | 5.1s | 20ms | 3,048 KiB |
+
+Notes:
+- The August scores come from the portfolio case study's old Outcome copy, the only record from that time. Which device they were measured on wasn't written down, and Agentic Browsing wasn't recorded.
+- All 2026-09-27 audits used Lighthouse 13.5.0 with its default mobile and desktop presets. Mobile scores vary by a few points between runs.
+- Full reports for the most recent audit: `docs/lighthouse/2026-09-27-mobile.html` and `2026-09-27-desktop.html`. The matching `.json` files hold the raw data for comparing against future runs. Reports from the two earlier 2026-09-27 audits weren't kept.
+
+---
+
 ## 2026-09-27: Performance, agent readability, and cleanup
 
 - **Portfolio hero role tags renamed** from "Product Designer" and "UX Engineer" to "UI/UX Designer" and "Design Engineer." The browser tab title, search description, and `llms.txt` summary now say UI/UX designer too. The web-dev hero keeps Web Developer and UX Engineer.

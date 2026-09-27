@@ -73,4 +73,5 @@ Two Vercel projects build from this repo's `main` branch. They differ by one env
 ## Docs
 
 - [`DESIGN.md`](DESIGN.md): the design case study for this site, covering its goals, core decisions, and what I learned. Kept in sync with the `/work/portfolio-site` page.
-- [`CHANGELOG.md`](CHANGELOG.md): a running record of design changes and iterations, with the reasoning where it was written down at the time.
+- [`CHANGELOG.md`](CHANGELOG.md): a running record of design changes and iterations, with the reasoning where it was written down at the time. Includes a Lighthouse score history.
+- [`docs/lighthouse/`](docs/lighthouse/): full Lighthouse reports (HTML to view, JSON for comparing runs).
