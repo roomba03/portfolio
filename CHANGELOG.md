@@ -8,7 +8,8 @@ New entries go at the top whenever a visible change ships.
 
 ## 2026-09-27: Performance, agent readability, and cleanup
 
-- **Portfolio hero role tag renamed** from "Product Designer" to "UI/UX Designer." The tags now read UI/UX Designer and UX Engineer. The browser tab title, search description, and `llms.txt` summary now say UI/UX designer too.
+- **Portfolio hero role tags renamed** from "Product Designer" and "UX Engineer" to "UI/UX Designer" and "Design Engineer." The browser tab title, search description, and `llms.txt` summary now say UI/UX designer too. The web-dev hero keeps Web Developer and UX Engineer.
+  - Why: next to UI/UX Designer, "UX Engineer" repeated "UX" and read as the same role twice. "Design Engineer" keeps the "designs and builds it" message in a clearly distinct tag.
 - **Images compressed.** The Two Dish, Busy Bunny, and portfolio card screenshots moved from PNG to resized WebP, taking the page from about 3 MB to about 250 KB.
   - Why: they were the main thing slowing the mobile Lighthouse score (87).
 - **Fonts self-hosted.** Fredoka and Courier Prime now load from the site itself, with the two Courier Prime weights preloaded. The unused Switzer font was dropped.
