@@ -1,6 +1,6 @@
 # Reem Fatima
 
-> Reem Fatima is a product designer and web developer who builds thoughtful, user-centered digital experiences. This site has two portfolios built from one codebase: product-design case studies and web-development projects.
+> Reem Fatima is a UI/UX designer and web developer who builds thoughtful, user-centered digital experiences. This site has two portfolios built from one codebase: product-design case studies and web-development projects.
 
 ## Portfolios
 
